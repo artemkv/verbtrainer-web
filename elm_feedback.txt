@@ -1,0 +1,2 @@
+- formatting is too aggressive. My "TODO" comments are constantly forced away from functions and type definitions
+- many JS APIs are not available in Elm (e.g. String.localCompare)
