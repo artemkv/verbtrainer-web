@@ -5,8 +5,6 @@ import Debug exposing (toString)
 import Html exposing (Html, div, input, label, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
-import Monocle.Compose as Compose
-import Monocle.Lens exposing (Lens)
 import Util exposing (conditionallyPick)
 
 
@@ -19,14 +17,9 @@ main =
 -- Model
 
 
-type alias Model =
-    VerbConjugationExercise
-
-
-type alias VerbConjugationExercise =
-    { spec : ExerciseSpec
-    , currentState : ExerciseCurrentState
-    }
+type Model
+    = ExerciseInProgress ExerciseSpec ExerciseCurrentState
+    | ExerciseCompleted ExerciseSpec ExerciseSummary
 
 
 type alias ExerciseSpec =
@@ -68,10 +61,28 @@ emptyFillBoxState =
     }
 
 
+type alias ExerciseSummary =
+    { overallResult : String
+    , feedback : String
+    , individualResults : ExerciseResults
+    }
+
+
+type alias ExerciseResults =
+    { firstSingular : ExerciseResult
+    , secondSingular : ExerciseResult
+    }
+
+
+type ExerciseResult
+    = Correct
+    | Incorrect
+
+
 init : Model
 init =
     -- TODO: load spec from JSON
-    { spec =
+    ExerciseInProgress
         { labels =
             { firstSingular = "label1"
             , secondSingular = "label2"
@@ -81,46 +92,9 @@ init =
             , secondSingular = [ "world", "you" ]
             }
         }
-    , currentState =
         { firstSingular = emptyFillBoxState
         , secondSingular = emptyFillBoxState
         }
-    }
-
-
-
--- Lens
-
-
-currentStateOfExercise : Lens VerbConjugationExercise ExerciseCurrentState
-currentStateOfExercise =
-    Lens .currentState (\b a -> { a | currentState = b })
-
-
-firstSingularFillBoxStateOfExerciseCurrentState : Lens ExerciseCurrentState FillBoxState
-firstSingularFillBoxStateOfExerciseCurrentState =
-    Lens .firstSingular (\b a -> { a | firstSingular = b })
-
-
-secondSingularFillBoxStateOfExerciseCurrentState : Lens ExerciseCurrentState FillBoxState
-secondSingularFillBoxStateOfExerciseCurrentState =
-    Lens .secondSingular (\b a -> { a | secondSingular = b })
-
-
-firstSingularFillBoxStateOfExercise : Lens VerbConjugationExercise FillBoxState
-firstSingularFillBoxStateOfExercise =
-    currentStateOfExercise
-        |> Compose.lensWithLens firstSingularFillBoxStateOfExerciseCurrentState
-
-
-secondSingularFillBoxStateOfExercise : Lens VerbConjugationExercise FillBoxState
-secondSingularFillBoxStateOfExercise =
-    currentStateOfExercise
-        |> Compose.lensWithLens secondSingularFillBoxStateOfExerciseCurrentState
-
-
-
--- Update
 
 
 type Msg
@@ -130,26 +104,64 @@ type Msg
 
 update : Msg -> Model -> Model
 update msg model =
+    case model of
+        ExerciseInProgress spec state ->
+            updateExerciseInProgress msg spec state
+
+        ExerciseCompleted spec summary ->
+            updateExerciseCompleted msg spec summary
+
+
+updateExerciseInProgress : Msg -> ExerciseSpec -> ExerciseCurrentState -> Model
+updateExerciseInProgress msg spec state =
     case msg of
         FirstSingularChange newValue ->
             let
                 ( newIsCompleted, newErrorCount ) =
-                    updateFillBoxState model.spec.answers.firstSingular newValue model.currentState.firstSingular
+                    getNewFillBoxStateValues spec.answers.firstSingular newValue state.firstSingular
             in
-            model
-                |> firstSingularFillBoxStateOfExercise.set (FillBoxState newValue newIsCompleted newErrorCount)
+            returnAsExerciseInProgressOrCompleted
+                spec
+                { state | firstSingular = FillBoxState newValue newIsCompleted newErrorCount }
 
         SecondSingularChange newValue ->
             let
                 ( newIsCompleted, newErrorCount ) =
-                    updateFillBoxState model.spec.answers.secondSingular newValue model.currentState.secondSingular
+                    getNewFillBoxStateValues spec.answers.secondSingular newValue state.secondSingular
             in
-            model
-                |> secondSingularFillBoxStateOfExercise.set (FillBoxState newValue newIsCompleted newErrorCount)
+            returnAsExerciseInProgressOrCompleted
+                spec
+                { state | secondSingular = FillBoxState newValue newIsCompleted newErrorCount }
 
 
-updateFillBoxState : List String -> String -> FillBoxState -> ( Bool, Int )
-updateFillBoxState answers newValue state =
+returnAsExerciseInProgressOrCompleted : ExerciseSpec -> ExerciseCurrentState -> Model
+returnAsExerciseInProgressOrCompleted spec newState =
+    let
+        isExerciseCompleted =
+            newState.firstSingular.isCompleted && newState.secondSingular.isCompleted
+    in
+    if isExerciseCompleted then
+        -- TODO
+        ExerciseCompleted spec
+            { overallResult = "DONE"
+            , feedback = "GOOD"
+            , individualResults =
+                { firstSingular = Correct
+                , secondSingular = Correct
+                }
+            }
+
+    else
+        ExerciseInProgress spec newState
+
+
+updateExerciseCompleted : Msg -> ExerciseSpec -> ExerciseSummary -> Model
+updateExerciseCompleted msg spec summary =
+    ExerciseCompleted spec summary
+
+
+getNewFillBoxStateValues : List String -> String -> FillBoxState -> ( Bool, Int )
+getNewFillBoxStateValues answers newValue state =
     let
         newIsCompleted : Bool
         newIsCompleted =
@@ -184,14 +196,24 @@ updateFillBoxState answers newValue state =
 
 view : Model -> Html Msg
 view model =
+    case model of
+        ExerciseInProgress spec state ->
+            verbConjugator spec state
+
+        ExerciseCompleted spec summary ->
+            div [] [ text "Is completed!" ]
+
+
+verbConjugator : ExerciseSpec -> ExerciseCurrentState -> Html Msg
+verbConjugator spec state =
     div []
         [ fillBox
-            model.spec.labels.firstSingular
-            model.currentState.firstSingular
+            spec.labels.firstSingular
+            state.firstSingular
             FirstSingularChange
         , fillBox
-            model.spec.labels.secondSingular
-            model.currentState.secondSingular
+            spec.labels.secondSingular
+            state.secondSingular
             SecondSingularChange
         ]
 

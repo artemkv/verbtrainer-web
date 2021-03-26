@@ -2,6 +2,10 @@
 - When current value matches one of the correct answers, show as completed
 - Error is typing incorrect letter when previous input was correct so far. Once you typed the wrong letter, you can type anything, and it won't count as an error, until you delete all incorrect letters
 - When completed with 1 error max, show as perfect
+- When every answer is completed, consider exercise completed
+--------------------------
+- For the completed exercise, show the final score
+
 
 TODO:
 - Make all 6 fillboxes
