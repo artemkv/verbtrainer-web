@@ -3,8 +3,15 @@
 - Error is typing incorrect letter when previous input was correct so far. Once you typed the wrong letter, you can type anything, and it won't count as an error, until you delete all incorrect letters
 - When completed with 1 error max, show as perfect
 - When every answer is completed, consider exercise completed
---------------------------
 - For the completed exercise, show the final score
+--------------------------
+- Completed exercise has retry button, allowing to redo the exercise
+- Completed exercise has "next" button, allowing to move to the next exercise
+- For every exerices, display verb and tense
+- For every exerices, display link to the next one
+- Set focus on the first field
+- Virtual keyboard
+- Use all 6 verb forms
 
 
 TODO:

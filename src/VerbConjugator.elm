@@ -2,7 +2,7 @@ module VerbConjugator exposing (..)
 
 import Browser
 import Debug exposing (toString)
-import Html exposing (Html, div, input, label, text)
+import Html exposing (Html, div, input, label, span, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
 import Util exposing (conditionallyPick)
@@ -84,12 +84,12 @@ init =
     -- TODO: load spec from JSON
     ExerciseInProgress
         { labels =
-            { firstSingular = "label1"
-            , secondSingular = "label2"
+            { firstSingular = "Yo"
+            , secondSingular = "Tú"
             }
         , answers =
-            { firstSingular = [ "hello" ]
-            , secondSingular = [ "world", "you" ]
+            { firstSingular = [ "hablo" ]
+            , secondSingular = [ "hablas" ]
             }
         }
         { firstSingular = emptyFillBoxState
@@ -104,6 +104,7 @@ type Msg
 
 update : Msg -> Model -> Model
 update msg model =
+    -- TODO: case of msg instead of model?
     case model of
         ExerciseInProgress spec state ->
             updateExerciseInProgress msg spec state
@@ -139,15 +140,22 @@ returnAsExerciseInProgressOrCompleted spec newState =
     let
         isExerciseCompleted =
             newState.firstSingular.isCompleted && newState.secondSingular.isCompleted
+
+        incorrectTotal =
+            (isPerfect newState.firstSingular.errorCount |> conditionallyPick 0 1)
+                + (isPerfect newState.secondSingular.errorCount |> conditionallyPick 0 1)
     in
     if isExerciseCompleted then
-        -- TODO
+        let
+            ( overallResult, feedback ) =
+                getExerciseOverallResultAndFeedback incorrectTotal
+        in
         ExerciseCompleted spec
-            { overallResult = "DONE"
-            , feedback = "GOOD"
+            { overallResult = overallResult
+            , feedback = feedback
             , individualResults =
-                { firstSingular = Correct
-                , secondSingular = Correct
+                { firstSingular = exerciseResult newState.firstSingular.errorCount
+                , secondSingular = exerciseResult newState.secondSingular.errorCount
                 }
             }
 
@@ -201,7 +209,7 @@ view model =
             verbConjugator spec state
 
         ExerciseCompleted spec summary ->
-            div [] [ text "Is completed!" ]
+            verbConjugatorCompletionScore spec summary
 
 
 verbConjugator : ExerciseSpec -> ExerciseCurrentState -> Html Msg
@@ -242,6 +250,35 @@ fillBox labelText currentState msg =
         ]
 
 
+verbConjugatorCompletionScore : ExerciseSpec -> ExerciseSummary -> Html Msg
+verbConjugatorCompletionScore spec summary =
+    div []
+        [ div [] [ text summary.overallResult ]
+        , div [] [ text summary.feedback ]
+        , div []
+            [ resultBox
+                spec.labels.firstSingular
+                spec.answers.firstSingular
+                summary.individualResults.firstSingular
+            , resultBox
+                spec.labels.secondSingular
+                spec.answers.secondSingular
+                summary.individualResults.secondSingular
+            ]
+        ]
+
+
+resultBox : String -> List String -> ExerciseResult -> Html Msg
+resultBox labelText answers result =
+    div []
+        [ span []
+            [ text (labelText ++ " " ++ (answers |> String.join "/")) ]
+        , span
+            []
+            [ text (result == Correct |> conditionallyPick " V " " X ") ]
+        ]
+
+
 
 -- Business
 
@@ -260,6 +297,26 @@ isCorrectSoFar expected actual =
     expected |> List.any (\x -> x |> String.startsWith actual)
 
 
-isPerfect : number -> Bool
+isPerfect : Int -> Bool
 isPerfect errorCount =
     errorCount <= 1
+
+
+exerciseResult : Int -> ExerciseResult
+exerciseResult errorCount =
+    isPerfect errorCount |> conditionallyPick Correct Incorrect
+
+
+getExerciseOverallResultAndFeedback : Int -> ( String, String )
+getExerciseOverallResultAndFeedback exerciseIncorrectTotal =
+    if exerciseIncorrectTotal == 0 then
+        ( "Perfect score!", "Great job!" )
+
+    else if exerciseIncorrectTotal == 1 then
+        ( "Well done!", "Almost there!" )
+
+    else if exerciseIncorrectTotal <= 4 then
+        ( "Keep practicing!", "You'll get there!" )
+
+    else
+        ( "Don't give up!", "You will do better next time!" )
