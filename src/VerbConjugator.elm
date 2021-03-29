@@ -2,9 +2,9 @@ module VerbConjugator exposing (..)
 
 import Browser
 import Debug exposing (toString)
-import Html exposing (Html, div, input, label, span, text)
+import Html exposing (Html, button, div, input, label, span, text)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onInput)
+import Html.Events exposing (onClick, onInput)
 import Util exposing (conditionallyPick)
 
 
@@ -20,6 +20,7 @@ main =
 type Model
     = ExerciseInProgress ExerciseSpec ExerciseCurrentState
     | ExerciseCompleted ExerciseSpec ExerciseSummary
+    | Error String
 
 
 type alias ExerciseSpec =
@@ -100,53 +101,60 @@ init =
 type Msg
     = FirstSingularChange String
     | SecondSingularChange String
+    | RetryCompletedExercise
 
 
 update : Msg -> Model -> Model
 update msg model =
-    -- TODO: case of msg instead of model?
+    case msg of
+        FirstSingularChange _ ->
+            updateExerciseInProgress msg model
+
+        SecondSingularChange _ ->
+            updateExerciseInProgress msg model
+
+        RetryCompletedExercise ->
+            init
+
+
+updateExerciseInProgress : Msg -> Model -> Model
+updateExerciseInProgress msg model =
     case model of
         ExerciseInProgress spec state ->
-            updateExerciseInProgress msg spec state
+            case msg of
+                FirstSingularChange newValue ->
+                    let
+                        ( newIsCompleted, newErrorCount ) =
+                            getNewFillBoxStateValues spec.answers.firstSingular newValue state.firstSingular
+                    in
+                    returnAsExerciseInProgressOrCompleted
+                        spec
+                        { state | firstSingular = FillBoxState newValue newIsCompleted newErrorCount }
 
-        ExerciseCompleted spec summary ->
-            updateExerciseCompleted msg spec summary
+                SecondSingularChange newValue ->
+                    let
+                        ( newIsCompleted, newErrorCount ) =
+                            getNewFillBoxStateValues spec.answers.secondSingular newValue state.secondSingular
+                    in
+                    returnAsExerciseInProgressOrCompleted
+                        spec
+                        { state | secondSingular = FillBoxState newValue newIsCompleted newErrorCount }
 
+                _ ->
+                    Error ("Invalid message " ++ toString msg ++ " for exercise in progress")
 
-updateExerciseInProgress : Msg -> ExerciseSpec -> ExerciseCurrentState -> Model
-updateExerciseInProgress msg spec state =
-    case msg of
-        FirstSingularChange newValue ->
-            let
-                ( newIsCompleted, newErrorCount ) =
-                    getNewFillBoxStateValues spec.answers.firstSingular newValue state.firstSingular
-            in
-            returnAsExerciseInProgressOrCompleted
-                spec
-                { state | firstSingular = FillBoxState newValue newIsCompleted newErrorCount }
-
-        SecondSingularChange newValue ->
-            let
-                ( newIsCompleted, newErrorCount ) =
-                    getNewFillBoxStateValues spec.answers.secondSingular newValue state.secondSingular
-            in
-            returnAsExerciseInProgressOrCompleted
-                spec
-                { state | secondSingular = FillBoxState newValue newIsCompleted newErrorCount }
+        _ ->
+            Error ("Message " ++ toString msg ++ " is intended for exercise in progress")
 
 
 returnAsExerciseInProgressOrCompleted : ExerciseSpec -> ExerciseCurrentState -> Model
-returnAsExerciseInProgressOrCompleted spec newState =
-    let
-        isExerciseCompleted =
-            newState.firstSingular.isCompleted && newState.secondSingular.isCompleted
-
-        incorrectTotal =
-            (isPerfect newState.firstSingular.errorCount |> conditionallyPick 0 1)
-                + (isPerfect newState.secondSingular.errorCount |> conditionallyPick 0 1)
-    in
-    if isExerciseCompleted then
+returnAsExerciseInProgressOrCompleted spec state =
+    if isExerciseCompleted state then
         let
+            incorrectTotal =
+                (isPerfect state.firstSingular.errorCount |> conditionallyPick 0 1)
+                    + (isPerfect state.secondSingular.errorCount |> conditionallyPick 0 1)
+
             ( overallResult, feedback ) =
                 getExerciseOverallResultAndFeedback incorrectTotal
         in
@@ -154,18 +162,13 @@ returnAsExerciseInProgressOrCompleted spec newState =
             { overallResult = overallResult
             , feedback = feedback
             , individualResults =
-                { firstSingular = exerciseResult newState.firstSingular.errorCount
-                , secondSingular = exerciseResult newState.secondSingular.errorCount
+                { firstSingular = exerciseResult state.firstSingular.errorCount
+                , secondSingular = exerciseResult state.secondSingular.errorCount
                 }
             }
 
     else
-        ExerciseInProgress spec newState
-
-
-updateExerciseCompleted : Msg -> ExerciseSpec -> ExerciseSummary -> Model
-updateExerciseCompleted msg spec summary =
-    ExerciseCompleted spec summary
+        ExerciseInProgress spec state
 
 
 getNewFillBoxStateValues : List String -> String -> FillBoxState -> ( Bool, Int )
@@ -211,6 +214,9 @@ view model =
         ExerciseCompleted spec summary ->
             verbConjugatorCompletionScore spec summary
 
+        Error errorText ->
+            div [] [ text errorText ]
+
 
 verbConjugator : ExerciseSpec -> ExerciseCurrentState -> Html Msg
 verbConjugator spec state =
@@ -253,17 +259,23 @@ fillBox labelText currentState msg =
 verbConjugatorCompletionScore : ExerciseSpec -> ExerciseSummary -> Html Msg
 verbConjugatorCompletionScore spec summary =
     div []
-        [ div [] [ text summary.overallResult ]
-        , div [] [ text summary.feedback ]
-        , div []
-            [ resultBox
-                spec.labels.firstSingular
-                spec.answers.firstSingular
-                summary.individualResults.firstSingular
-            , resultBox
-                spec.labels.secondSingular
-                spec.answers.secondSingular
-                summary.individualResults.secondSingular
+        [ div []
+            [ div [] [ text summary.overallResult ]
+            , div [] [ text summary.feedback ]
+            , div []
+                [ resultBox
+                    spec.labels.firstSingular
+                    spec.answers.firstSingular
+                    summary.individualResults.firstSingular
+                , resultBox
+                    spec.labels.secondSingular
+                    spec.answers.secondSingular
+                    summary.individualResults.secondSingular
+                ]
+            ]
+        , div
+            []
+            [ button [ onClick RetryCompletedExercise ] [ text "Retry" ] -- TODO: move to labels
             ]
         ]
 
@@ -277,10 +289,6 @@ resultBox labelText answers result =
             []
             [ text (result == Correct |> conditionallyPick " V " " X ") ]
         ]
-
-
-
--- Business
 
 
 isCompleted : List String -> String -> Bool
@@ -300,6 +308,11 @@ isCorrectSoFar expected actual =
 isPerfect : Int -> Bool
 isPerfect errorCount =
     errorCount <= 1
+
+
+isExerciseCompleted : ExerciseCurrentState -> Bool
+isExerciseCompleted state =
+    state.firstSingular.isCompleted && state.secondSingular.isCompleted
 
 
 exerciseResult : Int -> ExerciseResult

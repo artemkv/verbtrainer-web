@@ -4,8 +4,8 @@
 - When completed with 1 error max, show as perfect
 - When every answer is completed, consider exercise completed
 - For the completed exercise, show the final score
---------------------------
 - Completed exercise has retry button, allowing to redo the exercise
+--------------------------
 - Completed exercise has "next" button, allowing to move to the next exercise
 - For every exerices, display verb and tense
 - For every exerices, display link to the next one
@@ -15,5 +15,6 @@
 
 
 TODO:
+- Extract labels
 - Make all 6 fillboxes
 - CSS
