@@ -291,14 +291,22 @@ completionSign state =
 completedAndPerfect : Html Msg
 completedAndPerfect =
     span [ class "completed-perfect-mark" ]
-        [ img [ class "completed-perfect-image" ] []
+        [ img
+            [ class "completed-perfect-image"
+            , src "./correct.png"
+            ]
+            []
         ]
 
 
 completedNotPerfect : Html Msg
 completedNotPerfect =
     span [ class "completed-imperfect-mark" ]
-        [ img [ class "completed-imperfect-image" ] []
+        [ img
+            [ class "completed-imperfect-image"
+            , src "./incorrect.png"
+            ]
+            []
         ]
 
 

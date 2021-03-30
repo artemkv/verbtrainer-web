@@ -78,7 +78,11 @@ module.exports = {
             { from: './public/apple-touch-icon.png' },
             { from: './public/hero_long.jpg' },
             { from: './public/hero_square.jpg' },
-            { from: './public/hero_fb.jpg' }
+            { from: './public/hero_fb.jpg' },
+
+            { from: './src/resources/correct.png' },
+            { from: './src/resources/incorrect.png' },
+            { from: './src/resources/notcompleted.png' },
         ])
     ],
     devtool: 'source-map'
