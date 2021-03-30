@@ -1,7 +1,6 @@
 module Main exposing (..)
 
 import Browser
-import Debug exposing (toString)
 import Html exposing (Html, button, div, input, label, span, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput)
@@ -141,10 +140,10 @@ updateExerciseInProgress msg model =
                         { state | secondSingular = FillBoxState newValue newIsCompleted newErrorCount }
 
                 _ ->
-                    Error ("Invalid message " ++ toString msg ++ " for exercise in progress")
+                    Error "Invalid message for exercise in progress"
 
         _ ->
-            Error ("Message " ++ toString msg ++ " is intended for exercise in progress")
+            Error "Message is intended for exercise in progress"
 
 
 returnAsExerciseInProgressOrCompleted : ExerciseSpec -> ExerciseCurrentState -> Model
@@ -252,7 +251,7 @@ fillBox labelText currentState msg =
              else
                 " - | "
             )
-        , text ("errors: " ++ (currentState.errorCount |> toString))
+        , text ("errors: " ++ String.fromInt currentState.errorCount)
         ]
 
 
