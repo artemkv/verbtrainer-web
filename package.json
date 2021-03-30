@@ -1,0 +1,41 @@
+{
+  "name": "artemkv.webtrainer.web",
+  "version": "1.0.0",
+  "description": "VerbTrainer Web",
+  "author": {
+    "name": "artemkv",
+    "email": "artemkv@gmail.com"
+  },
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/artemkv/verbtrainer-web.git"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "babel-loader": "^8.0.4",
+    "copy-webpack-plugin": "^4.6.0",
+    "css-loader": "^2.1.0",
+    "elm-webpack-loader": "^8.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "rimraf": "^2.6.2",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10",
+    "webpack-merge": "^4.1.4"
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "test": "",
+    "build:dev": "webpack --config webpack.dev.js",
+    "build:prod": "webpack --config webpack.prod.js",
+    "dev": "npm run clean && npm run test && npm run build:dev",
+    "prod": "npm run clean && npm run test && npm run build:prod",
+    "start": "npm run dev && webpack-dev-server --config webpack.dev.js --hot",
+    "startprod": "npm run prod && webpack-dev-server --config webpack.prod.js"
+  }
+}

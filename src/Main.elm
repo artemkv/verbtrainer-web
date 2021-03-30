@@ -1,4 +1,4 @@
-module VerbConjugator exposing (..)
+module Main exposing (..)
 
 import Browser
 import Debug exposing (toString)

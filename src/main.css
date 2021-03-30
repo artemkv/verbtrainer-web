@@ -1,0 +1,1413 @@
+/* Most fundamental styles */
+
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html
+{
+    font-family: 'Noto Sans', sans-serif;
+    color: #151515;
+    background-color: #ffffff;
+    font-size: 24px;
+}
+
+body {
+    padding-top: 2em;
+}
+
+.hero-title {
+    color: #ffffff;
+    font-family: 'Ramabhadra', sans-serif;
+}
+
+.hero-subtitle {
+    color: #ffffff;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.language-selector {
+    color: #ffffff;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.language-selector-label {
+}
+
+.language-picker {
+    color: #1E354E;
+    outline-color: #13a8f3;
+}
+
+.hero-action {
+    font-family: 'Noto Sans', sans-serif;
+    background: #ffffff;
+    color: #1E354E;
+    border: #ffffff 1px solid;
+    outline-color: #13a8f3;
+}
+
+/* Header and menu - TODO: now in a draft state */
+
+.header {
+    width: 100%;
+    height: 2em;
+    background: #1E354E;
+    display: flex;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    margin-left: 0.2em;
+    margin-right: 0.2em;
+}
+
+.logo-image {
+    height: 1.7em;
+    width: 1.7em;
+}
+
+.root-menu {
+    margin-left: 0.5em;
+    flex: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.mobile-header {
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 9; /* Allow cognito errors to be displayed on top */
+    display: none;
+}
+
+.standard-header {
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 9; /* Allow cognito errors to be displayed on top */
+    display: block;
+}
+
+.site-name {
+    color: #ffffff;
+    padding: 0.5em;
+    font-family: 'Ramabhadra', sans-serif;
+    font-size: 1em;
+    font-family: 'Galada', cursive;
+}
+
+.menu {
+    margin-left: 10em;
+    flex: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.menu-item {
+    color: #ffffff;
+    padding: 0.5em;
+    font-family: 'Ramabhadra', sans-serif;
+    font-size: 0.75em;
+}
+
+.menu-item-link {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/* Common for all layouts */
+
+.content {
+}
+
+.control-bar {
+    align-items: center;
+    height: 2em;
+}
+
+.to-all-verbs-link {
+    margin: 0.66em;
+    padding: 0.165em;
+    text-decoration: none;
+    color: #A0A0A0;
+    font-size: 0.6em;
+    text-align: left;
+}
+
+.verb-conjugator, .exercise-list, .exercise-book, .grammar, .exercise-completion-score {
+    margin-top: 1.24em;
+    margin-bottom: 3em;
+}
+
+.not-found-page, .grammar-topic {
+    margin-top: 3.24em;
+    margin-bottom: 3em;
+}
+
+.not-found-page-errorcode {
+    margin: 0.1em;
+    padding: 0.165em;
+    font-size: 5.5em;
+    text-align: center;
+    color: #13a8f3;
+}
+
+.not-found-page-message {
+    margin: 0.33em;
+    padding: 0.165em;
+    font-size: 1em;
+    text-align: center;
+}
+
+.verb-conjugator-verb, .exercise-list-title, .exercise-book-title, .grammar-title, .grammar-topic-name, .exercise-completion-score-result1 {
+    margin: 0.1em;
+    padding: 0.165em;
+    font-size: 1.42em;
+    text-align: center;
+    color: #13a8f3;
+}
+
+.verb-conjugator-tense, .exercise-list-subtitle, .exercise-book-subtitle, .grammar-subtitle, .grammar-topic-description, .exercise-completion-score-result2 {
+    margin: 0.33em;
+    padding: 0.165em;
+    font-size: 1em;
+    font-style: italic;
+    text-align: center;
+}
+
+.exercise-list-not-implemented {
+    margin: 2em;
+    padding: 0.33em;
+    font-size: 1em;
+    text-align: center;
+}
+
+.exercise-completion-results {
+    margin-top: 1.3em;
+    margin-bottom: 1.3em;
+}
+
+.verb-conjugator-next, .exercise-completion-score-next {
+    margin: 0.33em;
+    padding: 0.165em;
+}
+
+.verb-conjugator-next-link {
+    margin: 0.33em;
+    padding: 0.165em;
+    font-size: 1em;
+    text-align: right;
+    color: #151515;
+    text-decoration: none;
+}
+
+.exercise-completion-score-buttons {
+    margin: 0.33em;
+    padding: 0.165em;
+}
+
+.exercise-completion-score-retry-button, .exercise-completion-score-next-button {
+    margin: 0.33em;
+    padding: 0.33em;
+    min-width: 120px;
+    font-size: 0.8em;
+    background: #ffffff;
+    border-color: #A0A0A0;
+    border-style: solid;
+    border-width: 1px;
+    outline-color: #13a8f3;
+}
+
+.fill-box-container, .exercise-completion-results {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.fill-box-hint {
+    font-size: 0.6em;
+    color: #A0A0A0;
+    font-style: italic;
+}
+
+.fill-box-label {
+    margin: 0.33em;
+    padding: 0.165em;
+    font-size: 1em;
+    text-align: right;
+    color: #A0A0A0;
+    flex: 100%;
+}
+
+.fill-box-input {
+    border-color: #A0A0A0;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 1em;
+    outline: none;
+}
+
+.fill-box-completion {
+    margin: 0.33em;
+    padding: 0.165em;
+    font-size: 1em;
+    text-align: left;
+}
+
+.result-box-container {
+    display: flex;
+}
+
+.result-box-correct-form {
+    margin: 0.165em;
+    padding: 0.165em;
+    font-size: 1em;
+}
+
+input:focus {
+    border-color: #151515;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: none;
+}
+
+.incorrect {
+    color: #e92967;
+}
+
+.completed {
+    color: #12a66d;
+}
+
+.virtual-keyboard {
+    display: flex;
+    justify-content: center;
+}
+
+.virtual-key {
+    cursor: pointer;
+    font-size: 1em;
+    width: 1.8em;
+    height: 1.8em;
+    margin: 0.25em 0.2em 0.25em 0.2em;
+    padding: 0em;
+    border: 1px solid #A0A0A0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.virtual-key-char {
+    padding: 0em;
+}
+
+.exercise-book-exercise-lists, .grammar-topic-list {
+    margin-top: 2.6em;
+    margin-bottom: 2.6em;
+}
+
+.exercise-list-exercises {
+    column-count: 4;
+    margin-top: 2.6em;
+    margin-bottom: 2.6em;
+}
+
+.exercise-list-exercise-allow-access, .exercise-list-exercise-no-access, .exercise-book-exercise-list, .grammar-topic-list-item {
+    margin: 0.33em;
+    padding: 0.165em;
+    font-size: 1em;
+    text-align: center;
+}
+
+.exercise-book-exercise-list-not-implemented {
+    margin: 0.33em;
+    padding: 0.165em;
+    font-size: 1em;
+    text-align: center;
+    color: #C0C0C0;
+}
+
+.exercise-list-exercise-no-access {
+    color: #A0A0A0;
+}
+
+.exercise-list-exercise-link, .exercise-book-exercise-list-link, .grammar-topic-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.exercises-to-grammar-link, .grammar-to-exercises-link {
+    color: inherit;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #E0E0E0;
+}
+
+::-moz-placeholder { /* Firefox 19+ */
+    color: #E0E0E0;
+}
+
+:-ms-input-placeholder { /* IE 10+ */
+    color: #E0E0E0;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+    color: #E0E0E0;
+}
+
+.grammar-topic-content {
+    margin-top: 2.6em;
+    margin-bottom: 2.6em;
+}
+
+.grammar-topic-section {
+    margin-top: 2.6em;
+    margin-bottom: 2.6em;
+}
+
+.grammar-topic-section-title {
+    margin: 0.33em;
+    padding: 0.165em;
+    font-size: 1em;
+    text-align: center;
+}
+
+.grammar-topic-section-content {
+    margin-top: 1.3em;
+}
+
+.grammar-topic-text {
+    display: flex;
+    justify-content: center;
+}
+
+.grammar-topic-subsection {
+}
+
+.grammar-topic-subsection-title {
+    margin: 0.33em;
+    padding: 0.165em;
+    font-size: 1em;
+    font-style: italic;
+}
+
+.grammar-topic-verb-conjugation {
+}
+
+.grammar-topic-verb {
+    margin: 0.33em;
+    padding: 0.165em;
+    font-size: 1em;
+    font-weight: bolder;
+}
+
+.grammar-topic-verb-form {
+    margin: 0.1em;
+    padding: 0.1em;
+    font-size: 1em;
+}
+
+.grammar-topic-verb-form-separator {
+    margin: 0.1em;
+    padding: 0.1em;
+    font-size: 1em;
+    text-align: center;
+}
+
+.grammar-topic-verb-form-ending {
+    color: #13a8f3;
+}
+
+.grammar-topic-irregular {
+    color: #e92967;
+}
+
+.grammar-topic-removed {
+    color: #e92967;
+    text-decoration: line-through;
+}
+
+.completed-perfect-mark, .completed-imperfect-mark, .not-completed-mark {
+    margin-left: 0.33em;
+    vertical-align: middle;
+    line-height: 1em;
+}
+
+.fill-box-completion .completed-perfect-mark {
+    vertical-align: baseline;
+}
+
+.completed-perfect-image, .completed-imperfect-image, .not-completed-image {
+    height: 0.8em;
+    width: 0.8em;
+}
+
+.exercise-progress {
+    margin: 0.66em;
+    padding: 0.165em;
+    font-size: 0.6em;
+}
+
+.exercise-progress-inactive {
+    margin: 0.66em;
+    padding: 0.165em;
+    font-size: 0.6em;
+    opacity: 20%;
+}
+
+.exercise-progress-score {
+    margin-left: 0.33em;
+    line-height: 1em;
+}
+
+.sign-in-page {
+    margin-top: 3em;
+    margin-bottom: 3em;
+    text-align: center;
+}
+
+.sign-in-invitation {
+    font-size: 1.42em;
+}
+
+.proceed-with-sign-in-button {
+    margin: 0.33em;
+    padding: 0.33em;
+    min-width: 120px;
+    font-size: 0.8em;
+    background: #ffffff;
+    border-color: #A0A0A0;
+    border-style: solid;
+    border-width: 1px;
+    outline-color: #13a8f3;
+}
+
+.sign-in-status {
+    display: flex;
+    align-items: center;
+}
+
+.sign-out-button {
+    font-family: 'Ramabhadra', sans-serif;
+    font-size: 0.6em;
+    padding: 0.2em;
+    margin: 0.33em 0.66em 0.33em 0.33em;
+    min-width: 120px;
+    color: #ffffff;
+    background-color: #1E354E;
+    border-color: #ffffff;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+}
+
+.sign-in-link {
+    font-family: 'Ramabhadra', sans-serif;
+    font-size: 0.75em;
+    color: #ffffff;
+    padding: 0.2em;
+    margin: 0.33em;
+    min-width: 120px;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* Desktop Styles *//*---*/
+@media only screen and (min-width: 961px) {
+    /*body {
+        background-color: #B2D6FF;
+    }*/
+
+    .hero-content {
+        width: 100%;
+        height: 25em;
+        background-color: #1E354E;
+        background-image: url('/hero_long.jpg');
+        background-repeat: no-repeat;
+        background-position: right; 
+        background-size: auto 25em;
+        background-blend-mode: normal;
+    }
+
+    .hero-inner {
+        display: block;
+        height: 25em;
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mM8IQkAAa8A48opxD0AAAAASUVORK5CYII=);
+    }
+    
+    .hero-top {
+        text-align: center;
+        height: 8em;
+    }
+    
+    .hero-bottom {
+        height: 17em;
+        display: flex;
+    }
+    
+    .hero-bottom-left {
+        flex: 1;
+        text-align: center;
+    }
+    
+    .hero-bottom-right {
+        flex: 1;
+    }
+
+    .hero-title {
+        margin: 0em;
+        padding: 0.165em;
+        font-size: 1.7em;
+        font-weight: 700;
+    }
+    
+    .hero-subtitle {
+        margin: 0.1em;
+        padding: 0.165em;
+        font-size: 0.7em;
+    }
+
+    .language-selector {
+        margin: 0.2em;
+        padding: 0.165em;
+        font-size: 0.8em;
+    }
+    
+    .language-selector-label {
+        margin: 0.1em;
+        padding: 0.165em;
+        width: 180px;
+        display: inline-block;
+        text-align: center;
+    }
+    
+    .language-picker {
+        margin: 0.2em;
+        padding: 0.33em;
+        font-size: 0.8em;
+        width: 180px;
+    }
+
+    .hero-action {
+        margin: 0.66em;
+        padding: 0.33em;
+        min-width: 200px;
+        font-size: 0.8em;
+        font-weight: 700;
+    }
+
+    .verb-conjugator, .exercise-list, .exercise-book, .grammar, .not-found-page, .grammar-topic, .exercise-completion-score {
+        width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .control-bar
+    {
+        width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+    }
+
+    .control-bar-inner1 {
+        flex: 20%;
+        display: flex;
+    }
+    
+    .control-bar-inner2 {
+        flex: 60%;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .control-bar-inner3 {
+        flex: 20%;
+        display: flex;
+    }
+
+    .fill-box-inner1 {
+        flex: 20%;
+        display: flex;
+    }
+    
+    .fill-box-inner2 {
+        flex: 60%;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .fill-box-inner3 {
+        flex: 20%;
+        display: flex;
+    }
+    
+    .fill-box-inner4 {
+        flex: 20%;
+        display: flex;
+    }
+    
+    .fill-box-inner5 {
+        flex: 60%;
+        display: flex;
+    }
+    
+    .fill-box-inner6 {
+        flex: 20%;
+        display: flex;
+    }
+
+    .fill-box-input {
+        margin: 0.33em;
+        padding: 0.165em;
+        flex: 100%;
+    }
+
+    .fill-box-completion {
+        flex: 100%;
+    }
+
+    .verb-conjugator-next-inner1, .exercise-completion-score-next-inner1 {
+        flex: 20%;
+        display: flex;
+    }
+    
+    .verb-conjugator-next-inner2, .exercise-completion-score-next-inner2 {
+        flex: 60%;
+        display: flex;
+    }
+    
+    .verb-conjugator-next-inner3, .exercise-completion-score-next-inner3 {
+        flex: 20%;
+        display: flex;
+    }
+
+    .verb-conjugator-next, .exercise-completion-score-next {
+        flex: 100%;
+        display: flex;
+    }
+
+    .verb-conjugator-next-link {
+        flex: 100%;
+    }
+
+    .result-box-inner1 {
+        flex: 20%;
+        display: flex;
+    }
+
+    .result-box-inner2 {
+        flex: 60%;
+    }
+
+    .result-box-inner3 {
+        flex: 20%;
+        display: flex;
+    }
+
+    .result-box-correct-form {
+        flex: 1;
+    }
+
+    .exercise-completion-score-buttons {
+        flex: 100%;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .grammar-topic-section {
+        display: block;
+    }
+    
+    .grammar-topic-section-title {
+    }
+    
+    .grammar-topic-section-content {
+        display: flex;
+    }
+    
+    .grammar-topic-subsection {
+        flex: 1;
+    }
+    
+    .grammar-topic-subsection-title {
+        text-align: center;
+    }
+    
+    .grammar-topic-verb-conjugation {
+        text-align: center;
+    }
+    
+    .grammar-topic-verb {
+        text-align: center;
+    }
+
+    .grammar-topic-verb-forms {
+        display: inline-block;
+        text-align: left;
+    }
+
+    .grammar-topic-verb-form {
+        margin-left: 15%;
+    }
+
+    .sign-in-invitation {
+        width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 2em;
+    }
+}
+
+/* Tablet Styles */
+@media only screen and (min-width: 401px) and (max-width: 960px) {
+/*    body {
+        background-color: #F5CF8E;
+    }*/
+
+    .hero-content {
+        width: 100%;
+        height: 25em;
+        background-color: #1E354E;
+        background-image: url('/hero_long.jpg');
+        background-repeat: no-repeat;
+        background-position: center; 
+        background-size: auto 25em;
+        background-blend-mode: normal;
+    }
+
+    .hero-inner {
+        display: block;
+        height: 25em;
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mM8IQkAAa8A48opxD0AAAAASUVORK5CYII=);
+    }
+    
+    .hero-top {
+        text-align: center;
+        height: 11em;
+    }
+    
+    .hero-bottom {
+        height: 14em;
+        display: flex;
+    }
+    
+    .hero-bottom-left {
+        flex: 2;
+        text-align: center;
+    }
+    
+    .hero-bottom-right {
+        flex: 1;
+    }
+
+    .hero-title {
+        margin: 0.0em 2em;
+        padding: 0.165em;
+        font-size: 1.2em;
+        font-weight: 700;
+    }
+    
+    .hero-subtitle {
+        margin: 0.1em 2em;
+        padding: 0.165em;
+        font-size: 0.7em;
+    }
+
+    .language-selector {
+        margin: 0.2em 2em;
+        padding: 0.165em;
+        font-size: 0.8em;
+        background: #1E354E70;
+        min-width: 200px;
+    }
+    
+    .language-selector-label {
+        margin: 0.2em;
+        padding: 0.33em;
+        width: 180px;
+        display: inline-block;
+        text-align: center;
+    }
+    
+    .language-picker {
+        margin: 0.2em;
+        padding: 0.33em;
+        font-size: 0.8em;
+        width: 180px;
+    }
+
+    .hero-action {
+        margin: 0.66em;
+        padding: 0.33em;
+        min-width: 200px;
+        font-size: 0.8em;
+        font-weight: 700;
+    }
+
+    .menu {
+        margin-left: 1em;
+    }
+
+    .content {
+        width: 100%;
+    }
+
+    .verb-conjugator, .exercise-list, .exercise-book, .grammar, .not-found-page, .grammar-topic, .exercise-completion-score {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+
+    .control-bar
+    {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+    }
+
+    .control-bar-inner1 {
+        flex: 0%;
+        display: flex;
+    }
+    
+    .control-bar-inner2 {
+        flex: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .control-bar-inner3 {
+        flex: 0%;
+        display: flex;
+    }
+
+    .to-all-verbs-link {
+        
+    }
+
+    .fill-box-inner1 {
+        order: 5;
+        flex: 0%;
+        display: flex;
+    }
+    
+    .fill-box-inner2 {
+        order: 2;
+        flex: 30%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .fill-box-inner3 {
+        order: 6;
+        flex: 0%;
+        display: flex;
+    }
+    
+    .fill-box-inner4 {
+        order: 1;
+        flex: 35%;
+        align-items: center;
+        display: flex;
+    }
+    
+    .fill-box-inner5 {
+        order: 4;
+        flex: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .fill-box-inner6 {
+        order: 3;
+        align-items: center;
+        flex: 35%;
+        display: flex;
+    }
+
+    .fill-box-label {
+        font-size: 0.8em;
+        margin: 0.1em 0.4em;
+        text-align: left;
+        flex: 100%;
+    }
+
+    .fill-box-input {
+        padding: 0.33em;
+        width: 95%;
+    }
+
+    .fill-box-completion {
+        font-size: 0.8em;
+        margin: 0.1em 0.4em;
+        text-align: right;
+        flex: 100%;
+    }
+
+    .verb-conjugator-next-inner1, .exercise-completion-score-next-inner1 {
+        flex: 0%;
+        display: flex;
+    }
+    
+    .verb-conjugator-next-inner2, .exercise-completion-score-next-inner2 {
+        flex: 100%;
+        display: flex;
+    }
+    
+    .verb-conjugator-next-inner3, .exercise-completion-score-next-inner3 {
+        flex: 0%;
+        display: flex;
+    }
+
+    .verb-conjugator-next, .exercise-completion-score-next {
+        display: flex;
+        flex: 100%;
+    }
+    
+    .verb-conjugator-next-link {
+        flex: 100%;
+    }
+
+    .result-box-inner1 {
+        flex: 10%;
+        display: flex;
+    }
+
+    .result-box-inner2 {
+        flex: 80%;
+    }
+
+    .result-box-inner3 {
+        flex: 10%;
+        display: flex;
+    }
+
+    .result-box-correct-form {
+        flex: 1;
+    }
+
+    .exercise-completion-score-buttons {
+        flex: 100%;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .exercise-list-exercises {
+        column-count: 2;
+    }
+
+    .grammar-topic-content {
+        margin-left: 1em;
+        margin-right: 1em;
+        margin-top: 0em;
+        margin-bottom: 0em;
+    }
+
+    .grammar-topic-section {
+        display: block;
+    }
+    
+    .grammar-topic-section-title {
+    }
+    
+    .grammar-topic-section-content {
+        display: block;
+    }
+    
+    .grammar-topic-subsection {
+        margin-top: 2em;
+    }
+    
+    .grammar-topic-subsection-title {
+        text-align: center;
+    }
+    
+    .grammar-topic-verb-conjugation {
+        text-align: center;
+    }
+    
+    .grammar-topic-verb {
+        text-align: center;
+    }
+    
+    .grammar-topic-verb-forms {
+        display: inline-block;
+        text-align: left;
+    }
+
+    .grammar-topic-verb-form {
+        margin-left: 15%;
+    }
+
+    .sign-in-invitation {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 2em;
+    }
+}
+
+/* Mobile Styles */
+@media only screen and (max-width: 400px) {
+    /*body {
+        background-color: #F09A9D;
+    }*/
+
+    .mobile-header {
+        display: block;
+    }
+    
+    .standard-header {
+        display: none;
+    }
+
+    .root-menu {
+        margin-left: 0em;
+    }
+
+    .hamburger-menu {
+        display: flex;
+        align-items: center;
+    }
+
+    .hero-content {
+        width: 100%;
+        height: 20em;
+        display: flex;
+        background-color: #1E354E;
+        background-image: url('/hero_square.jpg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: auto 20em;
+        background-blend-mode: normal;
+    }
+
+    .hero-inner {
+        display: block;
+        height: 20em;
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mM8IQkAAa8A48opxD0AAAAASUVORK5CYII=);
+    }
+    
+    .hero-top {
+        text-align: center;
+        height: 11em;
+    }
+    
+    .hero-bottom {
+        height: 11em;
+        display: flex;
+    }
+    
+    .hero-bottom-left {
+        flex: 1;
+        text-align: center;
+    }
+    
+    .hero-bottom-right {
+        flex: 0;
+    }
+
+    .hero-title {
+        margin: 0.0em 2em;
+        padding: 0.165em;
+        font-size: 1em;
+        font-weight: 700;
+    }
+    
+    .hero-subtitle {
+        display: none;
+        margin: 0.1em 2em;
+        padding: 0.165em;
+        font-size: 0.7em;
+    }
+
+    .language-selector {
+        margin: 0.2em 2em;
+        padding: 0.165em;
+        font-size: 0.8em;
+        background: #1E354E70;
+        min-width: 200px;
+    }
+    
+    .language-selector-label {
+        margin: 0.2em;
+        padding: 0.33em;
+        width: 180px;
+        display: inline-block;
+        text-align: center;
+    }
+    
+    .language-picker {
+        margin: 0.2em;
+        padding: 0.33em;
+        font-size: 0.8em;
+        width: 180px;
+    }
+
+    .hero-action {
+        margin: 0.66em;
+        padding: 0.33em;
+        min-width: 200px;
+        font-size: 0.8em;
+        font-weight: 700;
+        background-color: #1E354E;
+        color: #ffffff;
+        border-color: #1E354E;
+    }
+
+    .content {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .menu {
+        margin-left: 1em;
+    }
+
+    .verb-conjugator, .exercise-list, .exercise-book, .grammar, .not-found-page, .grammar-topic, .exercise-completion-score {
+        flex: 100%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .sign-in-invitation {
+        flex: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        margin: 2em 1em;
+    }
+
+    .not-found-page-errorcode {
+        flex: 100%;
+    }
+
+    .not-found-page-message {
+        flex: 100%;
+    }
+
+    .verb-conjugator-verb, .exercise-list-title, .exercise-book-title, .grammar-title, .grammar-topic-name, .exercise-completion-score-result1 {
+        flex: 100%;
+    }
+
+    .verb-conjugator-tense, .exercise-list-subtitle, .exercise-book-subtitle, .grammar-subtitle, .grammar-topic-description, .exercise-completion-score-result2 {
+        flex: 100%;
+    }
+
+    .exercise-book-exercise-lists, .grammar-topic-list {
+        flex: 100%;
+    }
+
+    .fill-box-container {
+        flex: 100%;
+    }
+
+    .exercise-completion-results {
+        flex: 100%;
+    }
+
+    .exercise-list-exercises {
+        column-count: 1;
+        flex: 100%;
+    }
+
+    .control-bar
+    {
+        flex: 100%;
+        display: flex;
+    }
+
+    .control-bar-inner1 {
+        flex: 0%;
+        display: flex;
+    }
+
+    .control-bar-inner2 {
+        flex: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .control-bar-inner3 {
+        flex: 0%;
+        display: flex;
+    }
+
+    .fill-box-inner1 {
+        order: 5;
+        flex: 0%;
+        display: flex;
+    }
+    
+    .fill-box-inner2 {
+        order: 2;
+        flex: 30%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .fill-box-inner3 {
+        order: 6;
+        flex: 0%;
+        display: flex;
+    }
+    
+    .fill-box-inner4 {
+        order: 1;
+        flex: 35%;
+        align-items: center;
+        display: flex;
+    }
+    
+    .fill-box-inner5 {
+        order: 4;
+        flex: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .fill-box-inner6 {
+        order: 3;
+        align-items: center;
+        flex: 35%;
+        display: flex;
+    }
+
+    .fill-box-label {
+        font-size: 0.6em;
+        margin: 0.1em 0.4em;
+        text-align: left;
+        flex: 100%;
+    }
+
+    .fill-box-input {
+        padding: 0.33em;
+        width: 95%;
+    }
+
+    .fill-box-completion {
+        font-size: 0.8em;
+        margin: 0.1em 0.4em;
+        text-align: right;
+        flex: 100%;
+    }
+
+    .verb-conjugator-next-inner1, .exercise-completion-score-next-inner1 {
+        flex: 0%;
+        display: flex;
+    }
+    
+    .verb-conjugator-next-inner2, .exercise-completion-score-next-inner2 {
+        flex: 100%;
+        display: flex;
+    }
+    
+    .verb-conjugator-next-inner3, .exercise-completion-score-next-inner3 {
+        flex: 0%;
+        display: flex;
+    }
+
+    .verb-conjugator-next, .exercise-completion-score-next {
+        display: flex;
+        flex: 100%;
+    }
+
+    .result-box-inner1 {
+        flex: 10%;
+        display: flex;
+    }
+
+    .result-box-inner2 {
+        flex: 80%;
+    }
+
+    .result-box-inner3 {
+        flex: 10%;
+        display: flex;
+    }
+
+    .result-box-correct-form {
+        flex: 1;
+    }
+    
+    .exercise-completion-score-buttons {
+        flex: 100%;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .exercise-completion-score-next-button {
+        color: #ffffff;
+        background: #13a8f3;
+    }
+
+    .verb-conjugator-next-link {
+        flex: 100%;
+    }
+
+    .virtual-keyboard {
+        display: none;
+    }
+
+    .grammar-topic-content {
+        margin-left: 1em;
+        margin-right: 1em;
+        margin-top: 0em;
+        margin-bottom: 0em;
+    }
+
+    .grammar-topic-section {
+        display: block;
+    }
+    
+    .grammar-topic-section-title {
+    }
+    
+    .grammar-topic-section-content {
+        display: block;
+    }
+    
+    .grammar-topic-subsection {
+        margin-top: 2em;
+    }
+    
+    .grammar-topic-subsection-title {
+        text-align: center;
+    }
+    
+    .grammar-topic-verb-conjugation {
+        text-align: center;
+    }
+    
+    .grammar-topic-verb {
+        text-align: center;
+    }
+
+    .grammar-topic-verb-forms {
+        display: inline-block;
+        text-align: left;
+    }
+
+    .grammar-topic-verb-form {
+        margin-left: 15%;
+    }
+}

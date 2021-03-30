@@ -12,9 +12,15 @@
 - Set focus on the first field
 - Virtual keyboard
 - Use all 6 verb forms
+- Compile elm program into js, bundle with webpack and combine with css
 
 
 TODO:
 - Extract labels
 - Make all 6 fillboxes
-- CSS
+- sitemap
+
+
+Webpack references:
+- https://github.com/elm-community/elm-webpack-loader
+- https://discourse.elm-lang.org/t/optimize-elm-compilation-with-webpack/2191
