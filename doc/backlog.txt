@@ -5,14 +5,18 @@
 - When every answer is completed, consider exercise completed
 - For the completed exercise, show the final score
 - Completed exercise has retry button, allowing to redo the exercise
+- Compile elm program into js, bundle with webpack and combine with css
 --------------------------
+- When 2 or more errors, show hint
+- Show correct completion mark next to fillbox
 - Completed exercise has "next" button, allowing to move to the next exercise
 - For every exerices, display verb and tense
+- Tense should be a link to the grammar section
 - For every exerices, display link to the next one
 - Set focus on the first field
+- Prevent spellcheck on inputs in fillbox
 - Virtual keyboard
 - Use all 6 verb forms
-- Compile elm program into js, bundle with webpack and combine with css
 
 
 TODO:

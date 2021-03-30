@@ -1,7 +1,7 @@
 module Main exposing (..)
 
 import Browser
-import Html exposing (Html, button, div, input, label, span, text)
+import Html exposing (Html, button, div, img, input, label, span, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput)
 import Util exposing (conditionallyPick)
@@ -220,14 +220,20 @@ view model =
 verbConjugator : ExerciseSpec -> ExerciseCurrentState -> Html Msg
 verbConjugator spec state =
     div []
-        [ fillBox
-            spec.labels.firstSingular
-            state.firstSingular
-            FirstSingularChange
-        , fillBox
-            spec.labels.secondSingular
-            state.secondSingular
-            SecondSingularChange
+        [ div [ class "verb-conjugator" ]
+            [ div [ class "verb-conjugator-verb" ] [ text "Verb" ]
+            , div [ class "verb-conjugator-tense" ] [ text "tense" ]
+            , fillBox
+                spec.labels.firstSingular
+                state.firstSingular
+                (isCorrectSoFar spec.answers.firstSingular state.firstSingular.value)
+                FirstSingularChange
+            , fillBox
+                spec.labels.secondSingular
+                state.secondSingular
+                (isCorrectSoFar spec.answers.secondSingular state.secondSingular.value)
+                SecondSingularChange
+            ]
         ]
 
 
@@ -235,41 +241,98 @@ type alias OnInputChangeMessageProducer =
     String -> Msg
 
 
-fillBox : String -> FillBoxState -> OnInputChangeMessageProducer -> Html Msg
-fillBox labelText currentState msg =
-    div []
-        [ label [ class "fill-box-label" ]
-            [ text labelText
-            , input [ value currentState.value, onInput msg ] []
+fillBox : String -> FillBoxState -> Bool -> OnInputChangeMessageProducer -> Html Msg
+fillBox labelText state isAnswerCorrectSoFar msg =
+    div [ class "fill-box-container" ]
+        [ div [ class "fill-box-inner1" ]
+            []
+        , div
+            [ class "fill-box-inner2" ]
+            []
+        , div
+            [ class "fill-box-inner3" ]
+            []
+        , div
+            [ class "fill-box-inner4" ]
+            [ label [ class "fill-box-label" ] [ text labelText ]
             ]
-        , text
-            (if currentState.isCompleted then
-                currentState.errorCount
-                    |> isPerfect
-                    |> conditionallyPick " V | " " X | "
-
-             else
-                " - | "
-            )
-        , text ("errors: " ++ String.fromInt currentState.errorCount)
+        , div
+            [ class "fill-box-inner5" ]
+            [ input
+                [ class (calculateFillBoxInputClass state isAnswerCorrectSoFar)
+                , type_ "text"
+                , value state.value
+                , onInput msg
+                ]
+                []
+            ]
+        , div
+            [ class "fill-box-inner6" ]
+            [ span [ class "fill-box-completion" ] [ completionSign state ] ]
         ]
+
+
+completionSign : FillBoxState -> Html Msg
+completionSign state =
+    let
+        isAnswerPerfect =
+            isPerfect state.errorCount
+    in
+    if state.isCompleted && isAnswerPerfect then
+        completedAndPerfect
+
+    else if not isAnswerPerfect then
+        completedNotPerfect
+
+    else
+        span [] []
+
+
+completedAndPerfect : Html Msg
+completedAndPerfect =
+    span [ class "completed-perfect-mark" ]
+        [ img [ class "completed-perfect-image" ] []
+        ]
+
+
+completedNotPerfect : Html Msg
+completedNotPerfect =
+    span [ class "completed-imperfect-mark" ]
+        [ img [ class "completed-imperfect-image" ] []
+        ]
+
+
+calculateFillBoxInputClass : FillBoxState -> Bool -> String
+calculateFillBoxInputClass state isAnswerCorrectSoFar =
+    if state.isCompleted then
+        "fill-box-input completed"
+
+    else if not isAnswerCorrectSoFar then
+        "fill-box-input incorrect"
+
+    else
+        "fill-box-input"
 
 
 verbConjugatorCompletionScore : ExerciseSpec -> ExerciseSummary -> Html Msg
 verbConjugatorCompletionScore spec summary =
     div []
-        [ div []
-            [ div [] [ text summary.overallResult ]
-            , div [] [ text summary.feedback ]
-            , div []
-                [ resultBox
-                    spec.labels.firstSingular
-                    spec.answers.firstSingular
-                    summary.individualResults.firstSingular
-                , resultBox
-                    spec.labels.secondSingular
-                    spec.answers.secondSingular
-                    summary.individualResults.secondSingular
+        [ div [ class "exercise-completion-score" ]
+            [ div [ class "exercise-completion-score-result1" ] [ text summary.overallResult ]
+            , div [ class "exercise-completion-score-result2" ] [ text summary.feedback ]
+            , div [ class "exercise-completion-results" ]
+                [ div [ class "result-box-inner1" ] []
+                , div [ class "result-box-inner2" ]
+                    [ resultBox
+                        spec.labels.firstSingular
+                        spec.answers.firstSingular
+                        summary.individualResults.firstSingular
+                    , resultBox
+                        spec.labels.secondSingular
+                        spec.answers.secondSingular
+                        summary.individualResults.secondSingular
+                    ]
+                , div [ class "result-box-inner3" ] []
                 ]
             ]
         , div
@@ -282,11 +345,11 @@ verbConjugatorCompletionScore spec summary =
 resultBox : String -> List String -> ExerciseResult -> Html Msg
 resultBox labelText answers result =
     div []
-        [ span []
+        [ span [ class "result-box-correct-form" ]
             [ text (labelText ++ " " ++ (answers |> String.join "/")) ]
         , span
-            []
-            [ text (result == Correct |> conditionallyPick " V " " X ") ]
+            [ class "result-box-completion" ]
+            [ result == Correct |> conditionallyPick completedAndPerfect completedNotPerfect ]
         ]
 
 
