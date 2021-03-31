@@ -7,11 +7,6 @@ import Html.Events exposing (onClick, onInput)
 import Util exposing (conditionallyPick)
 
 
-main : Program () Model Msg
-main =
-    Browser.sandbox { init = init, update = update, view = view }
-
-
 
 -- Model
 
@@ -177,17 +172,17 @@ getNewFillBoxStateValues answers newValue state =
         newIsCompleted =
             isCompleted answers newValue
 
-        isCorrectAnswer : String -> Bool
-        isCorrectAnswer =
+        isCorrectAnswerSoFar : String -> Bool
+        isCorrectAnswerSoFar =
             isCorrectSoFar answers
 
         wasCorrect : Bool
         wasCorrect =
-            isCorrectAnswer state.value
+            isCorrectAnswerSoFar state.value
 
         isNotCorrectAnymore : Bool
         isNotCorrectAnymore =
-            isCorrectAnswer newValue |> not
+            isCorrectAnswerSoFar newValue |> not
 
         errorDelta : Int
         errorDelta =
@@ -244,8 +239,11 @@ type alias OnInputChangeMessageProducer =
 fillBox : String -> List String -> FillBoxState -> OnInputChangeMessageProducer -> Html Msg
 fillBox labelText answers state msg =
     let
+        isAnswerCorrectSoFar =
+            isCorrectSoFar answers state.value
+
         inputClass =
-            calculateFillBoxInputClass state.isCompleted (isCorrectSoFar answers state.value)
+            calculateFillBoxInputClass state.isCompleted isAnswerCorrectSoFar
     in
     div [ class "fill-box-container" ]
         [ div [ class "fill-box-inner1" ]
@@ -277,6 +275,7 @@ fillBox labelText answers state msg =
         ]
 
 
+hint : List String -> Html msg
 hint answers =
     div [ class "fill-box-hint" ] [ text (answers |> joined) ]
 
@@ -437,3 +436,12 @@ getExerciseOverallResultAndFeedback exerciseIncorrectTotal =
 showHint : Int -> Bool
 showHint errorCount =
     errorCount > 1
+
+
+
+-- Main
+
+
+main : Program () Model Msg
+main =
+    Browser.sandbox { init = init, update = update, view = view }
