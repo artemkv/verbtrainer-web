@@ -225,13 +225,13 @@ verbConjugator spec state =
             , div [ class "verb-conjugator-tense" ] [ text "tense" ]
             , fillBox
                 spec.labels.firstSingular
+                spec.answers.firstSingular
                 state.firstSingular
-                (isCorrectSoFar spec.answers.firstSingular state.firstSingular.value)
                 FirstSingularChange
             , fillBox
                 spec.labels.secondSingular
+                spec.answers.secondSingular
                 state.secondSingular
-                (isCorrectSoFar spec.answers.secondSingular state.secondSingular.value)
                 SecondSingularChange
             ]
         ]
@@ -241,14 +241,19 @@ type alias OnInputChangeMessageProducer =
     String -> Msg
 
 
-fillBox : String -> FillBoxState -> Bool -> OnInputChangeMessageProducer -> Html Msg
-fillBox labelText state isAnswerCorrectSoFar msg =
+fillBox : String -> List String -> FillBoxState -> OnInputChangeMessageProducer -> Html Msg
+fillBox labelText answers state msg =
+    let
+        inputClass =
+            calculateFillBoxInputClass state.isCompleted (isCorrectSoFar answers state.value)
+    in
     div [ class "fill-box-container" ]
         [ div [ class "fill-box-inner1" ]
             []
         , div
             [ class "fill-box-inner2" ]
-            []
+            [ showHint state.errorCount |> conditionallyPick (hint answers) nothing
+            ]
         , div
             [ class "fill-box-inner3" ]
             []
@@ -259,7 +264,7 @@ fillBox labelText state isAnswerCorrectSoFar msg =
         , div
             [ class "fill-box-inner5" ]
             [ input
-                [ class (calculateFillBoxInputClass state isAnswerCorrectSoFar)
+                [ class inputClass
                 , type_ "text"
                 , value state.value
                 , onInput msg
@@ -270,6 +275,10 @@ fillBox labelText state isAnswerCorrectSoFar msg =
             [ class "fill-box-inner6" ]
             [ span [ class "fill-box-completion" ] [ completionSign state ] ]
         ]
+
+
+hint answers =
+    div [ class "fill-box-hint" ] [ text (answers |> joined) ]
 
 
 completionSign : FillBoxState -> Html Msg
@@ -285,7 +294,7 @@ completionSign state =
         completedNotPerfect
 
     else
-        span [] []
+        nothing
 
 
 completedAndPerfect : Html Msg
@@ -310,9 +319,9 @@ completedNotPerfect =
         ]
 
 
-calculateFillBoxInputClass : FillBoxState -> Bool -> String
-calculateFillBoxInputClass state isAnswerCorrectSoFar =
-    if state.isCompleted then
+calculateFillBoxInputClass : Bool -> Bool -> String
+calculateFillBoxInputClass isAnswerCompleted isAnswerCorrectSoFar =
+    if isAnswerCompleted then
         "fill-box-input completed"
 
     else if not isAnswerCorrectSoFar then
@@ -354,11 +363,25 @@ resultBox : String -> List String -> ExerciseResult -> Html Msg
 resultBox labelText answers result =
     div []
         [ span [ class "result-box-correct-form" ]
-            [ text (labelText ++ " " ++ (answers |> String.join "/")) ]
+            [ text (labelText ++ " " ++ (answers |> joined)) ]
         , span
             [ class "result-box-completion" ]
             [ result == Correct |> conditionallyPick completedAndPerfect completedNotPerfect ]
         ]
+
+
+nothing : Html Msg
+nothing =
+    span [] []
+
+
+
+-- Business
+
+
+joined : List String -> String
+joined answers =
+    answers |> String.join "/"
 
 
 isCompleted : List String -> String -> Bool
@@ -403,3 +426,8 @@ getExerciseOverallResultAndFeedback exerciseIncorrectTotal =
 
     else
         ( "Don't give up!", "You will do better next time!" )
+
+
+showHint : Int -> Bool
+showHint errorCount =
+    errorCount > 1
