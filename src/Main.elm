@@ -64,17 +64,17 @@ emptyFillBoxState =
 type alias ExerciseSummary =
     { overallResult : String
     , feedback : String
-    , individualResults : ExerciseResults
+    , finalResults : ExerciseFinalResults
     }
 
 
-type alias ExerciseResults =
-    { firstSingular : ExerciseResult
-    , secondSingular : ExerciseResult
+type alias ExerciseFinalResults =
+    { firstSingular : FinalResult
+    , secondSingular : FinalResult
     }
 
 
-type ExerciseResult
+type FinalResult
     = Correct
     | Incorrect
 
@@ -160,9 +160,9 @@ returnAsExerciseInProgressOrCompleted spec state =
         ExerciseCompleted spec
             { overallResult = overallResult
             , feedback = feedback
-            , individualResults =
-                { firstSingular = exerciseResult state.firstSingular.errorCount
-                , secondSingular = exerciseResult state.secondSingular.errorCount
+            , finalResults =
+                { firstSingular = finalResult state.firstSingular.errorCount
+                , secondSingular = finalResult state.secondSingular.errorCount
                 }
             }
 
@@ -343,11 +343,11 @@ verbConjugatorCompletionScore spec summary =
                     [ resultBox
                         spec.labels.firstSingular
                         spec.answers.firstSingular
-                        summary.individualResults.firstSingular
+                        summary.finalResults.firstSingular
                     , resultBox
                         spec.labels.secondSingular
                         spec.answers.secondSingular
-                        summary.individualResults.secondSingular
+                        summary.finalResults.secondSingular
                     ]
                 , div [ class "result-box-inner3" ] []
                 ]
@@ -359,7 +359,7 @@ verbConjugatorCompletionScore spec summary =
         ]
 
 
-resultBox : String -> List String -> ExerciseResult -> Html Msg
+resultBox : String -> List String -> FinalResult -> Html Msg
 resultBox labelText answers result =
     div []
         [ span [ class "result-box-correct-form" ]
@@ -380,22 +380,28 @@ nothing =
 
 
 joined : List String -> String
-joined answers =
-    answers |> String.join "/"
+joined =
+    String.join "/"
+
+
+isEqualCI : String -> String -> Bool
+isEqualCI a b =
+    String.toUpper a == String.toUpper b
+
+
+startsWithCI : String -> String -> Bool
+startsWithCI a b =
+    String.toUpper b |> String.startsWith (String.toUpper a)
 
 
 isCompleted : List String -> String -> Bool
 isCompleted expected actual =
-    -- TODO: use locale-specific accent-sensitive compare
-    -- TODO: unit-test
-    expected |> List.any (\x -> x == actual)
+    List.any (isEqualCI actual) <| expected
 
 
 isCorrectSoFar : List String -> String -> Bool
 isCorrectSoFar expected actual =
-    -- TODO: use locale-specific accent-sensitive compare
-    -- TODO: unit-test
-    expected |> List.any (\x -> x |> String.startsWith actual)
+    List.any (startsWithCI actual) <| expected
 
 
 isPerfect : Int -> Bool
@@ -408,9 +414,9 @@ isExerciseCompleted state =
     state.firstSingular.isCompleted && state.secondSingular.isCompleted
 
 
-exerciseResult : Int -> ExerciseResult
-exerciseResult errorCount =
-    isPerfect errorCount |> conditionallyPick Correct Incorrect
+finalResult : Int -> FinalResult
+finalResult =
+    isPerfect >> conditionallyPick Correct Incorrect
 
 
 getExerciseOverallResultAndFeedback : Int -> ( String, String )
