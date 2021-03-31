@@ -14,7 +14,12 @@ import Util exposing (conditionallyPick)
 type Model
     = ExerciseInProgress ExerciseSpec ExerciseCurrentState
     | ExerciseCompleted ExerciseSpec ExerciseSummary
-    | Error String
+    | Error ErrorDetails
+
+
+type ErrorDetails
+    = IncompatibleMessageForState Msg Model
+    | Other String
 
 
 type alias ExerciseSpec =
@@ -139,10 +144,10 @@ updateExerciseInProgress msg model =
                         { state | secondSingular = FillBoxState newValue newIsCompleted newErrorCount }
 
                 _ ->
-                    Error "Invalid message for exercise in progress"
+                    IncompatibleMessageForState msg model |> Error
 
         _ ->
-            Error "Message is intended for exercise in progress"
+            IncompatibleMessageForState msg model |> Error
 
 
 returnAsExerciseInProgressOrCompleted : ExerciseSpec -> ExerciseCurrentState -> Model
@@ -212,8 +217,19 @@ view model =
         ExerciseCompleted spec summary ->
             verbConjugatorCompletionScore spec summary
 
-        Error errorText ->
-            div [] [ text errorText ]
+        Error errorDetails ->
+            div [] [ text (errorDetails |> errorText) ]
+
+
+errorText : ErrorDetails -> String
+errorText err =
+    case err of
+        IncompatibleMessageForState _ _ ->
+            -- TODO: how to print out msg/model?
+            "Message is incompatible with the current state of the model"
+
+        Other s ->
+            s
 
 
 verbConjugator : ExerciseSpec -> ExerciseCurrentState -> Html Msg
