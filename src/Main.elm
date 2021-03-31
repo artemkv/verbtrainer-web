@@ -18,7 +18,9 @@ type Model
 
 
 type alias ExerciseSpec =
-    { labels : ExerciseLabels
+    { verb : String
+    , tense : String
+    , labels : ExerciseLabels
     , answers : ExerciseAnswers
     }
 
@@ -78,7 +80,9 @@ init : Model
 init =
     -- TODO: load spec from JSON
     ExerciseInProgress
-        { labels =
+        { verb = "Hablar"
+        , tense = "Presente"
+        , labels =
             { firstSingular = "Yo"
             , secondSingular = "Tú"
             }
@@ -216,8 +220,8 @@ verbConjugator : ExerciseSpec -> ExerciseCurrentState -> Html Msg
 verbConjugator spec state =
     div []
         [ div [ class "verb-conjugator" ]
-            [ div [ class "verb-conjugator-verb" ] [ text "Verb" ]
-            , div [ class "verb-conjugator-tense" ] [ text "tense" ]
+            [ div [ class "verb-conjugator-verb" ] [ text spec.verb ]
+            , div [ class "verb-conjugator-tense" ] [ text spec.tense ]
             , fillBox
                 spec.labels.firstSingular
                 spec.answers.firstSingular
