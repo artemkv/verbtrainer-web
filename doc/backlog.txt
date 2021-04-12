@@ -10,14 +10,15 @@
 - When 2 or more errors, show hint
 - For every exerices, display verb and tense
 - Load exercise data from JS
+- Return different exercise data from JS depending on id, and emulate errors from JS
 --------------------------
 - Completed exercise has "next" button, allowing to move to the next exercise
-- Tense should be a link to the grammar section
-- For every exerices, display link to the next one
+- For every exerice, display link to the next one
 - Set focus on the first field
 - Prevent spellcheck on inputs in fillbox
 - Virtual keyboard
 - Use all 6 verb forms
+- Tense should be a link to the grammar section
 
 
 TODO:

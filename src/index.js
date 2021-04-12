@@ -7,6 +7,76 @@ const app = Elm.Main.init({
 })
 
 app.ports.requestExerciseData.subscribe(function (id) {
-    let exerciseData = "{\"verb\": \"Hablar\",\"tense\": \"Presente\",\"labels\": {\"firstSingular\": \"Yo\",\"secondSingular\": \"Tú\"},\"answers\": {\"firstSingular\": [\"hablo\"],\"secondSingular\": [\"hablas\"]}}"
-    app.ports.exerciseDataReceived.send(exerciseData);
+    // TODO: this is hard-coded implementation
+    let hablar = {
+        id: "hablar",
+        verb: "Hablar",
+        tense: "Presente",
+        labels: {
+            firstSingular: "Yo",
+            secondSingular: "Tú",
+            thirdSingular: "",
+            firstPlural: "",
+            secondPlural: "",
+            thirdPlural: ""
+        },
+        answers: {
+            firstSingular: ["hablo"],
+            secondSingular: ["hablas"],
+            thirdSingular: [""],
+            firstPlural: [""],
+            secondPlural: [""],
+            thirdPlural: [""]
+        },
+        next: {
+            verb: "Estar",
+            id: "estar"
+        }
+    };
+
+    let estar = {
+        id: "estar",
+        verb: "Estar",
+        tense: "Presente",
+        labels: {
+            firstSingular: "Yo",
+            secondSingular: "Tú",
+            thirdSingular: "",
+            firstPlural: "",
+            secondPlural: "",
+            thirdPlural: ""
+        },
+        answers: {
+            firstSingular: ["estoy"],
+            secondSingular: ["estás"],
+            thirdSingular: [""],
+            firstPlural: [""],
+            secondPlural: [""],
+            thirdPlural: [""]
+        },
+        next: {
+            verb: "Ser",
+            id: "ser"
+        }
+    };
+
+    let result = {
+        isOk: false,
+        data: {
+            err: "Could not load exercise data"
+        }
+    }
+    if (id === "hablar") {
+        result = {
+            isOk: true,
+            data: hablar
+        }
+    } else if (id === "estar") {
+        result = {
+            isOk: true,
+            data: estar
+        }
+    }
+
+    app.ports.exerciseDataReceived.send(JSON.stringify(result));
 });

@@ -4,7 +4,7 @@ import Browser
 import Html exposing (Html, button, div, img, input, label, span, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput)
-import Json.Decode exposing (Decoder, decodeString, field, map2, map4, string)
+import Json.Decode exposing (Decoder, bool, decodeString, field, map2, map4, string)
 import Util exposing (conditionallyPick)
 
 
@@ -14,7 +14,7 @@ import Util exposing (conditionallyPick)
 
 type Model
     = ExerciseNotLoaded
-    | ExerciseLoadingFailed Json.Decode.Error
+    | ExerciseLoadingFailed String
     | ExerciseInProgress ExerciseSpec ExerciseCurrentState
     | ExerciseCompleted ExerciseSpec ExerciseSummary
     | Error ErrorDetails
@@ -111,7 +111,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         ExerciseDataReceived data ->
-            ( initExercise data msg model, Cmd.none )
+            ( updateExerciseFromReceivedData data msg model, Cmd.none )
 
         FirstSingularChange _ ->
             ( updateExerciseInProgress msg model, Cmd.none )
@@ -125,11 +125,11 @@ update msg model =
             ( ExerciseNotLoaded, requestExerciseData "hablar" )
 
 
-initExercise : String -> Msg -> Model -> Model
-initExercise data msg model =
+updateExerciseFromReceivedData : String -> Msg -> Model -> Model
+updateExerciseFromReceivedData data msg model =
     case model of
         ExerciseNotLoaded ->
-            decodeExerciseData data
+            processReceivedExerciseData data
 
         _ ->
             IncompatibleMessageForState msg model |> Error
@@ -241,7 +241,7 @@ view model =
 
         ExerciseLoadingFailed err ->
             -- TODO: render error correctly
-            div [] [ text (Json.Decode.errorToString err) ]
+            div [] [ text err ]
 
         ExerciseInProgress spec state ->
             verbConjugator spec state
@@ -500,6 +500,24 @@ port requestExerciseData : String -> Cmd id
 port exerciseDataReceived : (String -> msg) -> Sub msg
 
 
+processReceivedExerciseData : String -> Model
+processReceivedExerciseData data =
+    let
+        isOk =
+            data |> decodeString (field "isOk" bool)
+    in
+    case isOk of
+        Ok success ->
+            if success then
+                decodeExerciseData data
+
+            else
+                decodeExerciseLoadingErrorData data
+
+        Err err ->
+            ExerciseLoadingFailed (Json.Decode.errorToString err)
+
+
 decodeExerciseData : String -> Model
 decodeExerciseData data =
     let
@@ -511,16 +529,32 @@ decodeExerciseData data =
             ExerciseInProgress spec emptyExerciseState
 
         Err err ->
+            ExerciseLoadingFailed (Json.Decode.errorToString err)
+
+
+decodeExerciseLoadingErrorData : String -> Model
+decodeExerciseLoadingErrorData data =
+    let
+        result =
+            data |> decodeString exerciseLoadingErrorDecoder
+    in
+    case result of
+        Ok err ->
             ExerciseLoadingFailed err
+
+        Err err ->
+            ExerciseLoadingFailed (Json.Decode.errorToString err)
 
 
 exerciseSpecDecoder : Decoder ExerciseSpec
 exerciseSpecDecoder =
-    map4 ExerciseSpec
-        (field "verb" string)
-        (field "tense" string)
-        (field "labels" exerciseLabelsDecoder)
-        (field "answers" exerciseAnswersDecoder)
+    field "data"
+        (map4 ExerciseSpec
+            (field "verb" string)
+            (field "tense" string)
+            (field "labels" exerciseLabelsDecoder)
+            (field "answers" exerciseAnswersDecoder)
+        )
 
 
 exerciseLabelsDecoder : Decoder ExerciseLabels
@@ -535,6 +569,11 @@ exerciseAnswersDecoder =
     map2 ExerciseAnswers
         (field "firstSingular" (Json.Decode.list string))
         (field "secondSingular" (Json.Decode.list string))
+
+
+exerciseLoadingErrorDecoder : Decoder String
+exerciseLoadingErrorDecoder =
+    field "data" (field "err" string)
 
 
 
