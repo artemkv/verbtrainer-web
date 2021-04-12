@@ -1,10 +1,10 @@
-module Main exposing (..)
+port module Main exposing (..)
 
 import Browser
 import Html exposing (Html, button, div, img, input, label, span, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput)
-import Json.Decode exposing (Decoder, decodeString, decodeValue, field, map2, map4, string)
+import Json.Decode exposing (Decoder, decodeString, field, map2, map4, string)
 import Util exposing (conditionallyPick)
 
 
@@ -91,29 +91,48 @@ type FinalResult
     | Incorrect
 
 
-init : Model
-init =
-    -- TODO: load spec from JSON
-    loadExerciseData
+init : () -> ( Model, Cmd Msg )
+init _ =
+    ( ExerciseNotLoaded, requestExerciseData "hablar" )
+
+
+
+-- Update
 
 
 type Msg
-    = FirstSingularChange String
+    = ExerciseDataReceived String
+    | FirstSingularChange String
     | SecondSingularChange String
     | RetryCompletedExercise
 
 
-update : Msg -> Model -> Model
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        ExerciseDataReceived data ->
+            ( initExercise data msg model, Cmd.none )
+
         FirstSingularChange _ ->
-            updateExerciseInProgress msg model
+            ( updateExerciseInProgress msg model, Cmd.none )
 
         SecondSingularChange _ ->
-            updateExerciseInProgress msg model
+            ( updateExerciseInProgress msg model, Cmd.none )
 
         RetryCompletedExercise ->
-            init
+            -- TODO: repeat the same exercise
+            -- TODO: don't load second time
+            ( ExerciseNotLoaded, requestExerciseData "hablar" )
+
+
+initExercise : String -> Msg -> Model -> Model
+initExercise data msg model =
+    case model of
+        ExerciseNotLoaded ->
+            decodeExerciseData data
+
+        _ ->
+            IncompatibleMessageForState msg model |> Error
 
 
 updateExerciseInProgress : Msg -> Model -> Model
@@ -198,6 +217,15 @@ getNewFillBoxStateValues answers newValue state =
             state.errorCount + errorDelta
     in
     ( newIsCompleted, newErrorCount )
+
+
+
+-- Subscriptions
+
+
+subscriptions : Model -> Sub Msg
+subscriptions _ =
+    exerciseDataReceived ExerciseDataReceived
 
 
 
@@ -466,11 +494,17 @@ showHint errorCount =
 -- Data loading
 
 
-loadExerciseData : Model
-loadExerciseData =
+port requestExerciseData : String -> Cmd id
+
+
+port exerciseDataReceived : (String -> msg) -> Sub msg
+
+
+decodeExerciseData : String -> Model
+decodeExerciseData data =
     let
         result =
-            decodeString exerciseSpecDecoder exerciseSpecJSON
+            data |> decodeString exerciseSpecDecoder
     in
     case result of
         Ok spec ->
@@ -478,11 +512,6 @@ loadExerciseData =
 
         Err err ->
             ExerciseLoadingFailed err
-
-
-exerciseSpecJSON : String
-exerciseSpecJSON =
-    "{\"verb\": \"Hablar\",\"tense\": \"Presente\",\"labels\": {\"firstSingular\": \"Yo\",\"secondSingular\": \"Tú\"},\"answers\": {\"firstSingular\": [\"hablo\"],\"secondSingular\": [\"hablas\"]}}"
 
 
 exerciseSpecDecoder : Decoder ExerciseSpec
@@ -514,4 +543,4 @@ exerciseAnswersDecoder =
 
 main : Program () Model Msg
 main =
-    Browser.sandbox { init = init, update = update, view = view }
+    Browser.element { init = init, update = update, view = view, subscriptions = subscriptions }

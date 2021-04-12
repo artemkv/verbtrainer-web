@@ -9,8 +9,8 @@
 - Show correct completion mark next to fillbox
 - When 2 or more errors, show hint
 - For every exerices, display verb and tense
---------------------------
 - Load exercise data from JS
+--------------------------
 - Completed exercise has "next" button, allowing to move to the next exercise
 - Tense should be a link to the grammar section
 - For every exerices, display link to the next one
