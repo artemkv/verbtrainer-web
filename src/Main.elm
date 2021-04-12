@@ -1,10 +1,10 @@
 port module Main exposing (..)
 
 import Browser
-import Html exposing (Html, button, div, img, input, label, span, text)
+import Html exposing (Html, a, button, div, img, input, label, span, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput)
-import Json.Decode exposing (Decoder, bool, decodeString, field, map2, map4, string)
+import Json.Decode exposing (Decoder, bool, decodeString, field, map2, map6, string)
 import Util exposing (conditionallyPick)
 
 
@@ -25,11 +25,17 @@ type ErrorDetails
     | Other String
 
 
+type alias ExerciseId =
+    String
+
+
 type alias ExerciseSpec =
-    { verb : String
+    { id : ExerciseId
+    , verb : String
     , tense : String
     , labels : ExerciseLabels
     , answers : ExerciseAnswers
+    , next : NextExerciseReference
     }
 
 
@@ -42,6 +48,12 @@ type alias ExerciseLabels =
 type alias ExerciseAnswers =
     { firstSingular : List String
     , secondSingular : List String
+    }
+
+
+type alias NextExerciseReference =
+    { id : ExerciseId
+    , verb : String
     }
 
 
@@ -239,9 +251,9 @@ view model =
             -- TODO: render spinner
             div [] [ text "Loading..." ]
 
-        ExerciseLoadingFailed err ->
+        ExerciseLoadingFailed reason ->
             -- TODO: render error correctly
-            div [] [ text err ]
+            div [] [ text reason ]
 
         ExerciseInProgress spec state ->
             verbConjugator spec state
@@ -281,6 +293,7 @@ verbConjugator spec state =
                 state.secondSingular
                 SecondSingularChange
             ]
+        , nextExerciseReference spec.next
         ]
 
 
@@ -380,6 +393,19 @@ calculateFillBoxInputClass isAnswerCompleted isAnswerCorrectSoFar =
 
     else
         "fill-box-input"
+
+
+nextExerciseReference : NextExerciseReference -> Html Msg
+nextExerciseReference next =
+    div [ class "verb-conjugator-next" ]
+        [ div [ class "verb-conjugator-next-inner1" ] []
+        , div [ class "verb-conjugator-next-inner2" ]
+            [ a [ class "verb-conjugator-next-link", href next.id ]
+                [ text (next.verb ++ " >")
+                ]
+            ]
+        , div [ class "verb-conjugator-next-inner3" ] []
+        ]
 
 
 verbConjugatorCompletionScore : ExerciseSpec -> ExerciseSummary -> Html Msg
@@ -549,11 +575,13 @@ decodeExerciseLoadingErrorData data =
 exerciseSpecDecoder : Decoder ExerciseSpec
 exerciseSpecDecoder =
     field "data"
-        (map4 ExerciseSpec
+        (map6 ExerciseSpec
+            (field "id" string)
             (field "verb" string)
             (field "tense" string)
             (field "labels" exerciseLabelsDecoder)
             (field "answers" exerciseAnswersDecoder)
+            (field "next" exerciseNextDecoder)
         )
 
 
@@ -569,6 +597,13 @@ exerciseAnswersDecoder =
     map2 ExerciseAnswers
         (field "firstSingular" (Json.Decode.list string))
         (field "secondSingular" (Json.Decode.list string))
+
+
+exerciseNextDecoder : Decoder NextExerciseReference
+exerciseNextDecoder =
+    map2 NextExerciseReference
+        (field "id" string)
+        (field "verb" string)
 
 
 exerciseLoadingErrorDecoder : Decoder String
