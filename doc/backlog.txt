@@ -11,6 +11,7 @@
 - For every exerices, display verb and tense
 - Load exercise data from JS
 - Return different exercise data from JS depending on id, and emulate errors from JS
+- Exercise has "next" button, allowing to move to the next exercise
 --------------------------
 - Completed exercise has "next" button, allowing to move to the next exercise
 - For every exerice, display link to the next one
@@ -19,6 +20,8 @@
 - Virtual keyboard
 - Use all 6 verb forms
 - Tense should be a link to the grammar section
+- Handle not found when link is completely incorrect
+- Handle not found when link is correct, but exercise with this id does not exist
 
 
 TODO:

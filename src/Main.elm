@@ -1,10 +1,13 @@
 port module Main exposing (..)
 
 import Browser
+import Browser.Navigation as Nav
 import Html exposing (Html, a, button, div, img, input, label, span, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput)
 import Json.Decode exposing (Decoder, bool, decodeString, field, map2, map6, string)
+import Url
+import Url.Parser exposing ((</>), Parser)
 import Util exposing (conditionallyPick)
 
 
@@ -12,7 +15,13 @@ import Util exposing (conditionallyPick)
 -- Model
 
 
-type Model
+type alias Model =
+    { navKey : Nav.Key
+    , appModel : AppModel
+    }
+
+
+type AppModel
     = ExerciseNotLoaded
     | ExerciseLoadingFailed String
     | ExerciseInProgress ExerciseSpec ExerciseCurrentState
@@ -21,7 +30,7 @@ type Model
 
 
 type ErrorDetails
-    = IncompatibleMessageForState Msg Model
+    = IncompatibleMessageForState Msg AppModel
     | Other String
 
 
@@ -103,9 +112,9 @@ type FinalResult
     | Incorrect
 
 
-init : () -> ( Model, Cmd Msg )
-init _ =
-    ( ExerciseNotLoaded, requestExerciseData "hablar" )
+init : () -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
+init _ url navKey =
+    handleRouteChange url (Model navKey ExerciseNotLoaded)
 
 
 
@@ -113,7 +122,9 @@ init _ =
 
 
 type Msg
-    = ExerciseDataReceived String
+    = LinkClicked Browser.UrlRequest
+    | UrlChanged Url.Url
+    | ExerciseDataReceived String
     | FirstSingularChange String
     | SecondSingularChange String
     | RetryCompletedExercise
@@ -121,23 +132,66 @@ type Msg
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
+    let
+        appModel =
+            model.appModel
+    in
     case msg of
+        LinkClicked urlRequest ->
+            navigate urlRequest model
+
+        UrlChanged url ->
+            handleRouteChange url model
+
         ExerciseDataReceived data ->
-            ( updateExerciseFromReceivedData data msg model, Cmd.none )
+            updateExerciseFromReceivedData data msg appModel |> asNewAppModelOf model |> justModel
 
         FirstSingularChange _ ->
-            ( updateExerciseInProgress msg model, Cmd.none )
+            updateExerciseInProgress msg appModel |> asNewAppModelOf model |> justModel
 
         SecondSingularChange _ ->
-            ( updateExerciseInProgress msg model, Cmd.none )
+            updateExerciseInProgress msg appModel |> asNewAppModelOf model |> justModel
 
         RetryCompletedExercise ->
-            -- TODO: repeat the same exercise
-            -- TODO: don't load second time
-            ( ExerciseNotLoaded, requestExerciseData "hablar" )
+            clearExerciseState msg appModel |> asNewAppModelOf model |> justModel
 
 
-updateExerciseFromReceivedData : String -> Msg -> Model -> Model
+navigate : Browser.UrlRequest -> Model -> ( Model, Cmd Msg )
+navigate urlRequest model =
+    case urlRequest of
+        Browser.Internal url ->
+            ( model, Nav.pushUrl model.navKey (Url.toString url) )
+
+        Browser.External href ->
+            ( model, Nav.load href )
+
+
+handleRouteChange : Url.Url -> Model -> ( Model, Cmd Msg )
+handleRouteChange url model =
+    case toRoute url of
+        -- TODO: handle home correctly
+        Home ->
+            ( ExerciseNotLoaded |> asNewAppModelOf model, requestExerciseData "hablar" )
+
+        Exercise id ->
+            ( ExerciseNotLoaded |> asNewAppModelOf model, requestExerciseData id )
+
+        -- TODO: handle not found correctly
+        NotFound ->
+            ( model, Cmd.none )
+
+
+asNewAppModelOf : Model -> AppModel -> Model
+asNewAppModelOf model appModel =
+    { model | appModel = appModel }
+
+
+justModel : Model -> ( Model, Cmd Msg )
+justModel model =
+    ( model, Cmd.none )
+
+
+updateExerciseFromReceivedData : String -> Msg -> AppModel -> AppModel
 updateExerciseFromReceivedData data msg model =
     case model of
         ExerciseNotLoaded ->
@@ -147,7 +201,7 @@ updateExerciseFromReceivedData data msg model =
             IncompatibleMessageForState msg model |> Error
 
 
-updateExerciseInProgress : Msg -> Model -> Model
+updateExerciseInProgress : Msg -> AppModel -> AppModel
 updateExerciseInProgress msg model =
     case model of
         ExerciseInProgress spec state ->
@@ -177,7 +231,7 @@ updateExerciseInProgress msg model =
             IncompatibleMessageForState msg model |> Error
 
 
-returnAsExerciseInProgressOrCompleted : ExerciseSpec -> ExerciseCurrentState -> Model
+returnAsExerciseInProgressOrCompleted : ExerciseSpec -> ExerciseCurrentState -> AppModel
 returnAsExerciseInProgressOrCompleted spec state =
     if isExerciseCompleted state then
         let
@@ -231,6 +285,16 @@ getNewFillBoxStateValues answers newValue state =
     ( newIsCompleted, newErrorCount )
 
 
+clearExerciseState : Msg -> AppModel -> AppModel
+clearExerciseState msg model =
+    case model of
+        ExerciseCompleted spec _ ->
+            ExerciseInProgress spec emptyExerciseState
+
+        _ ->
+            IncompatibleMessageForState msg model |> Error
+
+
 
 -- Subscriptions
 
@@ -240,12 +304,19 @@ subscriptions _ =
     exerciseDataReceived ExerciseDataReceived
 
 
-
 -- View
 
 
-view : Model -> Html Msg
+view : Model -> Browser.Document Msg
 view model =
+    -- TODO: where should the title come from?
+    { title = "Verb Conjugation Exercises"
+    , body = [ body model.appModel ]
+    }
+
+
+body : AppModel -> Html Msg
+body model =
     case model of
         ExerciseNotLoaded ->
             -- TODO: render spinner
@@ -366,7 +437,7 @@ completedAndPerfect =
     span [ class "completed-perfect-mark" ]
         [ img
             [ class "completed-perfect-image"
-            , src "./correct.png"
+            , src "/correct.png"
             ]
             []
         ]
@@ -377,7 +448,7 @@ completedNotPerfect =
     span [ class "completed-imperfect-mark" ]
         [ img
             [ class "completed-imperfect-image"
-            , src "./incorrect.png"
+            , src "/incorrect.png"
             ]
             []
         ]
@@ -400,7 +471,12 @@ nextExerciseReference next =
     div [ class "verb-conjugator-next" ]
         [ div [ class "verb-conjugator-next-inner1" ] []
         , div [ class "verb-conjugator-next-inner2" ]
-            [ a [ class "verb-conjugator-next-link", href next.id ]
+            [ a
+                [ class "verb-conjugator-next-link"
+
+                -- TODO: make a helper to generate links, ideally from router
+                , href ("/exercise/" ++ next.id)
+                ]
                 [ text (next.verb ++ " >")
                 ]
             ]
@@ -526,7 +602,7 @@ port requestExerciseData : String -> Cmd id
 port exerciseDataReceived : (String -> msg) -> Sub msg
 
 
-processReceivedExerciseData : String -> Model
+processReceivedExerciseData : String -> AppModel
 processReceivedExerciseData data =
     let
         isOk =
@@ -544,7 +620,7 @@ processReceivedExerciseData data =
             ExerciseLoadingFailed (Json.Decode.errorToString err)
 
 
-decodeExerciseData : String -> Model
+decodeExerciseData : String -> AppModel
 decodeExerciseData data =
     let
         result =
@@ -558,7 +634,7 @@ decodeExerciseData data =
             ExerciseLoadingFailed (Json.Decode.errorToString err)
 
 
-decodeExerciseLoadingErrorData : String -> Model
+decodeExerciseLoadingErrorData : String -> AppModel
 decodeExerciseLoadingErrorData data =
     let
         result =
@@ -612,9 +688,39 @@ exerciseLoadingErrorDecoder =
 
 
 
+-- Routing
+
+
+type Route
+    = Home
+    | Exercise ExerciseId
+    | NotFound
+
+
+routeParser : Parser (Route -> a) a
+routeParser =
+    Url.Parser.oneOf
+        [ Url.Parser.map Home Url.Parser.top
+        , Url.Parser.map Exercise (Url.Parser.s "exercise" </> Url.Parser.string)
+        ]
+
+
+toRoute : Url.Url -> Route
+toRoute url =
+    Url.Parser.parse routeParser url |> Maybe.withDefault NotFound
+
+
+
 -- Main
 
 
 main : Program () Model Msg
 main =
-    Browser.element { init = init, update = update, view = view, subscriptions = subscriptions }
+    Browser.application
+        { init = init
+        , update = update
+        , view = view
+        , subscriptions = subscriptions
+        , onUrlChange = UrlChanged
+        , onUrlRequest = LinkClicked
+        }

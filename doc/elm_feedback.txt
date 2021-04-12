@@ -1,3 +1,4 @@
 - formatting is too aggressive. My "TODO" comments are constantly forced away from functions and type definitions
 - many JS APIs are not available in Elm (e.g. String.localCompare)
 - Messages are separated from model, but many messages only make sense when model is an a certain state
+- Initial prototyping went super fast and easy, but adding routing and JS interop took some mind bending
