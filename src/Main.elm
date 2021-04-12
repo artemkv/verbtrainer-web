@@ -4,6 +4,7 @@ import Browser
 import Html exposing (Html, button, div, img, input, label, span, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput)
+import Json.Decode exposing (Decoder, decodeString, decodeValue, field, map2, map4, string)
 import Util exposing (conditionallyPick)
 
 
@@ -12,7 +13,9 @@ import Util exposing (conditionallyPick)
 
 
 type Model
-    = ExerciseInProgress ExerciseSpec ExerciseCurrentState
+    = ExerciseNotLoaded
+    | ExerciseLoadingFailed Json.Decode.Error
+    | ExerciseInProgress ExerciseSpec ExerciseCurrentState
     | ExerciseCompleted ExerciseSpec ExerciseSummary
     | Error ErrorDetails
 
@@ -63,6 +66,13 @@ emptyFillBoxState =
     }
 
 
+emptyExerciseState : ExerciseCurrentState
+emptyExerciseState =
+    { firstSingular = emptyFillBoxState
+    , secondSingular = emptyFillBoxState
+    }
+
+
 type alias ExerciseSummary =
     { overallResult : String
     , feedback : String
@@ -84,21 +94,7 @@ type FinalResult
 init : Model
 init =
     -- TODO: load spec from JSON
-    ExerciseInProgress
-        { verb = "Hablar"
-        , tense = "Presente"
-        , labels =
-            { firstSingular = "Yo"
-            , secondSingular = "Tú"
-            }
-        , answers =
-            { firstSingular = [ "hablo" ]
-            , secondSingular = [ "hablas" ]
-            }
-        }
-        { firstSingular = emptyFillBoxState
-        , secondSingular = emptyFillBoxState
-        }
+    loadExerciseData
 
 
 type Msg
@@ -211,6 +207,14 @@ getNewFillBoxStateValues answers newValue state =
 view : Model -> Html Msg
 view model =
     case model of
+        ExerciseNotLoaded ->
+            -- TODO: render spinner
+            div [] [ text "Loading..." ]
+
+        ExerciseLoadingFailed err ->
+            -- TODO: render error correctly
+            div [] [ text (Json.Decode.errorToString err) ]
+
         ExerciseInProgress spec state ->
             verbConjugator spec state
 
@@ -456,6 +460,52 @@ getExerciseOverallResultAndFeedback exerciseIncorrectTotal =
 showHint : Int -> Bool
 showHint errorCount =
     errorCount > 1
+
+
+
+-- Data loading
+
+
+loadExerciseData : Model
+loadExerciseData =
+    let
+        result =
+            decodeString exerciseSpecDecoder exerciseSpecJSON
+    in
+    case result of
+        Ok spec ->
+            ExerciseInProgress spec emptyExerciseState
+
+        Err err ->
+            ExerciseLoadingFailed err
+
+
+exerciseSpecJSON : String
+exerciseSpecJSON =
+    "{\"verb\": \"Hablar\",\"tense\": \"Presente\",\"labels\": {\"firstSingular\": \"Yo\",\"secondSingular\": \"Tú\"},\"answers\": {\"firstSingular\": [\"hablo\"],\"secondSingular\": [\"hablas\"]}}"
+
+
+exerciseSpecDecoder : Decoder ExerciseSpec
+exerciseSpecDecoder =
+    map4 ExerciseSpec
+        (field "verb" string)
+        (field "tense" string)
+        (field "labels" exerciseLabelsDecoder)
+        (field "answers" exerciseAnswersDecoder)
+
+
+exerciseLabelsDecoder : Decoder ExerciseLabels
+exerciseLabelsDecoder =
+    map2 ExerciseLabels
+        (field "firstSingular" string)
+        (field "secondSingular" string)
+
+
+exerciseAnswersDecoder : Decoder ExerciseAnswers
+exerciseAnswersDecoder =
+    map2 ExerciseAnswers
+        (field "firstSingular" (Json.Decode.list string))
+        (field "secondSingular" (Json.Decode.list string))
 
 
 
