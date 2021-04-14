@@ -1,6 +1,6 @@
 port module Main exposing (..)
 
-import Browser
+import Browser exposing (UrlRequest(..))
 import Browser.Navigation as Nav
 import Html exposing (Html, a, button, div, img, input, label, span, text)
 import Html.Attributes exposing (..)
@@ -128,6 +128,7 @@ type Msg
     | FirstSingularChange String
     | SecondSingularChange String
     | RetryCompletedExercise
+    | MoveToExercise ExerciseId
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -142,6 +143,9 @@ update msg model =
 
         UrlChanged url ->
             handleRouteChange url model
+
+        MoveToExercise id ->
+            navigateToExercise id model
 
         ExerciseDataReceived data ->
             updateExerciseFromReceivedData data msg appModel |> asNewAppModelOf model |> justModel
@@ -179,6 +183,11 @@ handleRouteChange url model =
         -- TODO: handle not found correctly
         NotFound ->
             ( model, Cmd.none )
+
+
+navigateToExercise : ExerciseId -> Model -> ( Model, Cmd Msg )
+navigateToExercise id model =
+    ( model, Nav.pushUrl model.navKey (getExerciseLink id) )
 
 
 asNewAppModelOf : Model -> AppModel -> Model
@@ -302,6 +311,7 @@ clearExerciseState msg model =
 subscriptions : Model -> Sub Msg
 subscriptions _ =
     exerciseDataReceived ExerciseDataReceived
+
 
 
 -- View
@@ -473,12 +483,9 @@ nextExerciseReference next =
         , div [ class "verb-conjugator-next-inner2" ]
             [ a
                 [ class "verb-conjugator-next-link"
-
-                -- TODO: make a helper to generate links, ideally from router
-                , href ("/exercise/" ++ next.id)
+                , href (getExerciseLink next.id)
                 ]
-                [ text (next.verb ++ " >")
-                ]
+                [ text (next.verb ++ " >") ]
             ]
         , div [ class "verb-conjugator-next-inner3" ] []
         ]
@@ -505,9 +512,25 @@ verbConjugatorCompletionScore spec summary =
                 , div [ class "result-box-inner3" ] []
                 ]
             ]
-        , div
-            []
-            [ button [ onClick RetryCompletedExercise ] [ text "Retry" ] -- TODO: move to labels
+        , div [ class "exercise-completion-score-next" ]
+            [ div [ class "exercise-completion-score-next-inner1" ] []
+            , div [ class "exercise-completion-score-next-inner2" ]
+                [ div [ class "exercise-completion-score-buttons" ]
+                    [ button
+                        [ class "exercise-completion-score-retry-button"
+                        , onClick RetryCompletedExercise
+                        ]
+                        -- TODO: move to labels
+                        [ text "Retry" ]
+                    , button
+                        [ class "exercise-completion-score-next-button"
+                        , onClick (MoveToExercise spec.next.id)
+                        ]
+                        -- TODO: move to labels
+                        [ text (spec.next.verb ++ " >") ]
+                    ]
+                ]
+            , div [ class "exercise-completion-score-next-inner3" ] []
             ]
         ]
 
@@ -574,6 +597,7 @@ finalResult =
 
 getExerciseOverallResultAndFeedback : Int -> ( String, String )
 getExerciseOverallResultAndFeedback exerciseIncorrectTotal =
+    -- TODO: move to labels
     if exerciseIncorrectTotal == 0 then
         ( "Perfect score!", "Great job!" )
 
@@ -708,6 +732,10 @@ routeParser =
 toRoute : Url.Url -> Route
 toRoute url =
     Url.Parser.parse routeParser url |> Maybe.withDefault NotFound
+
+
+getExerciseLink id =
+    "/exercise/" ++ id
 
 
 
