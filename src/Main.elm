@@ -4,7 +4,7 @@ import Browser exposing (UrlRequest(..))
 import Browser.Navigation as Nav
 import Html exposing (Html, a, button, div, img, input, label, span, text)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onClick, onInput)
+import Html.Events exposing (onClick, onFocus, onInput)
 import Json.Decode exposing (Decoder, bool, decodeString, field, map2, map6, string)
 import Url
 import Url.Parser exposing ((</>), Parser)
@@ -69,7 +69,13 @@ type alias NextExerciseReference =
 type alias ExerciseCurrentState =
     { firstSingular : FillBoxState
     , secondSingular : FillBoxState
+    , focusedFillBox : VerbForm
     }
+
+
+type VerbForm
+    = FirstSingular
+    | SecondSingular
 
 
 type alias FillBoxState =
@@ -91,6 +97,7 @@ emptyExerciseState : ExerciseCurrentState
 emptyExerciseState =
     { firstSingular = emptyFillBoxState
     , secondSingular = emptyFillBoxState
+    , focusedFillBox = FirstSingular
     }
 
 
@@ -128,6 +135,8 @@ type Msg
     | ExerciseDataReceived String
     | FirstSingularChange String
     | SecondSingularChange String
+    | FirstSingularFocused
+    | SecondSingularFocused
     | VirtualKeyPressed String
     | RetryCompletedExercise
 
@@ -157,8 +166,14 @@ update msg model =
         SecondSingularChange _ ->
             updateExerciseInProgress msg appModel |> asNewAppModelOf model |> justModel
 
+        FirstSingularFocused ->
+            handleFillBoxFocused msg appModel |> asNewAppModelOf model |> justModel
+
+        SecondSingularFocused ->
+            handleFillBoxFocused msg appModel |> asNewAppModelOf model |> justModel
+
         VirtualKeyPressed char ->
-            processVirtualKeyPress char msg appModel |> asNewAppModelOf model |> justModel
+            handleVirtualKeyPress char msg appModel |> asNewAppModelOf model |> justModel
 
         RetryCompletedExercise ->
             clearExerciseState msg appModel |> asNewAppModelOf model |> justModel
@@ -220,22 +235,14 @@ updateExerciseInProgress msg model =
         ExerciseInProgress spec state ->
             case msg of
                 FirstSingularChange newValue ->
-                    let
-                        ( newIsCompleted, newErrorCount ) =
-                            getNewFillBoxStateValues spec.answers.firstSingular newValue state.firstSingular
-                    in
                     returnAsExerciseInProgressOrCompleted
                         spec
-                        { state | firstSingular = FillBoxState newValue newIsCompleted newErrorCount }
+                        { state | firstSingular = getNewFillBoxState spec.answers.firstSingular newValue state.firstSingular }
 
                 SecondSingularChange newValue ->
-                    let
-                        ( newIsCompleted, newErrorCount ) =
-                            getNewFillBoxStateValues spec.answers.secondSingular newValue state.secondSingular
-                    in
                     returnAsExerciseInProgressOrCompleted
                         spec
-                        { state | secondSingular = FillBoxState newValue newIsCompleted newErrorCount }
+                        { state | secondSingular = getNewFillBoxState spec.answers.secondSingular newValue state.secondSingular }
 
                 _ ->
                     IncompatibleMessageForState msg model |> Error
@@ -244,20 +251,50 @@ updateExerciseInProgress msg model =
             IncompatibleMessageForState msg model |> Error
 
 
-processVirtualKeyPress : String -> Msg -> AppModel -> AppModel
-processVirtualKeyPress char msg model =
+getNewFillBoxState : List String -> String -> FillBoxState -> FillBoxState
+getNewFillBoxState answers newValue state =
+    let
+        newIsCompleted : Bool
+        newIsCompleted =
+            isCompleted answers newValue
+
+        isCorrectAnswerSoFar : String -> Bool
+        isCorrectAnswerSoFar =
+            isCorrectSoFar answers
+
+        wasCorrect : Bool
+        wasCorrect =
+            isCorrectAnswerSoFar state.value
+
+        isNotCorrectAnymore : Bool
+        isNotCorrectAnymore =
+            isCorrectAnswerSoFar newValue |> not
+
+        errorDelta : Int
+        errorDelta =
+            wasCorrect && isNotCorrectAnymore |> conditionallyPick 1 0
+
+        newErrorCount : Int
+        newErrorCount =
+            state.errorCount + errorDelta
+    in
+    FillBoxState newValue newIsCompleted newErrorCount
+
+
+handleVirtualKeyPress : String -> Msg -> AppModel -> AppModel
+handleVirtualKeyPress char msg model =
     case model of
         ExerciseInProgress spec state ->
-            let
-                newValue =
-                    state.firstSingular.value ++ char
+            case state.focusedFillBox of
+                FirstSingular ->
+                    returnAsExerciseInProgressOrCompleted
+                        spec
+                        { state | firstSingular = getNewFillBoxState spec.answers.firstSingular (state.firstSingular.value ++ char) state.firstSingular }
 
-                ( newIsCompleted, newErrorCount ) =
-                    getNewFillBoxStateValues spec.answers.firstSingular newValue state.firstSingular
-            in
-            returnAsExerciseInProgressOrCompleted
-                spec
-                { state | firstSingular = FillBoxState newValue newIsCompleted newErrorCount }
+                SecondSingular ->
+                    returnAsExerciseInProgressOrCompleted
+                        spec
+                        { state | secondSingular = getNewFillBoxState spec.answers.secondSingular (state.secondSingular.value ++ char) state.secondSingular }
 
         _ ->
             IncompatibleMessageForState msg model |> Error
@@ -287,34 +324,22 @@ returnAsExerciseInProgressOrCompleted spec state =
         ExerciseInProgress spec state
 
 
-getNewFillBoxStateValues : List String -> String -> FillBoxState -> ( Bool, Int )
-getNewFillBoxStateValues answers newValue state =
-    let
-        newIsCompleted : Bool
-        newIsCompleted =
-            isCompleted answers newValue
+handleFillBoxFocused : Msg -> AppModel -> AppModel
+handleFillBoxFocused msg model =
+    case model of
+        ExerciseInProgress spec state ->
+            case msg of
+                FirstSingularFocused ->
+                    ExerciseInProgress spec { state | focusedFillBox = FirstSingular }
 
-        isCorrectAnswerSoFar : String -> Bool
-        isCorrectAnswerSoFar =
-            isCorrectSoFar answers
+                SecondSingularFocused ->
+                    ExerciseInProgress spec { state | focusedFillBox = SecondSingular }
 
-        wasCorrect : Bool
-        wasCorrect =
-            isCorrectAnswerSoFar state.value
+                _ ->
+                    IncompatibleMessageForState msg model |> Error
 
-        isNotCorrectAnymore : Bool
-        isNotCorrectAnymore =
-            isCorrectAnswerSoFar newValue |> not
-
-        errorDelta : Int
-        errorDelta =
-            wasCorrect && isNotCorrectAnymore |> conditionallyPick 1 0
-
-        newErrorCount : Int
-        newErrorCount =
-            state.errorCount + errorDelta
-    in
-    ( newIsCompleted, newErrorCount )
+        _ ->
+            IncompatibleMessageForState msg model |> Error
 
 
 clearExerciseState : Msg -> AppModel -> AppModel
@@ -391,11 +416,13 @@ verbConjugator spec state =
                 spec.answers.firstSingular
                 state.firstSingular
                 FirstSingularChange
+                FirstSingularFocused
             , fillBox
                 spec.labels.secondSingular
                 spec.answers.secondSingular
                 state.secondSingular
                 SecondSingularChange
+                SecondSingularFocused
             ]
         , nextExerciseReference spec.next
         , virtualKeyboard
@@ -406,8 +433,8 @@ type alias OnInputChangeMessageProducer =
     String -> Msg
 
 
-fillBox : String -> List String -> FillBoxState -> OnInputChangeMessageProducer -> Html Msg
-fillBox labelText answers state msg =
+fillBox : String -> List String -> FillBoxState -> OnInputChangeMessageProducer -> Msg -> Html Msg
+fillBox labelText answers state onInputMsgProducer onFocusMsg =
     let
         isAnswerCorrectSoFar =
             isCorrectSoFar answers state.value
@@ -435,7 +462,8 @@ fillBox labelText answers state msg =
                 [ class inputClass
                 , type_ "text"
                 , value state.value
-                , onInput msg
+                , onInput onInputMsgProducer
+                , onFocus onFocusMsg
                 ]
                 []
             ]
