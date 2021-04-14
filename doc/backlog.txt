@@ -12,10 +12,10 @@
 - Load exercise data from JS
 - Return different exercise data from JS depending on id, and emulate errors from JS
 - Exercise has "next" button, allowing to move to the next exercise
+- For every exerice, display link to the next one
 - Completed exercise has "next" button, allowing to move to the next exercise
 --------------------------
-- For every exerice, display link to the next one
-- Set focus on the first field, and on next button when exercise completed
+- Set focus on the first field, and on next button when exercise completed (https://stackoverflow.com/questions/31901397/how-to-set-focus-on-an-element-in-elm)
 - Prevent spellcheck on inputs in fillbox
 - Virtual keyboard
 - Use all 6 verb forms

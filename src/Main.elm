@@ -734,6 +734,7 @@ toRoute url =
     Url.Parser.parse routeParser url |> Maybe.withDefault NotFound
 
 
+getExerciseLink : String -> String
 getExerciseLink id =
     "/exercise/" ++ id
 
