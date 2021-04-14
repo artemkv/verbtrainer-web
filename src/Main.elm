@@ -124,11 +124,12 @@ init _ url navKey =
 type Msg
     = LinkClicked Browser.UrlRequest
     | UrlChanged Url.Url
+    | MoveToExercise ExerciseId
     | ExerciseDataReceived String
     | FirstSingularChange String
     | SecondSingularChange String
+    | VirtualKeyPressed String
     | RetryCompletedExercise
-    | MoveToExercise ExerciseId
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -155,6 +156,9 @@ update msg model =
 
         SecondSingularChange _ ->
             updateExerciseInProgress msg appModel |> asNewAppModelOf model |> justModel
+
+        VirtualKeyPressed char ->
+            processVirtualKeyPress char msg appModel |> asNewAppModelOf model |> justModel
 
         RetryCompletedExercise ->
             clearExerciseState msg appModel |> asNewAppModelOf model |> justModel
@@ -235,6 +239,25 @@ updateExerciseInProgress msg model =
 
                 _ ->
                     IncompatibleMessageForState msg model |> Error
+
+        _ ->
+            IncompatibleMessageForState msg model |> Error
+
+
+processVirtualKeyPress : String -> Msg -> AppModel -> AppModel
+processVirtualKeyPress char msg model =
+    case model of
+        ExerciseInProgress spec state ->
+            let
+                newValue =
+                    state.firstSingular.value ++ char
+
+                ( newIsCompleted, newErrorCount ) =
+                    getNewFillBoxStateValues spec.answers.firstSingular newValue state.firstSingular
+            in
+            returnAsExerciseInProgressOrCompleted
+                spec
+                { state | firstSingular = FillBoxState newValue newIsCompleted newErrorCount }
 
         _ ->
             IncompatibleMessageForState msg model |> Error
@@ -375,6 +398,7 @@ verbConjugator spec state =
                 SecondSingularChange
             ]
         , nextExerciseReference spec.next
+        , virtualKeyboard
         ]
 
 
@@ -543,6 +567,30 @@ resultBox labelText answers result =
         , span
             [ class "result-box-completion" ]
             [ result == Correct |> conditionallyPick completedAndPerfect completedNotPerfect ]
+        ]
+
+
+virtualKeyboard : Html Msg
+virtualKeyboard =
+    -- TODO: should be different letters for different languages
+    div [ class "virtual-keyboard" ]
+        [ virtualKey "á"
+        , virtualKey "é"
+        , virtualKey "í"
+        , virtualKey "ó"
+        , virtualKey "ú"
+        , virtualKey "ü"
+        , virtualKey "ñ"
+        ]
+
+
+virtualKey : String -> Html Msg
+virtualKey char =
+    div
+        [ class "virtual-key"
+        , onClick (VirtualKeyPressed char)
+        ]
+        [ span [ class "virtual-key-char" ] [ text char ]
         ]
 
 
