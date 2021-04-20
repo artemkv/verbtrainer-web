@@ -1,11 +1,13 @@
 port module Main exposing (..)
 
 import Browser exposing (UrlRequest(..))
+import Browser.Dom as Dom
 import Browser.Navigation as Nav
 import Html exposing (Html, a, button, div, img, input, label, span, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onFocus, onInput)
 import Json.Decode exposing (Decoder, bool, decodeString, field, map2, map6, string)
+import Task
 import Url
 import Url.Parser exposing ((</>), Parser)
 import Util exposing (conditionallyPick)
@@ -44,7 +46,7 @@ type alias ExerciseSpec =
     , tense : String
     , labels : ExerciseLabels
     , answers : ExerciseAnswers
-    , next : NextExerciseReference
+    , next : NextExerciseData
     }
 
 
@@ -60,7 +62,7 @@ type alias ExerciseAnswers =
     }
 
 
-type alias NextExerciseReference =
+type alias NextExerciseData =
     { id : ExerciseId
     , verb : String
     }
@@ -69,8 +71,12 @@ type alias NextExerciseReference =
 type alias ExerciseCurrentState =
     { firstSingular : FillBoxState
     , secondSingular : FillBoxState
-    , focusedFillBox : VerbForm
+    , activeFillBox : FillBoxReference
     }
+
+
+type FillBoxReference
+    = FillBox VerbForm
 
 
 type VerbForm
@@ -97,7 +103,7 @@ emptyExerciseState : ExerciseCurrentState
 emptyExerciseState =
     { firstSingular = emptyFillBoxState
     , secondSingular = emptyFillBoxState
-    , focusedFillBox = FirstSingular
+    , activeFillBox = FillBox FirstSingular
     }
 
 
@@ -139,6 +145,7 @@ type Msg
     | SecondSingularFocused
     | VirtualKeyPressed String
     | RetryCompletedExercise
+    | FocusResult (Result Dom.Error ())
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -158,7 +165,7 @@ update msg model =
             navigateToExercise id model
 
         ExerciseDataReceived data ->
-            updateExerciseFromReceivedData data msg appModel |> asNewAppModelOf model |> justModel
+            ( updateExerciseFromReceivedData data msg appModel |> asNewAppModelOf model, focusFillBox (FillBox FirstSingular) )
 
         FirstSingularChange _ ->
             updateExerciseInProgress msg appModel |> asNewAppModelOf model |> justModel
@@ -173,10 +180,21 @@ update msg model =
             handleFillBoxFocused msg appModel |> asNewAppModelOf model |> justModel
 
         VirtualKeyPressed char ->
-            handleVirtualKeyPress char msg appModel |> asNewAppModelOf model |> justModel
+            let
+                ( newAppModel, newCmd ) =
+                    handleVirtualKeyPress char msg appModel
+            in
+            ( newAppModel |> asNewAppModelOf model, newCmd )
 
         RetryCompletedExercise ->
             clearExerciseState msg appModel |> asNewAppModelOf model |> justModel
+
+        FocusResult result ->
+            handleFocusResult model result
+
+
+
+-- Navigation
 
 
 navigate : Browser.UrlRequest -> Model -> ( Model, Cmd Msg )
@@ -207,6 +225,36 @@ handleRouteChange url model =
 navigateToExercise : ExerciseId -> Model -> ( Model, Cmd Msg )
 navigateToExercise id model =
     ( model, Nav.pushUrl model.navKey (getExerciseLink id) )
+
+
+
+-- Focus management
+
+
+focusFillBox : FillBoxReference -> Cmd Msg
+focusFillBox reference =
+    let
+        (FillBox verbForm) =
+            reference
+    in
+    getFillBoxElementId verbForm |> Dom.focus |> Task.attempt FocusResult
+
+
+handleFocusResult : Model -> Result Dom.Error () -> ( Model, Cmd Msg )
+handleFocusResult model result =
+    case result of
+        Err (Dom.NotFound id) ->
+            Other ("Could not find DOM element with id " ++ id)
+                |> Error
+                |> asNewAppModelOf model
+                |> justModel
+
+        Ok () ->
+            model |> justModel
+
+
+
+-- Other model updates
 
 
 asNewAppModelOf : Model -> AppModel -> Model
@@ -281,23 +329,27 @@ getNewFillBoxState answers newValue state =
     FillBoxState newValue newIsCompleted newErrorCount
 
 
-handleVirtualKeyPress : String -> Msg -> AppModel -> AppModel
+handleVirtualKeyPress : String -> Msg -> AppModel -> ( AppModel, Cmd Msg )
 handleVirtualKeyPress char msg model =
     case model of
         ExerciseInProgress spec state ->
-            case state.focusedFillBox of
-                FirstSingular ->
-                    returnAsExerciseInProgressOrCompleted
+            case state.activeFillBox of
+                FillBox FirstSingular ->
+                    ( returnAsExerciseInProgressOrCompleted
                         spec
                         { state | firstSingular = getNewFillBoxState spec.answers.firstSingular (state.firstSingular.value ++ char) state.firstSingular }
+                    , focusFillBox (FillBox FirstSingular)
+                    )
 
-                SecondSingular ->
-                    returnAsExerciseInProgressOrCompleted
+                FillBox SecondSingular ->
+                    ( returnAsExerciseInProgressOrCompleted
                         spec
                         { state | secondSingular = getNewFillBoxState spec.answers.secondSingular (state.secondSingular.value ++ char) state.secondSingular }
+                    , focusFillBox (FillBox SecondSingular)
+                    )
 
         _ ->
-            IncompatibleMessageForState msg model |> Error
+            ( IncompatibleMessageForState msg model |> Error, Cmd.none )
 
 
 returnAsExerciseInProgressOrCompleted : ExerciseSpec -> ExerciseCurrentState -> AppModel
@@ -330,10 +382,10 @@ handleFillBoxFocused msg model =
         ExerciseInProgress spec state ->
             case msg of
                 FirstSingularFocused ->
-                    ExerciseInProgress spec { state | focusedFillBox = FirstSingular }
+                    ExerciseInProgress spec { state | activeFillBox = FillBox FirstSingular }
 
                 SecondSingularFocused ->
-                    ExerciseInProgress spec { state | focusedFillBox = SecondSingular }
+                    ExerciseInProgress spec { state | activeFillBox = FillBox SecondSingular }
 
                 _ ->
                     IncompatibleMessageForState msg model |> Error
@@ -412,12 +464,14 @@ verbConjugator spec state =
             [ div [ class "verb-conjugator-verb" ] [ text spec.verb ]
             , div [ class "verb-conjugator-tense" ] [ text spec.tense ]
             , fillBox
+                (getFillBoxElementId FirstSingular)
                 spec.labels.firstSingular
                 spec.answers.firstSingular
                 state.firstSingular
                 FirstSingularChange
                 FirstSingularFocused
             , fillBox
+                (getFillBoxElementId SecondSingular)
                 spec.labels.secondSingular
                 spec.answers.secondSingular
                 state.secondSingular
@@ -429,12 +483,22 @@ verbConjugator spec state =
         ]
 
 
+getFillBoxElementId : VerbForm -> String
+getFillBoxElementId verbForm =
+    case verbForm of
+        FirstSingular ->
+            "firstSingular"
+
+        SecondSingular ->
+            "secondSingular"
+
+
 type alias OnInputChangeMessageProducer =
     String -> Msg
 
 
-fillBox : String -> List String -> FillBoxState -> OnInputChangeMessageProducer -> Msg -> Html Msg
-fillBox labelText answers state onInputMsgProducer onFocusMsg =
+fillBox : String -> String -> List String -> FillBoxState -> OnInputChangeMessageProducer -> Msg -> Html Msg
+fillBox elementId labelText answers state onInputMsgProducer onFocusMsg =
     let
         isAnswerCorrectSoFar =
             isCorrectSoFar answers state.value
@@ -459,7 +523,8 @@ fillBox labelText answers state onInputMsgProducer onFocusMsg =
         , div
             [ class "fill-box-inner5" ]
             [ input
-                [ class inputClass
+                [ id elementId
+                , class inputClass
                 , type_ "text"
                 , value state.value
                 , onInput onInputMsgProducer
@@ -528,7 +593,7 @@ calculateFillBoxInputClass isAnswerCompleted isAnswerCorrectSoFar =
         "fill-box-input"
 
 
-nextExerciseReference : NextExerciseReference -> Html Msg
+nextExerciseReference : NextExerciseData -> Html Msg
 nextExerciseReference next =
     div [ class "verb-conjugator-next" ]
         [ div [ class "verb-conjugator-next-inner1" ] []
@@ -775,9 +840,9 @@ exerciseAnswersDecoder =
         (field "secondSingular" (Json.Decode.list string))
 
 
-exerciseNextDecoder : Decoder NextExerciseReference
+exerciseNextDecoder : Decoder NextExerciseData
 exerciseNextDecoder =
-    map2 NextExerciseReference
+    map2 NextExerciseData
         (field "id" string)
         (field "verb" string)
 
