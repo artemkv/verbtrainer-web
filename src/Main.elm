@@ -165,21 +165,13 @@ update msg model =
             navigateToExercise id model
 
         ExerciseDataReceived data ->
-            ( updateExerciseFromReceivedData data msg appModel |> asNewAppModelOf model, focusFillBox (FillBox FirstSingular) )
+            updateExerciseFromReceivedData data msg appModel |> asNewAppModelPlusCommandOf model
 
         FirstSingularChange _ ->
-            let
-                ( newAppModel, newCmd ) =
-                    updateExerciseInProgress msg appModel
-            in
-            ( newAppModel |> asNewAppModelOf model, newCmd )
+            updateExerciseInProgress msg appModel |> asNewAppModelPlusCommandOf model
 
         SecondSingularChange _ ->
-            let
-                ( newAppModel, newCmd ) =
-                    updateExerciseInProgress msg appModel
-            in
-            ( newAppModel |> asNewAppModelOf model, newCmd )
+            updateExerciseInProgress msg appModel |> asNewAppModelPlusCommandOf model
 
         FirstSingularFocused ->
             handleFillBoxFocused msg appModel |> asNewAppModelOf model |> justModel
@@ -188,17 +180,28 @@ update msg model =
             handleFillBoxFocused msg appModel |> asNewAppModelOf model |> justModel
 
         VirtualKeyPressed char ->
-            let
-                ( newAppModel, newCmd ) =
-                    handleVirtualKeyPress char msg appModel
-            in
-            ( newAppModel |> asNewAppModelOf model, newCmd )
+            handleVirtualKeyPress char msg appModel |> asNewAppModelPlusCommandOf model
 
         RetryCompletedExercise ->
             clearExerciseState msg appModel |> asNewAppModelOf model |> justModel
 
         FocusResult result ->
             handleFocusResult model result
+
+
+asNewAppModelOf : Model -> AppModel -> Model
+asNewAppModelOf model appModel =
+    { model | appModel = appModel }
+
+
+asNewAppModelPlusCommandOf : Model -> ( AppModel, Cmd Msg ) -> ( Model, Cmd Msg )
+asNewAppModelPlusCommandOf model ( appModel, cmd ) =
+    ( appModel |> asNewAppModelOf model, cmd )
+
+
+justModel : Model -> ( Model, Cmd Msg )
+justModel model =
+    ( model, Cmd.none )
 
 
 
@@ -239,17 +242,9 @@ navigateToExercise id model =
 -- Focus management
 
 
+focusElement : String -> Cmd Msg
 focusElement elementId =
     Dom.focus elementId |> Task.attempt FocusResult
-
-
-focusFillBox : FillBoxReference -> Cmd Msg
-focusFillBox reference =
-    let
-        (FillBox verbForm) =
-            reference
-    in
-    getFillBoxElementId verbForm |> focusElement
 
 
 handleFocusResult : Model -> Result Dom.Error () -> ( Model, Cmd Msg )
@@ -265,28 +260,55 @@ handleFocusResult model result =
             model |> justModel
 
 
+focusFillBox : FillBoxReference -> Cmd Msg
+focusFillBox reference =
+    let
+        (FillBox verbForm) =
+            reference
+    in
+    getFillBoxElementId verbForm |> focusElement
+
+
+handleFillBoxFocused : Msg -> AppModel -> AppModel
+handleFillBoxFocused msg model =
+    case model of
+        ExerciseInProgress spec state ->
+            case msg of
+                FirstSingularFocused ->
+                    ExerciseInProgress spec { state | activeFillBox = FillBox FirstSingular }
+
+                SecondSingularFocused ->
+                    ExerciseInProgress spec { state | activeFillBox = FillBox SecondSingular }
+
+                _ ->
+                    IncompatibleMessageForState msg model |> Error
+
+        _ ->
+            IncompatibleMessageForState msg model |> Error
+
+
 
 -- Other model updates
 
 
-asNewAppModelOf : Model -> AppModel -> Model
-asNewAppModelOf model appModel =
-    { model | appModel = appModel }
-
-
-justModel : Model -> ( Model, Cmd Msg )
-justModel model =
-    ( model, Cmd.none )
-
-
-updateExerciseFromReceivedData : String -> Msg -> AppModel -> AppModel
+updateExerciseFromReceivedData : String -> Msg -> AppModel -> ( AppModel, Cmd Msg )
 updateExerciseFromReceivedData data msg model =
     case model of
         ExerciseNotLoaded ->
-            processReceivedExerciseData data
+            decodeExerciseDataOrError data |> ifExerciseInProgressFocusOnFirstFillBox
 
         _ ->
-            IncompatibleMessageForState msg model |> Error
+            ( IncompatibleMessageForState msg model |> Error, Cmd.none )
+
+
+ifExerciseInProgressFocusOnFirstFillBox : AppModel -> ( AppModel, Cmd Msg )
+ifExerciseInProgressFocusOnFirstFillBox model =
+    case model of
+        ExerciseInProgress _ _ ->
+            ( model, focusFillBox (FillBox FirstSingular) )
+
+        _ ->
+            ( model, Cmd.none )
 
 
 updateExerciseInProgress : Msg -> AppModel -> ( AppModel, Cmd Msg )
@@ -384,24 +406,6 @@ returnAsExerciseInProgressOrCompleted spec state =
 
     else
         ( ExerciseInProgress spec state, focusFillBox state.activeFillBox )
-
-
-handleFillBoxFocused : Msg -> AppModel -> AppModel
-handleFillBoxFocused msg model =
-    case model of
-        ExerciseInProgress spec state ->
-            case msg of
-                FirstSingularFocused ->
-                    ExerciseInProgress spec { state | activeFillBox = FillBox FirstSingular }
-
-                SecondSingularFocused ->
-                    ExerciseInProgress spec { state | activeFillBox = FillBox SecondSingular }
-
-                _ ->
-                    IncompatibleMessageForState msg model |> Error
-
-        _ ->
-            IncompatibleMessageForState msg model |> Error
 
 
 clearExerciseState : Msg -> AppModel -> AppModel
@@ -783,8 +787,8 @@ port requestExerciseData : String -> Cmd id
 port exerciseDataReceived : (String -> msg) -> Sub msg
 
 
-processReceivedExerciseData : String -> AppModel
-processReceivedExerciseData data =
+decodeExerciseDataOrError : String -> AppModel
+decodeExerciseDataOrError data =
     let
         isOk =
             data |> decodeString (field "isOk" bool)
