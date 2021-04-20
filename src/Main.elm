@@ -168,10 +168,18 @@ update msg model =
             ( updateExerciseFromReceivedData data msg appModel |> asNewAppModelOf model, focusFillBox (FillBox FirstSingular) )
 
         FirstSingularChange _ ->
-            updateExerciseInProgress msg appModel |> asNewAppModelOf model |> justModel
+            let
+                ( newAppModel, newCmd ) =
+                    updateExerciseInProgress msg appModel
+            in
+            ( newAppModel |> asNewAppModelOf model, newCmd )
 
         SecondSingularChange _ ->
-            updateExerciseInProgress msg appModel |> asNewAppModelOf model |> justModel
+            let
+                ( newAppModel, newCmd ) =
+                    updateExerciseInProgress msg appModel
+            in
+            ( newAppModel |> asNewAppModelOf model, newCmd )
 
         FirstSingularFocused ->
             handleFillBoxFocused msg appModel |> asNewAppModelOf model |> justModel
@@ -231,13 +239,17 @@ navigateToExercise id model =
 -- Focus management
 
 
+focusElement elementId =
+    Dom.focus elementId |> Task.attempt FocusResult
+
+
 focusFillBox : FillBoxReference -> Cmd Msg
 focusFillBox reference =
     let
         (FillBox verbForm) =
             reference
     in
-    getFillBoxElementId verbForm |> Dom.focus |> Task.attempt FocusResult
+    getFillBoxElementId verbForm |> focusElement
 
 
 handleFocusResult : Model -> Result Dom.Error () -> ( Model, Cmd Msg )
@@ -277,7 +289,7 @@ updateExerciseFromReceivedData data msg model =
             IncompatibleMessageForState msg model |> Error
 
 
-updateExerciseInProgress : Msg -> AppModel -> AppModel
+updateExerciseInProgress : Msg -> AppModel -> ( AppModel, Cmd Msg )
 updateExerciseInProgress msg model =
     case model of
         ExerciseInProgress spec state ->
@@ -293,10 +305,10 @@ updateExerciseInProgress msg model =
                         { state | secondSingular = getNewFillBoxState spec.answers.secondSingular newValue state.secondSingular }
 
                 _ ->
-                    IncompatibleMessageForState msg model |> Error
+                    ( IncompatibleMessageForState msg model |> Error, Cmd.none )
 
         _ ->
-            IncompatibleMessageForState msg model |> Error
+            ( IncompatibleMessageForState msg model |> Error, Cmd.none )
 
 
 getNewFillBoxState : List String -> String -> FillBoxState -> FillBoxState
@@ -335,24 +347,20 @@ handleVirtualKeyPress char msg model =
         ExerciseInProgress spec state ->
             case state.activeFillBox of
                 FillBox FirstSingular ->
-                    ( returnAsExerciseInProgressOrCompleted
+                    returnAsExerciseInProgressOrCompleted
                         spec
                         { state | firstSingular = getNewFillBoxState spec.answers.firstSingular (state.firstSingular.value ++ char) state.firstSingular }
-                    , focusFillBox (FillBox FirstSingular)
-                    )
 
                 FillBox SecondSingular ->
-                    ( returnAsExerciseInProgressOrCompleted
+                    returnAsExerciseInProgressOrCompleted
                         spec
                         { state | secondSingular = getNewFillBoxState spec.answers.secondSingular (state.secondSingular.value ++ char) state.secondSingular }
-                    , focusFillBox (FillBox SecondSingular)
-                    )
 
         _ ->
             ( IncompatibleMessageForState msg model |> Error, Cmd.none )
 
 
-returnAsExerciseInProgressOrCompleted : ExerciseSpec -> ExerciseCurrentState -> AppModel
+returnAsExerciseInProgressOrCompleted : ExerciseSpec -> ExerciseCurrentState -> ( AppModel, Cmd Msg )
 returnAsExerciseInProgressOrCompleted spec state =
     if isExerciseCompleted state then
         let
@@ -363,7 +371,7 @@ returnAsExerciseInProgressOrCompleted spec state =
             ( overallResult, feedback ) =
                 getExerciseOverallResultAndFeedback incorrectTotal
         in
-        ExerciseCompleted spec
+        ( ExerciseCompleted spec
             { overallResult = overallResult
             , feedback = feedback
             , finalResults =
@@ -371,9 +379,11 @@ returnAsExerciseInProgressOrCompleted spec state =
                 , secondSingular = finalResult state.secondSingular.errorCount
                 }
             }
+        , focusElement exerciseCompletionScoreNextButtonId
+        )
 
     else
-        ExerciseInProgress spec state
+        ( ExerciseInProgress spec state, focusFillBox state.activeFillBox )
 
 
 handleFillBoxFocused : Msg -> AppModel -> AppModel
@@ -640,7 +650,8 @@ verbConjugatorCompletionScore spec summary =
                         -- TODO: move to labels
                         [ text "Retry" ]
                     , button
-                        [ class "exercise-completion-score-next-button"
+                        [ id exerciseCompletionScoreNextButtonId
+                        , class "exercise-completion-score-next-button"
                         , onClick (MoveToExercise spec.next.id)
                         ]
                         -- TODO: move to labels
@@ -650,6 +661,11 @@ verbConjugatorCompletionScore spec summary =
             , div [ class "exercise-completion-score-next-inner3" ] []
             ]
         ]
+
+
+exerciseCompletionScoreNextButtonId : String
+exerciseCompletionScoreNextButtonId =
+    "exercise-completion-score-next-button"
 
 
 resultBox : String -> List String -> FinalResult -> Html Msg
