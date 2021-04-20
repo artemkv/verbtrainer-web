@@ -6,6 +6,21 @@ const app = Elm.Main.init({
     node: document.getElementById("app")
 })
 
+app.ports.requestExerciseListData.subscribe(function (id) {
+    let result = {
+        isOk: true,
+        data: {
+            id: "presente",
+            title: "100 Spanish Verbs", // TODO: should be a label
+            subtitle: "Presente" // TODO: should be a label
+        }
+    }
+
+    setTimeout(function () {
+        app.ports.exerciseListDataReceived.send(JSON.stringify(result));
+    }, 250);
+});
+
 app.ports.requestExerciseData.subscribe(function (id) {
     // TODO: this is hard-coded implementation
     let hablar = {
@@ -78,5 +93,7 @@ app.ports.requestExerciseData.subscribe(function (id) {
         }
     }
 
-    app.ports.exerciseDataReceived.send(JSON.stringify(result));
+    setTimeout(function () {
+        app.ports.exerciseDataReceived.send(JSON.stringify(result));
+    }, 250);
 });

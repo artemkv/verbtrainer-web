@@ -6,7 +6,7 @@ import Browser.Navigation as Nav
 import Html exposing (Html, a, button, div, img, input, label, span, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onFocus, onInput)
-import Json.Decode exposing (Decoder, bool, decodeString, field, map2, map6, string)
+import Json.Decode exposing (Decoder, bool, decodeString, field, map2, map3, map6, string)
 import Task
 import Url
 import Url.Parser exposing ((</>), Parser)
@@ -24,7 +24,10 @@ type alias Model =
 
 
 type AppModel
-    = ExerciseNotLoaded
+    = ExerciseListNotLoaded
+    | ExerciseListLoadingFailed String
+    | ExerciseListInProgress ExerciseListData
+    | ExerciseNotLoaded
     | ExerciseLoadingFailed String
     | ExerciseInProgress ExerciseSpec ExerciseCurrentState
     | ExerciseCompleted ExerciseSpec ExerciseSummary
@@ -38,6 +41,17 @@ type ErrorDetails
 
 type alias ExerciseId =
     String
+
+
+type alias ExerciseListId =
+    String
+
+
+type alias ExerciseListData =
+    { id : ExerciseListId
+    , title : String
+    , subtitle : String
+    }
 
 
 type alias ExerciseSpec =
@@ -127,7 +141,7 @@ type FinalResult
 
 init : () -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
 init _ url navKey =
-    handleRouteChange url (Model navKey ExerciseNotLoaded)
+    handleRouteChange url (Model navKey ExerciseListNotLoaded)
 
 
 
@@ -139,6 +153,7 @@ type Msg
     | UrlChanged Url.Url
     | MoveToExercise ExerciseId
     | ExerciseDataReceived String
+    | ExerciseListDataReceived String
     | FirstSingularChange String
     | SecondSingularChange String
     | FirstSingularFocused
@@ -163,6 +178,9 @@ update msg model =
 
         MoveToExercise id ->
             navigateToExercise id model
+
+        ExerciseListDataReceived data ->
+            updateExerciseListFromReceivedData data msg appModel |> asNewAppModelOf model |> justModel
 
         ExerciseDataReceived data ->
             updateExerciseFromReceivedData data msg appModel |> asNewAppModelPlusCommandOf model
@@ -223,7 +241,10 @@ handleRouteChange url model =
     case toRoute url of
         -- TODO: handle home correctly
         Home ->
-            ( ExerciseNotLoaded |> asNewAppModelOf model, requestExerciseData "hablar" )
+            ( ExerciseListNotLoaded |> asNewAppModelOf model, requestExerciseListData "presente" )
+
+        ExerciseList id ->
+            ( ExerciseListNotLoaded |> asNewAppModelOf model, requestExerciseListData id )
 
         Exercise id ->
             ( ExerciseNotLoaded |> asNewAppModelOf model, requestExerciseData id )
@@ -289,6 +310,16 @@ handleFillBoxFocused msg model =
 
 
 -- Other model updates
+
+
+updateExerciseListFromReceivedData : String -> Msg -> AppModel -> AppModel
+updateExerciseListFromReceivedData data msg model =
+    case model of
+        ExerciseListNotLoaded ->
+            decodeExerciseListDataOrError data
+
+        _ ->
+            IncompatibleMessageForState msg model |> Error
 
 
 updateExerciseFromReceivedData : String -> Msg -> AppModel -> ( AppModel, Cmd Msg )
@@ -424,7 +455,10 @@ clearExerciseState msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions _ =
-    exerciseDataReceived ExerciseDataReceived
+    Sub.batch
+        [ exerciseDataReceived ExerciseDataReceived
+        , exerciseListDataReceived ExerciseListDataReceived
+        ]
 
 
 
@@ -442,6 +476,17 @@ view model =
 body : AppModel -> Html Msg
 body model =
     case model of
+        ExerciseListNotLoaded ->
+            -- TODO: render spinner
+            div [] [ text "Loading list..." ]
+
+        ExerciseListLoadingFailed reason ->
+            -- TODO: render error correctly
+            div [] [ text reason ]
+
+        ExerciseListInProgress data ->
+            exerciseList data
+
         ExerciseNotLoaded ->
             -- TODO: render spinner
             div [] [ text "Loading..." ]
@@ -469,6 +514,27 @@ errorText err =
 
         Other s ->
             s
+
+
+exerciseList : ExerciseListData -> Html Msg
+exerciseList data =
+    -- TODO: add all required layout
+    div []
+        [ div [] [ text data.title ]
+        , div [] [ text data.subtitle ]
+        , div []
+            -- TODO: get from list
+            [ exerciseLink "hablar"
+            , exerciseLink "estar"
+            ]
+        ]
+
+
+exerciseLink xxx =
+    div []
+        -- TODO: add all required layout
+        [ a [ href (getExerciseLink xxx) ] [ text xxx ]
+        ]
 
 
 verbConjugator : ExerciseSpec -> ExerciseCurrentState -> Html Msg
@@ -782,10 +848,62 @@ showHint errorCount =
 -- Data loading
 
 
+port requestExerciseListData : String -> Cmd id
+
+
+port exerciseListDataReceived : (String -> msg) -> Sub msg
+
+
 port requestExerciseData : String -> Cmd id
 
 
 port exerciseDataReceived : (String -> msg) -> Sub msg
+
+
+decodeExerciseListDataOrError : String -> AppModel
+decodeExerciseListDataOrError data =
+    let
+        isOk =
+            data |> decodeString (field "isOk" bool)
+    in
+    case isOk of
+        Ok success ->
+            if success then
+                decodeExerciseListData data
+
+            else
+                decodeExerciseListLoadingErrorData data
+
+        Err err ->
+            ExerciseListLoadingFailed (Json.Decode.errorToString err)
+
+
+decodeExerciseListData : String -> AppModel
+decodeExerciseListData data =
+    let
+        result =
+            data |> decodeString exerciseListDataDecoder
+    in
+    case result of
+        Ok exerciseListData ->
+            ExerciseListInProgress exerciseListData
+
+        Err err ->
+            ExerciseListLoadingFailed (Json.Decode.errorToString err)
+
+
+decodeExerciseListLoadingErrorData : String -> AppModel
+decodeExerciseListLoadingErrorData data =
+    let
+        result =
+            data |> decodeString dataLoadingErrorDecoder
+    in
+    case result of
+        Ok err ->
+            ExerciseListLoadingFailed err
+
+        Err err ->
+            ExerciseListLoadingFailed (Json.Decode.errorToString err)
 
 
 decodeExerciseDataOrError : String -> AppModel
@@ -824,7 +942,7 @@ decodeExerciseLoadingErrorData : String -> AppModel
 decodeExerciseLoadingErrorData data =
     let
         result =
-            data |> decodeString exerciseLoadingErrorDecoder
+            data |> decodeString dataLoadingErrorDecoder
     in
     case result of
         Ok err ->
@@ -832,6 +950,16 @@ decodeExerciseLoadingErrorData data =
 
         Err err ->
             ExerciseLoadingFailed (Json.Decode.errorToString err)
+
+
+exerciseListDataDecoder : Decoder ExerciseListData
+exerciseListDataDecoder =
+    field "data"
+        (map3 ExerciseListData
+            (field "id" string)
+            (field "title" string)
+            (field "subtitle" string)
+        )
 
 
 exerciseSpecDecoder : Decoder ExerciseSpec
@@ -868,8 +996,8 @@ exerciseNextDecoder =
         (field "verb" string)
 
 
-exerciseLoadingErrorDecoder : Decoder String
-exerciseLoadingErrorDecoder =
+dataLoadingErrorDecoder : Decoder String
+dataLoadingErrorDecoder =
     field "data" (field "err" string)
 
 
@@ -879,6 +1007,7 @@ exerciseLoadingErrorDecoder =
 
 type Route
     = Home
+    | ExerciseList ExerciseListId
     | Exercise ExerciseId
     | NotFound
 
@@ -888,6 +1017,7 @@ routeParser =
     Url.Parser.oneOf
         [ Url.Parser.map Home Url.Parser.top
         , Url.Parser.map Exercise (Url.Parser.s "exercise" </> Url.Parser.string)
+        , Url.Parser.map ExerciseList (Url.Parser.s "exercise-list" </> Url.Parser.string)
         ]
 
 
