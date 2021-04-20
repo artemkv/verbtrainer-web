@@ -540,6 +540,7 @@ fillBox elementId labelText answers state onInputMsgProducer onFocusMsg =
                 [ id elementId
                 , class inputClass
                 , type_ "text"
+                , attribute "spellCheck" "false"
                 , value state.value
                 , onInput onInputMsgProducer
                 , onFocus onFocusMsg
