@@ -17,17 +17,19 @@
 - Virtual keyboard
 - Set focus on the first field, and on next button when exercise completed (https://stackoverflow.com/questions/31901397/how-to-set-focus-on-an-element-in-elm)
 - Prevent spellcheck on inputs in fillbox
+- Handle not found when link is completely incorrect
 --------------------------
 - Use all 6 verb forms
 - Tense should be a link to the grammar section
-- Handle not found when link is completely incorrect
-- Handle not found when link is correct, but exercise with this id does not exist
+- Render errors nicely
 
 
 TODO:
+- ? Handle loading errors differently, depending on the error, potentially adding button to retry loading exercise on certain errors
 - Extract labels
-- Make all 6 fillboxes
-- sitemap
+- Localize
+- Add sitemap
+- Every url must have correct and localized meta
 
 
 Webpack references:

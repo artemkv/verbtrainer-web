@@ -32,6 +32,7 @@ type AppModel
     | ExerciseInProgress ExerciseSpec ExerciseCurrentState
     | ExerciseCompleted ExerciseSpec ExerciseSummary
     | Error ErrorDetails
+    | PageNotFound
 
 
 type ErrorDetails
@@ -249,9 +250,8 @@ handleRouteChange url model =
         Exercise id ->
             ( ExerciseNotLoaded |> asNewAppModelOf model, requestExerciseData id )
 
-        -- TODO: handle not found correctly
         NotFound ->
-            ( model, Cmd.none )
+            PageNotFound |> asNewAppModelOf model |> justModel
 
 
 navigateToExercise : ExerciseId -> Model -> ( Model, Cmd Msg )
@@ -503,6 +503,9 @@ body model =
 
         Error errorDetails ->
             div [] [ text (errorDetails |> errorText) ]
+
+        PageNotFound ->
+            notFound404
 
 
 errorText : ErrorDetails -> String
@@ -772,6 +775,11 @@ virtualKey char =
         ]
         [ span [ class "virtual-key-char" ] [ text char ]
         ]
+
+
+notFound404 : Html Msg
+notFound404 =
+    div [] [ text "404" ]
 
 
 nothing : Html Msg
