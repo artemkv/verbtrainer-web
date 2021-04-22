@@ -12,7 +12,21 @@ app.ports.requestExerciseListData.subscribe(function (id) {
         data: {
             id: "presente",
             title: "100 Spanish Verbs", // TODO: should be a label
-            subtitle: "Presente" // TODO: should be a label
+            subtitle: "Presente", // TODO: should be a label
+            exercises: [
+                {
+                    id: "hablar",
+                    name: "hablar"
+                },
+                {
+                    id: "estar",
+                    name: "estar"
+                },
+                {
+                    id: "ser",
+                    name: "ser"
+                }
+            ]
         }
     }
 

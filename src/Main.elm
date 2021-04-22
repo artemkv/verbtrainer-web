@@ -6,7 +6,7 @@ import Browser.Navigation as Nav
 import Html exposing (Html, a, button, div, img, input, label, span, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onFocus, onInput)
-import Json.Decode exposing (Decoder, bool, decodeString, field, map2, map3, map6, string)
+import Json.Decode exposing (Decoder, bool, decodeString, field, map2, map3, map4, map6, string)
 import Task
 import Url
 import Url.Parser exposing ((</>), Parser)
@@ -52,6 +52,13 @@ type alias ExerciseListData =
     { id : ExerciseListId
     , title : String
     , subtitle : String
+    , exercises : List ExerciseDescription
+    }
+
+
+type alias ExerciseDescription =
+    { id : ExerciseId
+    , name : String
     }
 
 
@@ -521,22 +528,22 @@ errorText err =
 
 exerciseList : ExerciseListData -> Html Msg
 exerciseList data =
-    -- TODO: add all required layout
-    div []
-        [ div [] [ text data.title ]
-        , div [] [ text data.subtitle ]
-        , div []
-            -- TODO: get from list
-            [ exerciseLink "hablar"
-            , exerciseLink "estar"
-            ]
+    div [ class "exercise-list" ]
+        [ div [ class "exercise-list-title" ] [ text data.title ]
+        , div [ class "exercise-list-subtitle" ] [ text data.subtitle ]
+        , div [ class "exercise-list-exercises" ]
+            (data.exercises |> List.map exerciseLink)
         ]
 
 
-exerciseLink xxx =
+exerciseLink : ExerciseDescription -> Html msg
+exerciseLink description =
     div []
-        -- TODO: add all required layout
-        [ a [ href (getExerciseLink xxx) ] [ text xxx ]
+        [ a
+            [ class "exercise-list-exercise-link"
+            , href (getExerciseLink description.id)
+            ]
+            [ text description.name ]
         ]
 
 
@@ -963,11 +970,19 @@ decodeExerciseLoadingErrorData data =
 exerciseListDataDecoder : Decoder ExerciseListData
 exerciseListDataDecoder =
     field "data"
-        (map3 ExerciseListData
+        (map4 ExerciseListData
             (field "id" string)
             (field "title" string)
             (field "subtitle" string)
+            (field "exercises" (Json.Decode.list exerciseListItemDataDecoder))
         )
+
+
+exerciseListItemDataDecoder : Decoder ExerciseDescription
+exerciseListItemDataDecoder =
+    map2 ExerciseDescription
+        (field "id" string)
+        (field "name" string)
 
 
 exerciseSpecDecoder : Decoder ExerciseSpec
