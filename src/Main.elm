@@ -505,8 +505,7 @@ content : AppModel -> Html Msg
 content model =
     case model of
         ExerciseListNotLoaded ->
-            -- TODO: render spinner
-            div [] [ text "Loading list..." ]
+            div [] [ spinner ]
 
         ExerciseListLoadingFailed reason ->
             -- TODO: render error correctly
@@ -516,8 +515,7 @@ content model =
             exerciseList data
 
         ExerciseNotLoaded ->
-            -- TODO: render spinner
-            div [] [ text "Loading..." ]
+            div [] [ spinner ]
 
         ExerciseLoadingFailed reason ->
             -- TODO: render error correctly
@@ -825,6 +823,30 @@ virtualKey char =
         , onClick (VirtualKeyPressed char)
         ]
         [ span [ class "virtual-key-char" ] [ text char ]
+        ]
+
+
+spinner : Html Msg
+spinner =
+    div [ class "spinner" ]
+        [ div [ class "spinner-container container1" ]
+            [ div [ class "circle1" ] []
+            , div [ class "circle2" ] []
+            , div [ class "circle3" ] []
+            , div [ class "circle4" ] []
+            ]
+        , div [ class "spinner-container container2" ]
+            [ div [ class "circle1" ] []
+            , div [ class "circle2" ] []
+            , div [ class "circle3" ] []
+            , div [ class "circle4" ] []
+            ]
+        , div [ class "spinner-container container3" ]
+            [ div [ class "circle1" ] []
+            , div [ class "circle2" ] []
+            , div [ class "circle3" ] []
+            , div [ class "circle4" ] []
+            ]
         ]
 
 

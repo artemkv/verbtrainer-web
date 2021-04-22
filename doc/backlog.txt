@@ -19,9 +19,14 @@
 - Prevent spellcheck on inputs in fillbox
 - Handle not found when link is completely incorrect, show 404 page
 - Render control bar, in case of exercise should contain the link back to all verbs
+- Render spinner
 --------------------------
-- Use all 6 verb forms
+- Render grammar section (first, only for the "presente")
 - Tense should be a link to the grammar section
+- Keep track of completed exercises, save in local storage and show completion mark in the exercise list
+- Render progress bar in the verb conjugator control bar
+- Return correct data from the API instead of fake hard-coded
+- Use all 6 verb forms
 - Render errors nicely
 
 

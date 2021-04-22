@@ -1,4 +1,5 @@
 import "./main.css";
+import "./spinner.css";
 
 // inject bundled Elm app into div#app
 const { Elm } = require('./Main.elm');
