@@ -7,6 +7,7 @@ import Html exposing (Html, a, button, div, img, input, label, span, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onFocus, onInput)
 import Json.Decode exposing (Decoder, bool, decodeString, field, map2, map3, map4, map6, map7, string)
+import Presente exposing (spanishPresente)
 import Task
 import Url
 import Url.Parser exposing ((</>), Parser)
@@ -31,6 +32,7 @@ type AppModel
     | ExerciseLoadingFailed String
     | ExerciseInProgress ExerciseSpec ExerciseCurrentState
     | ExerciseCompleted ExerciseSpec ExerciseSummary
+    | GrammarTopicContent ExerciseListId
     | Error ErrorDetails
     | PageNotFound
 
@@ -257,6 +259,9 @@ handleRouteChange url model =
 
         Exercise id ->
             ( ExerciseNotLoaded |> asNewAppModelOf model, requestExerciseData id )
+
+        GrammarTopic id ->
+            GrammarTopicContent id |> asNewAppModelOf model |> justModel
 
         NotFound ->
             PageNotFound |> asNewAppModelOf model |> justModel
@@ -527,6 +532,9 @@ content model =
         ExerciseCompleted spec summary ->
             verbConjugatorCompletionScore spec summary
 
+        GrammarTopicContent id ->
+            spanishPresente (getExerciseListLink id)
+
         Error errorDetails ->
             div [] [ text (errorDetails |> errorText) ]
 
@@ -551,7 +559,13 @@ exerciseList data =
         [ controlBar [ nothing ]
         , div [ class "exercise-list" ]
             [ div [ class "exercise-list-title" ] [ text data.title ]
-            , div [ class "exercise-list-subtitle" ] [ text data.subtitle ]
+            , div [ class "exercise-list-subtitle" ]
+                [ a
+                    [ class "exercises-to-grammar-link"
+                    , href (getGrammarTopicLink data.id)
+                    ]
+                    [ text data.subtitle ]
+                ]
             , div [ class "exercise-list-exercises" ]
                 (data.exercises |> List.map exerciseLink)
             ]
@@ -588,7 +602,14 @@ verbConjugator spec state =
             ]
         , div [ class "verb-conjugator" ]
             [ div [ class "verb-conjugator-verb" ] [ text spec.verb ]
-            , div [ class "verb-conjugator-tense" ] [ text spec.tense ]
+            , div [ class "verb-conjugator-tense" ]
+                [ a
+                    [ class "exercises-to-grammar-link"
+                    , href (getGrammarTopicLink spec.listId)
+                    ]
+                    [ text spec.tense
+                    ]
+                ]
             , fillBox
                 (getFillBoxElementId FirstSingular)
                 spec.labels.firstSingular
@@ -1099,6 +1120,7 @@ type Route
     = Home
     | ExerciseList ExerciseListId
     | Exercise ExerciseId
+    | GrammarTopic ExerciseListId
     | NotFound
 
 
@@ -1108,6 +1130,7 @@ routeParser =
         [ Url.Parser.map Home Url.Parser.top
         , Url.Parser.map Exercise (Url.Parser.s "exercise" </> Url.Parser.string)
         , Url.Parser.map ExerciseList (Url.Parser.s "exercise-list" </> Url.Parser.string)
+        , Url.Parser.map GrammarTopic (Url.Parser.s "grammar-topic" </> Url.Parser.string)
         ]
 
 
@@ -1116,14 +1139,19 @@ toRoute url =
     Url.Parser.parse routeParser url |> Maybe.withDefault NotFound
 
 
-getExerciseListLink : String -> String
+getExerciseListLink : ExerciseListId -> String
 getExerciseListLink id =
     "/exercise-list/" ++ id
 
 
-getExerciseLink : String -> String
+getExerciseLink : ExerciseId -> String
 getExerciseLink id =
     "/exercise/" ++ id
+
+
+getGrammarTopicLink : ExerciseListId -> String
+getGrammarTopicLink id =
+    "/grammar-topic/" ++ id
 
 
 
