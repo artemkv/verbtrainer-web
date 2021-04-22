@@ -6,7 +6,7 @@ import Browser.Navigation as Nav
 import Html exposing (Html, a, button, div, img, input, label, span, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onFocus, onInput)
-import Json.Decode exposing (Decoder, bool, decodeString, field, map2, map3, map4, map6, string)
+import Json.Decode exposing (Decoder, bool, decodeString, field, map2, map3, map4, map6, map7, string)
 import Task
 import Url
 import Url.Parser exposing ((</>), Parser)
@@ -64,6 +64,7 @@ type alias ExerciseDescription =
 
 type alias ExerciseSpec =
     { id : ExerciseId
+    , listId : ExerciseListId
     , verb : String
     , tense : String
     , labels : ExerciseLabels
@@ -482,6 +483,26 @@ view model =
 
 body : AppModel -> Html Msg
 body model =
+    div []
+        [ header
+        , div
+            [ class "content" ]
+            [ content model ]
+        ]
+
+
+header : Html msg
+header =
+    div []
+        [ div [ class "standard-header" ]
+            [ div [ class "header" ]
+                []
+            ]
+        ]
+
+
+content : AppModel -> Html Msg
+content model =
     case model of
         ExerciseListNotLoaded ->
             -- TODO: render spinner
@@ -528,11 +549,14 @@ errorText err =
 
 exerciseList : ExerciseListData -> Html Msg
 exerciseList data =
-    div [ class "exercise-list" ]
-        [ div [ class "exercise-list-title" ] [ text data.title ]
-        , div [ class "exercise-list-subtitle" ] [ text data.subtitle ]
-        , div [ class "exercise-list-exercises" ]
-            (data.exercises |> List.map exerciseLink)
+    div []
+        [ controlBar [ nothing ]
+        , div [ class "exercise-list" ]
+            [ div [ class "exercise-list-title" ] [ text data.title ]
+            , div [ class "exercise-list-subtitle" ] [ text data.subtitle ]
+            , div [ class "exercise-list-exercises" ]
+                (data.exercises |> List.map exerciseLink)
+            ]
         ]
 
 
@@ -550,7 +574,21 @@ exerciseLink description =
 verbConjugator : ExerciseSpec -> ExerciseCurrentState -> Html Msg
 verbConjugator spec state =
     div []
-        [ div [ class "verb-conjugator" ]
+        [ controlBar
+            [ div [ class "control-bar-inner1" ]
+                []
+            , div [ class "control-bar-inner2" ]
+                [ a
+                    [ class "to-all-verbs-link"
+                    , href (getExerciseListLink spec.listId)
+                    ]
+                    -- TODO: should be a label
+                    [ text "< All Verbs" ]
+                ]
+            , div [ class "control-bar-inner3" ]
+                []
+            ]
+        , div [ class "verb-conjugator" ]
             [ div [ class "verb-conjugator-verb" ] [ text spec.verb ]
             , div [ class "verb-conjugator-tense" ] [ text spec.tense ]
             , fillBox
@@ -571,6 +609,12 @@ verbConjugator spec state =
         , nextExerciseReference spec.next
         , virtualKeyboard
         ]
+
+
+controlBar : List (Html Msg) -> Html Msg
+controlBar inner =
+    div [ class "control-bar" ]
+        inner
 
 
 getFillBoxElementId : VerbForm -> String
@@ -988,8 +1032,9 @@ exerciseListItemDataDecoder =
 exerciseSpecDecoder : Decoder ExerciseSpec
 exerciseSpecDecoder =
     field "data"
-        (map6 ExerciseSpec
+        (map7 ExerciseSpec
             (field "id" string)
+            (field "listId" string)
             (field "verb" string)
             (field "tense" string)
             (field "labels" exerciseLabelsDecoder)
@@ -1047,6 +1092,11 @@ routeParser =
 toRoute : Url.Url -> Route
 toRoute url =
     Url.Parser.parse routeParser url |> Maybe.withDefault NotFound
+
+
+getExerciseListLink : String -> String
+getExerciseListLink id =
+    "/exercise-list/" ++ id
 
 
 getExerciseLink : String -> String

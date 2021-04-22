@@ -39,6 +39,7 @@ app.ports.requestExerciseData.subscribe(function (id) {
     // TODO: this is hard-coded implementation
     let hablar = {
         id: "hablar",
+        listId: "presente",
         verb: "Hablar",
         tense: "Presente",
         labels: {
@@ -65,6 +66,7 @@ app.ports.requestExerciseData.subscribe(function (id) {
 
     let estar = {
         id: "estar",
+        listId: "presente",
         verb: "Estar",
         tense: "Presente",
         labels: {

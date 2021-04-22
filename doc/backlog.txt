@@ -18,6 +18,7 @@
 - Set focus on the first field, and on next button when exercise completed (https://stackoverflow.com/questions/31901397/how-to-set-focus-on-an-element-in-elm)
 - Prevent spellcheck on inputs in fillbox
 - Handle not found when link is completely incorrect, show 404 page
+- Render control bar, in case of exercise should contain the link back to all verbs
 --------------------------
 - Use all 6 verb forms
 - Tense should be a link to the grammar section
