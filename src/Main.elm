@@ -1056,13 +1056,12 @@ decodeExerciseLoadingErrorData data =
 
 exerciseListDataDecoder : Decoder ExerciseListData
 exerciseListDataDecoder =
-    field "data"
-        (map4 ExerciseListData
+    field "data" <|
+        map4 ExerciseListData
             (field "id" string)
             (field "title" string)
             (field "subtitle" string)
             (field "exercises" (Json.Decode.list exerciseListItemDataDecoder))
-        )
 
 
 exerciseListItemDataDecoder : Decoder ExerciseDescription
@@ -1074,8 +1073,8 @@ exerciseListItemDataDecoder =
 
 exerciseSpecDecoder : Decoder ExerciseSpec
 exerciseSpecDecoder =
-    field "data"
-        (map7 ExerciseSpec
+    field "data" <|
+        map7 ExerciseSpec
             (field "id" string)
             (field "listId" string)
             (field "verb" string)
@@ -1083,7 +1082,6 @@ exerciseSpecDecoder =
             (field "labels" exerciseLabelsDecoder)
             (field "answers" exerciseAnswersDecoder)
             (field "next" exerciseNextDecoder)
-        )
 
 
 exerciseLabelsDecoder : Decoder ExerciseLabels
