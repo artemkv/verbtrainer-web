@@ -6,7 +6,7 @@ import Browser.Navigation as Nav
 import Html exposing (Html, a, button, div, img, input, label, span, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onFocus, onInput)
-import Json.Decode exposing (Decoder, bool, decodeString, field, map2, map3, map4, map6, map7, string)
+import Json.Decode exposing (Decoder, bool, decodeString, field, map2, map4, map7, string)
 import Presente exposing (spanishPresente)
 import Task
 import Url
