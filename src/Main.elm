@@ -902,6 +902,7 @@ startsWithCI a b =
 
 isCompleted : List String -> String -> Bool
 isCompleted expected actual =
+    -- TODO: maybe should be renamed to isCorrect
     List.any (isEqualCI actual) <| expected
 
 
