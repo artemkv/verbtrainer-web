@@ -59,6 +59,7 @@ app.ports.requestExerciseData.subscribe(function (id) {
             secondPlural: [""],
             thirdPlural: [""]
         },
+        exercisesInList: 3,
         next: {
             verb: "Estar",
             id: "estar"
@@ -86,6 +87,7 @@ app.ports.requestExerciseData.subscribe(function (id) {
             secondPlural: [""],
             thirdPlural: [""]
         },
+        exercisesInList: 3,
         next: {
             verb: "Ser",
             id: "ser"
@@ -112,5 +114,25 @@ app.ports.requestExerciseData.subscribe(function (id) {
 
     setTimeout(function () {
         app.ports.exerciseDataReceived.send(JSON.stringify(result));
+    }, 250);
+});
+
+
+app.ports.requestExerciseListProgressData.subscribe(function (id) {
+    let result = {
+        isOk: true,
+        data: {
+            id: "presente",
+            exercises: [
+                {
+                    id: "hablar",
+                    isCompleted: true,
+                    isPerfect: true
+                }
+            ]
+        }
+    }
+    setTimeout(function () {
+        app.ports.exerciseListProgressDataReceived.send(JSON.stringify(result));
     }, 250);
 });

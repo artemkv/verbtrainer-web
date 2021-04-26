@@ -21,8 +21,10 @@
 - Render control bar, in case of exercise should contain the link back to all verbs
 - Render spinner
 - Tense (exercise list and verb conjugator) is a link to the corresponding grammar section
---------------------------
 - Render grammar section (first, only for the "presente")
+--------------------------
+- Currently I'm checking that messages are compatible with the state of the model, but messages are async, so might arrive when model is already changed. So need to re-think this logic
+- Check async messages, like on data received, that they match the requested data, by id
 - Keep track of completed exercises, save in local storage and show completion mark in the exercise list
 - Render progress bar in the verb conjugator control bar
 - Return correct data from the API instead of fake hard-coded
@@ -36,6 +38,7 @@ TODO:
 - Localize
 - Add sitemap
 - Every url must have correct and localized meta
+- Review https://github.com/hurwitzlab/elm-imicrobe-spa
 
 
 Webpack references:

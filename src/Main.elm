@@ -6,8 +6,9 @@ import Browser.Navigation as Nav
 import Html exposing (Html, a, button, div, img, input, label, span, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onFocus, onInput)
-import Json.Decode exposing (Decoder, bool, decodeString, field, map2, map4, map7, string)
+import Json.Decode exposing (Decoder, bool, decodeString, field, int, map2, map3, map4, map8, string)
 import Presente exposing (spanishPresente)
+import String exposing (fromInt)
 import Task
 import Url
 import Url.Parser exposing ((</>), Parser)
@@ -30,8 +31,8 @@ type AppModel
     | ExerciseListInProgress ExerciseListData
     | ExerciseNotLoaded
     | ExerciseLoadingFailed String
-    | ExerciseInProgress ExerciseSpec ExerciseCurrentState
-    | ExerciseCompleted ExerciseSpec ExerciseSummary
+    | ExerciseInProgress ExerciseSpec ExerciseCurrentState ExerciseListProgress
+    | ExerciseCompleted ExerciseSpec ExerciseSummary ExerciseListProgress
     | GrammarTopicContent ExerciseListId
     | Error ErrorDetails
     | PageNotFound
@@ -71,6 +72,7 @@ type alias ExerciseSpec =
     , tense : String
     , labels : ExerciseLabels
     , answers : ExerciseAnswers
+    , exercisesInList : Int
     , next : NextExerciseData
     }
 
@@ -113,6 +115,32 @@ type alias FillBoxState =
     { value : String
     , isCompleted : Bool
     , errorCount : Int
+    }
+
+
+type ExerciseListProgress
+    = NotSynchronized
+    | Synchronized ExerciseListProgressData
+    | SynchronizationFailed String
+
+
+type alias ExerciseListProgressData =
+    { id : ExerciseListId
+    , exercises : List ExerciseProgressData
+    }
+
+
+type alias ExerciseProgressData =
+    { id : ExerciseId
+    , isCompleted : Bool
+    , isPerfect : Bool
+    }
+
+
+type alias ExerciseListProgressStats =
+    { completedAndPerfect : Int
+    , completedNotPerfect : Int
+    , notCompleted : Int
     }
 
 
@@ -165,6 +193,7 @@ type Msg
     | MoveToExercise ExerciseId
     | ExerciseDataReceived String
     | ExerciseListDataReceived String
+    | ExerciseListProgressDataReceived String
     | FirstSingularChange String
     | SecondSingularChange String
     | FirstSingularFocused
@@ -192,6 +221,9 @@ update msg model =
 
         ExerciseListDataReceived data ->
             updateExerciseListFromReceivedData data msg appModel |> asNewAppModelOf model |> justModel
+
+        ExerciseListProgressDataReceived data ->
+            updateExerciseListProgressFromReceivedData data msg appModel |> asNewAppModelOf model |> justModel
 
         ExerciseDataReceived data ->
             updateExerciseFromReceivedData data msg appModel |> asNewAppModelPlusCommandOf model
@@ -306,13 +338,13 @@ focusFillBox reference =
 handleFillBoxFocused : Msg -> AppModel -> AppModel
 handleFillBoxFocused msg model =
     case model of
-        ExerciseInProgress spec state ->
+        ExerciseInProgress spec state progress ->
             case msg of
                 FirstSingularFocused ->
-                    ExerciseInProgress spec { state | activeFillBox = FillBox FirstSingular }
+                    ExerciseInProgress spec { state | activeFillBox = FillBox FirstSingular } progress
 
                 SecondSingularFocused ->
-                    ExerciseInProgress spec { state | activeFillBox = FillBox SecondSingular }
+                    ExerciseInProgress spec { state | activeFillBox = FillBox SecondSingular } progress
 
                 _ ->
                     IncompatibleMessageForState msg model |> Error
@@ -335,21 +367,40 @@ updateExerciseListFromReceivedData data msg model =
             IncompatibleMessageForState msg model |> Error
 
 
+updateExerciseListProgressFromReceivedData : String -> Msg -> AppModel -> AppModel
+updateExerciseListProgressFromReceivedData data msg model =
+    case model of
+        ExerciseInProgress spec state _ ->
+            ExerciseInProgress spec state (decodeExerciseListProgressDataOrError data)
+
+        -- TODO: update list too
+        ExerciseListInProgress _ ->
+            model
+
+        _ ->
+            IncompatibleMessageForState msg model |> Error
+
+
 updateExerciseFromReceivedData : String -> Msg -> AppModel -> ( AppModel, Cmd Msg )
 updateExerciseFromReceivedData data msg model =
     case model of
         ExerciseNotLoaded ->
-            decodeExerciseDataOrError data |> ifExerciseInProgressFocusOnFirstFillBox
+            decodeExerciseDataOrError data |> onExerciseStart
 
         _ ->
             ( IncompatibleMessageForState msg model |> Error, Cmd.none )
 
 
-ifExerciseInProgressFocusOnFirstFillBox : AppModel -> ( AppModel, Cmd Msg )
-ifExerciseInProgressFocusOnFirstFillBox model =
+onExerciseStart : AppModel -> ( AppModel, Cmd Msg )
+onExerciseStart model =
     case model of
-        ExerciseInProgress _ _ ->
-            ( model, focusFillBox (FillBox FirstSingular) )
+        ExerciseInProgress spec _ _ ->
+            ( model
+            , Cmd.batch
+                [ requestExerciseListProgressData spec.listId
+                , focusFillBox (FillBox FirstSingular)
+                ]
+            )
 
         _ ->
             ( model, Cmd.none )
@@ -358,17 +409,19 @@ ifExerciseInProgressFocusOnFirstFillBox model =
 updateExerciseInProgress : Msg -> AppModel -> ( AppModel, Cmd Msg )
 updateExerciseInProgress msg model =
     case model of
-        ExerciseInProgress spec state ->
+        ExerciseInProgress spec state progress ->
             case msg of
                 FirstSingularChange newValue ->
                     returnAsExerciseInProgressOrCompleted
                         spec
                         { state | firstSingular = getNewFillBoxState spec.answers.firstSingular newValue state.firstSingular }
+                        progress
 
                 SecondSingularChange newValue ->
                     returnAsExerciseInProgressOrCompleted
                         spec
                         { state | secondSingular = getNewFillBoxState spec.answers.secondSingular newValue state.secondSingular }
+                        progress
 
                 _ ->
                     ( IncompatibleMessageForState msg model |> Error, Cmd.none )
@@ -410,24 +463,26 @@ getNewFillBoxState answers newValue state =
 handleVirtualKeyPress : String -> Msg -> AppModel -> ( AppModel, Cmd Msg )
 handleVirtualKeyPress char msg model =
     case model of
-        ExerciseInProgress spec state ->
+        ExerciseInProgress spec state progress ->
             case state.activeFillBox of
                 FillBox FirstSingular ->
                     returnAsExerciseInProgressOrCompleted
                         spec
                         { state | firstSingular = getNewFillBoxState spec.answers.firstSingular (state.firstSingular.value ++ char) state.firstSingular }
+                        progress
 
                 FillBox SecondSingular ->
                     returnAsExerciseInProgressOrCompleted
                         spec
                         { state | secondSingular = getNewFillBoxState spec.answers.secondSingular (state.secondSingular.value ++ char) state.secondSingular }
+                        progress
 
         _ ->
             ( IncompatibleMessageForState msg model |> Error, Cmd.none )
 
 
-returnAsExerciseInProgressOrCompleted : ExerciseSpec -> ExerciseCurrentState -> ( AppModel, Cmd Msg )
-returnAsExerciseInProgressOrCompleted spec state =
+returnAsExerciseInProgressOrCompleted : ExerciseSpec -> ExerciseCurrentState -> ExerciseListProgress -> ( AppModel, Cmd Msg )
+returnAsExerciseInProgressOrCompleted spec state progress =
     if isExerciseCompleted state then
         let
             incorrectTotal =
@@ -445,18 +500,19 @@ returnAsExerciseInProgressOrCompleted spec state =
                 , secondSingular = finalResult state.secondSingular.errorCount
                 }
             }
+            progress
         , focusElement exerciseCompletionScoreNextButtonId
         )
 
     else
-        ( ExerciseInProgress spec state, focusFillBox state.activeFillBox )
+        ( ExerciseInProgress spec state progress, focusFillBox state.activeFillBox )
 
 
 clearExerciseState : Msg -> AppModel -> AppModel
 clearExerciseState msg model =
     case model of
-        ExerciseCompleted spec _ ->
-            ExerciseInProgress spec emptyExerciseState
+        ExerciseCompleted spec _ progress ->
+            ExerciseInProgress spec emptyExerciseState progress
 
         _ ->
             IncompatibleMessageForState msg model |> Error
@@ -471,6 +527,7 @@ subscriptions _ =
     Sub.batch
         [ exerciseDataReceived ExerciseDataReceived
         , exerciseListDataReceived ExerciseListDataReceived
+        , exerciseListProgressDataReceived ExerciseListProgressDataReceived
         ]
 
 
@@ -526,11 +583,11 @@ content model =
             -- TODO: render error correctly
             div [] [ text reason ]
 
-        ExerciseInProgress spec state ->
-            verbConjugator spec state
+        ExerciseInProgress spec state progress ->
+            verbConjugator spec state progress
 
-        ExerciseCompleted spec summary ->
-            verbConjugatorCompletionScore spec summary
+        ExerciseCompleted spec summary progress ->
+            verbConjugatorCompletionScore spec summary progress
 
         GrammarTopicContent id ->
             spanishPresente (getExerciseListLink id)
@@ -583,8 +640,8 @@ exerciseLink description =
         ]
 
 
-verbConjugator : ExerciseSpec -> ExerciseCurrentState -> Html Msg
-verbConjugator spec state =
+verbConjugator : ExerciseSpec -> ExerciseCurrentState -> ExerciseListProgress -> Html Msg
+verbConjugator spec state progress =
     div []
         [ controlBar
             [ div [ class "control-bar-inner1" ]
@@ -596,6 +653,7 @@ verbConjugator spec state =
                     ]
                     -- TODO: should be a label
                     [ text "< All Verbs" ]
+                , exerciseProgress progress spec.exercisesInList
                 ]
             , div [ class "control-bar-inner3" ]
                 []
@@ -634,6 +692,40 @@ controlBar : List (Html Msg) -> Html Msg
 controlBar inner =
     div [ class "control-bar" ]
         inner
+
+
+exerciseProgress : ExerciseListProgress -> Int -> Html Msg
+exerciseProgress progress exerciseTotalCount =
+    case progress of
+        NotSynchronized ->
+            exerciseUnknownProgress
+
+        SynchronizationFailed _ ->
+            -- TODO: show warning somewhere
+            exerciseUnknownProgress
+
+        Synchronized progressData ->
+            let
+                stats =
+                    getExerciseListProgressStats progressData exerciseTotalCount
+            in
+            div [ class "exercise-progress" ]
+                [ completedAndPerfect
+                , span [ class "exercise-progress-score" ] [ text (fromInt stats.completedAndPerfect) ]
+                , completedNotPerfect
+                , span [ class "exercise-progress-score" ] [ text (fromInt stats.completedNotPerfect) ]
+                , notCompleted
+                , span [ class "exercise-progress-score" ] [ text (fromInt stats.notCompleted) ]
+                ]
+
+
+exerciseUnknownProgress : Html Msg
+exerciseUnknownProgress =
+    div [ class "exercise-progress" ]
+        [ completedAndPerfect
+        , completedNotPerfect
+        , notCompleted
+        ]
 
 
 getFillBoxElementId : VerbForm -> String
@@ -735,6 +827,17 @@ completedNotPerfect =
         ]
 
 
+notCompleted : Html Msg
+notCompleted =
+    span [ class "not-completed-mark" ]
+        [ img
+            [ class "not-completed-image"
+            , src "/notcompleted.png"
+            ]
+            []
+        ]
+
+
 calculateFillBoxInputClass : Bool -> Bool -> String
 calculateFillBoxInputClass isAnswerCompleted isAnswerCorrectSoFar =
     if isAnswerCompleted then
@@ -762,10 +865,25 @@ nextExerciseReference next =
         ]
 
 
-verbConjugatorCompletionScore : ExerciseSpec -> ExerciseSummary -> Html Msg
-verbConjugatorCompletionScore spec summary =
+verbConjugatorCompletionScore : ExerciseSpec -> ExerciseSummary -> ExerciseListProgress -> Html Msg
+verbConjugatorCompletionScore spec summary progress =
     div []
-        [ div [ class "exercise-completion-score" ]
+        [ controlBar
+            [ div [ class "control-bar-inner1" ]
+                []
+            , div [ class "control-bar-inner2" ]
+                [ a
+                    [ class "to-all-verbs-link"
+                    , href (getExerciseListLink spec.listId)
+                    ]
+                    -- TODO: should be a label
+                    [ text "< All Verbs" ]
+                , exerciseProgress progress spec.exercisesInList
+                ]
+            , div [ class "control-bar-inner3" ]
+                []
+            ]
+        , div [ class "exercise-completion-score" ]
             [ div [ class "exercise-completion-score-result1" ] [ text summary.overallResult ]
             , div [ class "exercise-completion-score-result2" ] [ text summary.feedback ]
             , div [ class "exercise-completion-results" ]
@@ -947,6 +1065,39 @@ showHint errorCount =
     errorCount > 1
 
 
+getExerciseListProgressStats : ExerciseListProgressData -> Int -> ExerciseListProgressStats
+getExerciseListProgressStats progress exerciseTotalCount =
+    let
+        completedAndPerfectTotal =
+            progress.exercises
+                |> List.map
+                    (\x ->
+                        if x.isCompleted && x.isPerfect then
+                            1
+
+                        else
+                            0
+                    )
+                |> List.sum
+
+        completedNotPerfectTotal =
+            progress.exercises
+                |> List.map
+                    (\x ->
+                        if x.isCompleted && not x.isPerfect then
+                            1
+
+                        else
+                            0
+                    )
+                |> List.sum
+    in
+    { completedAndPerfect = completedAndPerfectTotal
+    , completedNotPerfect = completedNotPerfectTotal
+    , notCompleted = exerciseTotalCount - completedAndPerfectTotal - completedNotPerfectTotal
+    }
+
+
 
 -- Data loading
 
@@ -961,6 +1112,12 @@ port requestExerciseData : String -> Cmd id
 
 
 port exerciseDataReceived : (String -> msg) -> Sub msg
+
+
+port requestExerciseListProgressData : String -> Cmd id
+
+
+port exerciseListProgressDataReceived : (String -> msg) -> Sub msg
 
 
 decodeExerciseListDataOrError : String -> AppModel
@@ -1035,7 +1192,7 @@ decodeExerciseData data =
     in
     case result of
         Ok spec ->
-            ExerciseInProgress spec emptyExerciseState
+            ExerciseInProgress spec emptyExerciseState NotSynchronized
 
         Err err ->
             ExerciseLoadingFailed (Json.Decode.errorToString err)
@@ -1072,16 +1229,79 @@ exerciseListItemDataDecoder =
         (field "name" string)
 
 
+decodeExerciseListProgressDataOrError : String -> ExerciseListProgress
+decodeExerciseListProgressDataOrError data =
+    let
+        isOk =
+            data |> decodeString (field "isOk" bool)
+    in
+    case isOk of
+        Ok success ->
+            if success then
+                decodeExerciseListProgressData data
+
+            else
+                decodeExerciseListProgressLoadingErrorData data
+
+        Err err ->
+            SynchronizationFailed (Json.Decode.errorToString err)
+
+
+decodeExerciseListProgressData : String -> ExerciseListProgress
+decodeExerciseListProgressData data =
+    let
+        result =
+            data |> decodeString exerciseListProgressDataDecoder
+    in
+    case result of
+        Ok progress ->
+            Synchronized progress
+
+        Err err ->
+            SynchronizationFailed (Json.Decode.errorToString err)
+
+
+decodeExerciseListProgressLoadingErrorData : String -> ExerciseListProgress
+decodeExerciseListProgressLoadingErrorData data =
+    let
+        result =
+            data |> decodeString dataLoadingErrorDecoder
+    in
+    case result of
+        Ok err ->
+            SynchronizationFailed err
+
+        Err err ->
+            SynchronizationFailed (Json.Decode.errorToString err)
+
+
+exerciseListProgressDataDecoder : Decoder ExerciseListProgressData
+exerciseListProgressDataDecoder =
+    field "data" <|
+        map2 ExerciseListProgressData
+            (field "id" string)
+            (field "exercises" (Json.Decode.list exerciseProgressDataDecoder))
+
+
+exerciseProgressDataDecoder : Decoder ExerciseProgressData
+exerciseProgressDataDecoder =
+    map3 ExerciseProgressData
+        (field "id" string)
+        (field "isCompleted" bool)
+        (field "isPerfect" bool)
+
+
 exerciseSpecDecoder : Decoder ExerciseSpec
 exerciseSpecDecoder =
     field "data" <|
-        map7 ExerciseSpec
+        map8 ExerciseSpec
             (field "id" string)
             (field "listId" string)
             (field "verb" string)
             (field "tense" string)
             (field "labels" exerciseLabelsDecoder)
             (field "answers" exerciseAnswersDecoder)
+            (field "exercisesInList" int)
             (field "next" exerciseNextDecoder)
 
 
