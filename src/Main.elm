@@ -244,7 +244,7 @@ update msg model =
             handleVirtualKeyPress char msg appModel |> asNewAppModelPlusCommandOf model
 
         RetryCompletedExercise ->
-            clearExerciseState msg appModel |> asNewAppModelOf model |> justModel
+            ( clearExerciseState msg appModel |> asNewAppModelOf model, focusFillBox (FillBox FirstSingular) )
 
         FocusResult result ->
             handleFocusResult model result
