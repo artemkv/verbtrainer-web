@@ -19,14 +19,14 @@ spanishPresente exerciseListLink =
         , div [ class "grammar-topic-content" ]
             [ div [ class "grammar-topic-section" ]
                 [ div [ class "grammar-topic-section-title" ]
-                    [ text "{localize('spanish_grammar.regular_verbs', props.uiLanguage)}" ]
+                    [ text (localize "spanish_grammar.regular_verbs") ]
                 , div [ class "grammar-topic-section-content" ]
                     [ div [ class "grammar-topic-subsection" ]
                         [ div [ class "grammar-topic-subsection-title" ]
-                            [ text "{localize('spanish_grammar.xx_verbs_prefix', props.uiLanguage)}                                "
+                            [ text (localize "spanish_grammar.xx_verbs_prefix")
                             , span [ class "grammar-topic-verb-form-ending" ]
                                 [ text "-ar" ]
-                            , text "{localize('spanish_grammar.xx_verbs_suffix', props.uiLanguage)}                            "
+                            , text (localize "spanish_grammar.xx_verbs_suffix")
                             ]
                         , div [ class "grammar-topic-verb-conjugation" ]
                             [ div [ class "grammar-topic-verb" ]
@@ -67,10 +67,10 @@ spanishPresente exerciseListLink =
                         ]
                     , div [ class "grammar-topic-subsection" ]
                         [ div [ class "grammar-topic-subsection-title" ]
-                            [ text "{localize('spanish_grammar.xx_verbs_prefix', props.uiLanguage)}                                "
+                            [ text (localize "spanish_grammar.xx_verbs_prefix")
                             , span [ class "grammar-topic-verb-form-ending" ]
                                 [ text "-er" ]
-                            , text "{localize('spanish_grammar.xx_verbs_suffix', props.uiLanguage)}                            "
+                            , text (localize "spanish_grammar.xx_verbs_suffix")
                             ]
                         , div [ class "grammar-topic-verb-conjugation" ]
                             [ div [ class "grammar-topic-verb" ]
@@ -111,10 +111,10 @@ spanishPresente exerciseListLink =
                         ]
                     , div [ class "grammar-topic-subsection" ]
                         [ div [ class "grammar-topic-subsection-title" ]
-                            [ text "{localize('spanish_grammar.xx_verbs_prefix', props.uiLanguage)}                                "
+                            [ text (localize "spanish_grammar.xx_verbs_prefix")
                             , span [ class "grammar-topic-verb-form-ending" ]
                                 [ text "-ir" ]
-                            , text "{localize('spanish_grammar.xx_verbs_suffix', props.uiLanguage)}                            "
+                            , text (localize "spanish_grammar.xx_verbs_suffix")
                             ]
                         , div [ class "grammar-topic-verb-conjugation" ]
                             [ div [ class "grammar-topic-verb" ]
@@ -157,7 +157,7 @@ spanishPresente exerciseListLink =
                 ]
             , div [ class "grammar-topic-section" ]
                 [ div [ class "grammar-topic-section-title" ]
-                    [ text "{localize('spanish_grammar.radical_changing_verbs', props.uiLanguage)}" ]
+                    [ text (localize "spanish_grammar.radical_changing_verbs") ]
                 , div [ class "grammar-topic-section-content" ]
                     [ div [ class "grammar-topic-subsection" ]
                         [ div [ class "grammar-topic-subsection-title" ]
@@ -383,7 +383,7 @@ spanishPresente exerciseListLink =
                 ]
             , div [ class "grammar-topic-section" ]
                 [ div [ class "grammar-topic-section-title" ]
-                    [ text "{localize('spanish_grammar.irregular_verbs_ir_ser_estar', props.uiLanguage)}" ]
+                    [ text (localize "spanish_grammar.irregular_verbs_ir_ser_estar") ]
                 , div [ class "grammar-topic-section-content" ]
                     [ div [ class "grammar-topic-subsection" ]
                         [ div [ class "grammar-topic-verb-conjugation" ]
@@ -449,7 +449,7 @@ spanishPresente exerciseListLink =
                 ]
             , div [ class "grammar-topic-section" ]
                 [ div [ class "grammar-topic-section-title" ]
-                    [ text "{localize('spanish_grammar.irregular_verbs_dar_tener_poner', props.uiLanguage)}" ]
+                    [ text (localize "spanish_grammar.irregular_verbs_dar_tener_poner") ]
                 , div [ class "grammar-topic-section-content" ]
                     [ div [ class "grammar-topic-subsection" ]
                         [ div [ class "grammar-topic-verb-conjugation" ]
@@ -582,7 +582,7 @@ spanishPresente exerciseListLink =
                 ]
             , div [ class "grammar-topic-section" ]
                 [ div [ class "grammar-topic-section-title" ]
-                    [ text "{localize('spanish_grammar.irregular_verbs_hacer_saber_conocer', props.uiLanguage)}" ]
+                    [ text (localize "spanish_grammar.irregular_verbs_hacer_saber_conocer") ]
                 , div [ class "grammar-topic-section-content" ]
                     [ div [ class "grammar-topic-subsection" ]
                         [ div [ class "grammar-topic-verb-conjugation" ]
@@ -706,3 +706,32 @@ spanishPresente exerciseListLink =
                 ]
             ]
         ]
+
+
+localize : String -> String
+localize text =
+    -- TODO: this is a dummy implementation
+    case text of
+        "spanish_grammar.regular_verbs" ->
+            "Regular verbs"
+
+        "spanish_grammar.xx_verbs_prefix" ->
+            ""
+
+        "spanish_grammar.xx_verbs_suffix" ->
+            " verbs"
+
+        "spanish_grammar.radical_changing_verbs" ->
+            "Radical changing verbs"
+
+        "spanish_grammar.irregular_verbs_ir_ser_estar" ->
+            "Irregular verbs - Ir, Ser, Estar"
+
+        "spanish_grammar.irregular_verbs_dar_tener_poner" ->
+            "Irregular verbs - Dar, Tener, Poner"
+
+        "spanish_grammar.irregular_verbs_hacer_saber_conocer" ->
+            "Irregular verbs - Hacer, Saber, Conocer"
+
+        _ ->
+            "__" ++ text ++ "__"
