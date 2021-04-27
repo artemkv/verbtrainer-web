@@ -132,7 +132,6 @@ type alias ExerciseListProgressData =
 
 type alias ExerciseProgressData =
     { id : ExerciseId
-    , isCompleted : Bool
     , isPerfect : Bool
     }
 
@@ -373,6 +372,9 @@ updateExerciseListProgressFromReceivedData data msg model =
         ExerciseInProgress spec state _ ->
             ExerciseInProgress spec state (decodeExerciseListProgressDataOrError data)
 
+        ExerciseCompleted spec summary _ ->
+            ExerciseCompleted spec summary (decodeExerciseListProgressDataOrError data)
+
         -- TODO: update list too
         ExerciseListInProgress _ ->
             model
@@ -489,6 +491,9 @@ returnAsExerciseInProgressOrCompleted spec state progress =
                 (isPerfect state.firstSingular.errorCount |> conditionallyPick 0 1)
                     + (isPerfect state.secondSingular.errorCount |> conditionallyPick 0 1)
 
+            isExercisePerfect =
+                incorrectTotal == 0
+
             ( overallResult, feedback ) =
                 getExerciseOverallResultAndFeedback incorrectTotal
         in
@@ -501,7 +506,10 @@ returnAsExerciseInProgressOrCompleted spec state progress =
                 }
             }
             progress
-        , focusElement exerciseCompletionScoreNextButtonId
+        , Cmd.batch
+            [ sendExerciseProgressData ( spec.id, isExercisePerfect )
+            , focusElement exerciseCompletionScoreNextButtonId
+            ]
         )
 
     else
@@ -1070,26 +1078,12 @@ getExerciseListProgressStats progress exerciseTotalCount =
     let
         completedAndPerfectTotal =
             progress.exercises
-                |> List.map
-                    (\x ->
-                        if x.isCompleted && x.isPerfect then
-                            1
-
-                        else
-                            0
-                    )
+                |> List.map (.isPerfect >> conditionallyPick 1 0)
                 |> List.sum
 
         completedNotPerfectTotal =
             progress.exercises
-                |> List.map
-                    (\x ->
-                        if x.isCompleted && not x.isPerfect then
-                            1
-
-                        else
-                            0
-                    )
+                |> List.map (.isPerfect >> conditionallyPick 0 1)
                 |> List.sum
     in
     { completedAndPerfect = completedAndPerfectTotal
@@ -1118,6 +1112,9 @@ port requestExerciseListProgressData : String -> Cmd id
 
 
 port exerciseListProgressDataReceived : (String -> msg) -> Sub msg
+
+
+port sendExerciseProgressData : ( String, Bool ) -> Cmd id
 
 
 decodeExerciseListDataOrError : String -> AppModel
@@ -1285,9 +1282,8 @@ exerciseListProgressDataDecoder =
 
 exerciseProgressDataDecoder : Decoder ExerciseProgressData
 exerciseProgressDataDecoder =
-    map3 ExerciseProgressData
+    map2 ExerciseProgressData
         (field "id" string)
-        (field "isCompleted" bool)
         (field "isPerfect" bool)
 
 

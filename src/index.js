@@ -118,18 +118,40 @@ app.ports.requestExerciseData.subscribe(function (id) {
 });
 
 
+const progress = [];
+
+
 app.ports.requestExerciseListProgressData.subscribe(function (id) {
     let result = {
         isOk: true,
         data: {
             id: "presente",
-            exercises: [
-                {
-                    id: "hablar",
-                    isCompleted: true,
-                    isPerfect: true
-                }
-            ]
+            exercises: progress
+        }
+    }
+    setTimeout(function () {
+        app.ports.exerciseListProgressDataReceived.send(JSON.stringify(result));
+    }, 250);
+});
+
+
+app.ports.sendExerciseProgressData.subscribe(function ([id, isPerfect]) {
+    let exerciseProgress = progress.find(x => x.id === id);
+    if (exerciseProgress) {
+        exerciseProgress.isPerfect = isPerfect;
+    } else {
+        exerciseProgress = {
+            id,
+            isPerfect
+        };
+        progress.push(exerciseProgress);
+    }
+
+    let result = {
+        isOk: true,
+        data: {
+            id: "presente",
+            exercises: progress
         }
     }
     setTimeout(function () {

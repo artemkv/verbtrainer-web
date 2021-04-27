@@ -23,11 +23,12 @@
 - Tense (exercise list and verb conjugator) is a link to the corresponding grammar section
 - Render grammar section (first, only for the "presente")
 - Retry does not set the focus
+- Render progress bar in the verb conjugator control bar
+- Report exercise progress update to JS, update the state and send back to the app
 --------------------------
 - Currently I'm checking that messages are compatible with the state of the model, but messages are async, so might arrive when model is already changed. So need to re-think this logic
 - Check async messages, like on data received, that they match the requested data, by id
 - Keep track of completed exercises, save in local storage and show completion mark in the exercise list
-- Render progress bar in the verb conjugator control bar
 - Return correct data from the API instead of fake hard-coded
 - Use all 6 verb forms
 - Render errors nicely
