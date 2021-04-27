@@ -34,13 +34,8 @@ type AppModel
     | ExerciseInProgress ExerciseSpec ExerciseCurrentState ExerciseListProgress
     | ExerciseCompleted ExerciseSpec ExerciseSummary ExerciseListProgress
     | GrammarTopicContent ExerciseListId
-    | Error ErrorDetails
+    | Error String
     | PageNotFound
-
-
-type ErrorDetails
-    = IncompatibleMessageForState Msg AppModel
-    | Other String
 
 
 type alias ExerciseId =
@@ -219,13 +214,13 @@ update msg model =
             navigateToExercise id model
 
         ExerciseListDataReceived data ->
-            updateExerciseListFromReceivedData data msg appModel |> asNewAppModelOf model |> justModel
+            updateExerciseListFromReceivedData data appModel |> asNewAppModelOf model |> justModel
 
         ExerciseListProgressDataReceived data ->
-            updateExerciseListProgressFromReceivedData data msg appModel |> asNewAppModelOf model |> justModel
+            updateExerciseListProgressFromReceivedData data appModel |> asNewAppModelOf model |> justModel
 
         ExerciseDataReceived data ->
-            updateExerciseFromReceivedData data msg appModel |> asNewAppModelPlusCommandOf model
+            updateExerciseFromReceivedData data appModel |> asNewAppModelPlusCommandOf model
 
         FirstSingularChange _ ->
             updateExerciseInProgress msg appModel |> asNewAppModelPlusCommandOf model
@@ -240,10 +235,10 @@ update msg model =
             handleFillBoxFocused msg appModel |> asNewAppModelOf model |> justModel
 
         VirtualKeyPressed char ->
-            handleVirtualKeyPress char msg appModel |> asNewAppModelPlusCommandOf model
+            handleVirtualKeyPress char appModel |> asNewAppModelPlusCommandOf model
 
         RetryCompletedExercise ->
-            ( clearExerciseState msg appModel |> asNewAppModelOf model, focusFillBox (FillBox FirstSingular) )
+            ( clearExerciseState appModel |> asNewAppModelOf model, focusFillBox (FillBox FirstSingular) )
 
         FocusResult result ->
             handleFocusResult model result
@@ -316,7 +311,8 @@ handleFocusResult : Model -> Result Dom.Error () -> ( Model, Cmd Msg )
 handleFocusResult model result =
     case result of
         Err (Dom.NotFound id) ->
-            Other ("Could not find DOM element with id " ++ id)
+            -- TODO: should this error be on the model level to show it simply as warning instead of breaking the complete flow?
+            ("Could not find DOM element with id " ++ id)
                 |> Error
                 |> asNewAppModelOf model
                 |> justModel
@@ -346,28 +342,28 @@ handleFillBoxFocused msg model =
                     ExerciseInProgress spec { state | activeFillBox = FillBox SecondSingular } progress
 
                 _ ->
-                    IncompatibleMessageForState msg model |> Error
+                    model
 
         _ ->
-            IncompatibleMessageForState msg model |> Error
+            model
 
 
 
 -- Other model updates
 
 
-updateExerciseListFromReceivedData : String -> Msg -> AppModel -> AppModel
-updateExerciseListFromReceivedData data msg model =
+updateExerciseListFromReceivedData : String -> AppModel -> AppModel
+updateExerciseListFromReceivedData data model =
     case model of
         ExerciseListNotLoaded ->
             decodeExerciseListDataOrError data
 
         _ ->
-            IncompatibleMessageForState msg model |> Error
+            model
 
 
-updateExerciseListProgressFromReceivedData : String -> Msg -> AppModel -> AppModel
-updateExerciseListProgressFromReceivedData data msg model =
+updateExerciseListProgressFromReceivedData : String -> AppModel -> AppModel
+updateExerciseListProgressFromReceivedData data model =
     case model of
         ExerciseInProgress spec state _ ->
             ExerciseInProgress spec state (decodeExerciseListProgressDataOrError data)
@@ -380,17 +376,17 @@ updateExerciseListProgressFromReceivedData data msg model =
             model
 
         _ ->
-            IncompatibleMessageForState msg model |> Error
+            model
 
 
-updateExerciseFromReceivedData : String -> Msg -> AppModel -> ( AppModel, Cmd Msg )
-updateExerciseFromReceivedData data msg model =
+updateExerciseFromReceivedData : String -> AppModel -> ( AppModel, Cmd Msg )
+updateExerciseFromReceivedData data model =
     case model of
         ExerciseNotLoaded ->
             decodeExerciseDataOrError data |> onExerciseStart
 
         _ ->
-            ( IncompatibleMessageForState msg model |> Error, Cmd.none )
+            ( model, Cmd.none )
 
 
 onExerciseStart : AppModel -> ( AppModel, Cmd Msg )
@@ -426,10 +422,10 @@ updateExerciseInProgress msg model =
                         progress
 
                 _ ->
-                    ( IncompatibleMessageForState msg model |> Error, Cmd.none )
+                    ( model, Cmd.none )
 
         _ ->
-            ( IncompatibleMessageForState msg model |> Error, Cmd.none )
+            ( model, Cmd.none )
 
 
 getNewFillBoxState : List String -> String -> FillBoxState -> FillBoxState
@@ -462,8 +458,8 @@ getNewFillBoxState answers newValue state =
     FillBoxState newValue newIsCompleted newErrorCount
 
 
-handleVirtualKeyPress : String -> Msg -> AppModel -> ( AppModel, Cmd Msg )
-handleVirtualKeyPress char msg model =
+handleVirtualKeyPress : String -> AppModel -> ( AppModel, Cmd Msg )
+handleVirtualKeyPress char model =
     case model of
         ExerciseInProgress spec state progress ->
             case state.activeFillBox of
@@ -480,7 +476,7 @@ handleVirtualKeyPress char msg model =
                         progress
 
         _ ->
-            ( IncompatibleMessageForState msg model |> Error, Cmd.none )
+            ( model, Cmd.none )
 
 
 returnAsExerciseInProgressOrCompleted : ExerciseSpec -> ExerciseCurrentState -> ExerciseListProgress -> ( AppModel, Cmd Msg )
@@ -516,14 +512,14 @@ returnAsExerciseInProgressOrCompleted spec state progress =
         ( ExerciseInProgress spec state progress, focusFillBox state.activeFillBox )
 
 
-clearExerciseState : Msg -> AppModel -> AppModel
-clearExerciseState msg model =
+clearExerciseState : AppModel -> AppModel
+clearExerciseState model =
     case model of
         ExerciseCompleted spec _ progress ->
             ExerciseInProgress spec emptyExerciseState progress
 
         _ ->
-            IncompatibleMessageForState msg model |> Error
+            model
 
 
 
@@ -600,22 +596,11 @@ content model =
         GrammarTopicContent id ->
             spanishPresente (getExerciseListLink id)
 
-        Error errorDetails ->
-            div [] [ text (errorDetails |> errorText) ]
+        Error err ->
+            div [] [ text err ]
 
         PageNotFound ->
             notFound404
-
-
-errorText : ErrorDetails -> String
-errorText err =
-    case err of
-        IncompatibleMessageForState _ _ ->
-            -- TODO: how to print out msg/model?
-            "Message is incompatible with the current state of the model"
-
-        Other s ->
-            s
 
 
 exerciseList : ExerciseListData -> Html Msg
