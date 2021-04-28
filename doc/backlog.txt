@@ -30,16 +30,16 @@
 - Keep track of completed exercises and show completion mark in the exercise list
 - Save completion in local storage
 --------------------------
-- Return correct data from the API instead of fake hard-coded
 - Use all 6 verb forms
-- Render errors nicely
 
 TODO:
+- Render errors nicely
 - ? Handle loading errors differently, depending on the error, potentially adding button to retry loading exercise on certain errors
 - Extract labels
 - Localize
 - Add sitemap
 - Every url must have correct and localized meta
+- Return correct data from the API instead of fake hard-coded
 - Review https://github.com/hurwitzlab/elm-imicrobe-spa
 
 

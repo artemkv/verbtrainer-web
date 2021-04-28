@@ -8,6 +8,8 @@ const app = Elm.Main.init({
 })
 
 
+const DATA_LOAD_DELAY = 0;
+
 // TODO: the JS part didn't get enough attention, hard-coded and dirty
 
 const exerciseList = require('./exercises/es/presente.json');
@@ -59,7 +61,7 @@ app.ports.requestExerciseListData.subscribe(function (id) {
 
     setTimeout(function () {
         app.ports.exerciseListDataReceived.send(JSON.stringify(result));
-    }, 250);
+    }, DATA_LOAD_DELAY);
 });
 
 app.ports.requestExerciseData.subscribe(function (id) {
@@ -78,7 +80,7 @@ app.ports.requestExerciseData.subscribe(function (id) {
 
     setTimeout(function () {
         app.ports.exerciseDataReceived.send(JSON.stringify(result));
-    }, 250);
+    }, DATA_LOAD_DELAY);
 });
 
 
@@ -101,7 +103,7 @@ app.ports.requestExerciseListProgressData.subscribe(function (id) {
     }
     setTimeout(function () {
         app.ports.exerciseListProgressDataReceived.send(JSON.stringify(result));
-    }, 250);
+    }, DATA_LOAD_DELAY);
 });
 
 app.ports.sendExerciseProgressData.subscribe(function ([id, isPerfect]) {
@@ -126,5 +128,5 @@ app.ports.sendExerciseProgressData.subscribe(function ([id, isPerfect]) {
     }
     setTimeout(function () {
         app.ports.exerciseListProgressDataReceived.send(JSON.stringify(result));
-    }, 250);
+    }, DATA_LOAD_DELAY);
 });
