@@ -28,7 +28,7 @@ type alias Model =
 type AppModel
     = ExerciseListNotLoaded
     | ExerciseListLoadingFailed String
-    | ExerciseListInProgress ExerciseListData
+    | ExerciseListInProgress ExerciseListData ExerciseListProgress
     | ExerciseNotLoaded
     | ExerciseLoadingFailed String
     | ExerciseInProgress ExerciseSpec ExerciseCurrentState ExerciseListProgress
@@ -214,7 +214,7 @@ update msg model =
             navigateToExercise id model
 
         ExerciseListDataReceived data ->
-            updateExerciseListFromReceivedData data appModel |> asNewAppModelOf model |> justModel
+            updateExerciseListFromReceivedData data appModel |> asNewAppModelPlusCommandOf model
 
         ExerciseListProgressDataReceived data ->
             updateExerciseListProgressFromReceivedData data appModel |> asNewAppModelOf model |> justModel
@@ -352,14 +352,24 @@ handleFillBoxFocused msg model =
 -- Other model updates
 
 
-updateExerciseListFromReceivedData : String -> AppModel -> AppModel
+updateExerciseListFromReceivedData : String -> AppModel -> ( AppModel, Cmd Msg )
 updateExerciseListFromReceivedData data model =
     case model of
         ExerciseListNotLoaded ->
-            decodeExerciseListDataOrError data
+            decodeExerciseListDataOrError data |> onExerciseListLoad
 
         _ ->
-            model
+            ( model, Cmd.none )
+
+
+onExerciseListLoad : AppModel -> ( AppModel, Cmd Msg )
+onExerciseListLoad model =
+    case model of
+        ExerciseListInProgress data _ ->
+            ( model, requestExerciseListProgressData data.id )
+
+        _ ->
+            ( model, Cmd.none )
 
 
 updateExerciseListProgressFromReceivedData : String -> AppModel -> AppModel
@@ -371,9 +381,8 @@ updateExerciseListProgressFromReceivedData data model =
         ExerciseCompleted spec summary _ ->
             ExerciseCompleted spec summary (decodeExerciseListProgressDataOrError data)
 
-        -- TODO: update list too
-        ExerciseListInProgress _ ->
-            model
+        ExerciseListInProgress listData _ ->
+            ExerciseListInProgress listData (decodeExerciseListProgressDataOrError data)
 
         _ ->
             model
@@ -577,8 +586,8 @@ content model =
             -- TODO: render error correctly
             div [] [ text reason ]
 
-        ExerciseListInProgress data ->
-            exerciseList data
+        ExerciseListInProgress data progress ->
+            exerciseList data progress
 
         ExerciseNotLoaded ->
             div [] [ spinner ]
@@ -603,8 +612,8 @@ content model =
             notFound404
 
 
-exerciseList : ExerciseListData -> Html Msg
-exerciseList data =
+exerciseList : ExerciseListData -> ExerciseListProgress -> Html Msg
+exerciseList data progress =
     div []
         [ controlBar [ nothing ]
         , div [ class "exercise-list" ]
@@ -617,20 +626,40 @@ exerciseList data =
                     [ text data.subtitle ]
                 ]
             , div [ class "exercise-list-exercises" ]
-                (data.exercises |> List.map exerciseLink)
+                (data.exercises |> List.map (exerciseLink progress))
             ]
         ]
 
 
-exerciseLink : ExerciseDescription -> Html msg
-exerciseLink description =
+exerciseLink : ExerciseListProgress -> ExerciseDescription -> Html Msg
+exerciseLink progress description =
     div []
         [ a
             [ class "exercise-list-exercise-link"
             , href (getExerciseLink description.id)
             ]
             [ text description.name ]
+        , exerciseLinkCompletion progress description.id
         ]
+
+
+exerciseLinkCompletion : ExerciseListProgress -> ExerciseId -> Html Msg
+exerciseLinkCompletion progress id =
+    case progress of
+        NotSynchronized ->
+            nothing
+
+        Synchronized progressData ->
+            case getExerciseProgress progressData id of
+                Completed isReferredExercisePerfect ->
+                    isReferredExercisePerfect |> conditionallyPick completedAndPerfect completedNotPerfect
+
+                NotCompleted ->
+                    nothing
+
+        -- TODO: Show warning somewhere
+        SynchronizationFailed _ ->
+            nothing
 
 
 verbConjugator : ExerciseSpec -> ExerciseCurrentState -> ExerciseListProgress -> Html Msg
@@ -1077,6 +1106,27 @@ getExerciseListProgressStats progress exerciseTotalCount =
     }
 
 
+type ExerciseProgress
+    = NotCompleted
+    | Completed Bool
+
+
+getExerciseProgress : ExerciseListProgressData -> ExerciseId -> ExerciseProgress
+getExerciseProgress progressData id =
+    let
+        item =
+            progressData.exercises
+                |> List.filter (\x -> x.id == id)
+                |> List.head
+    in
+    case item of
+        Nothing ->
+            NotCompleted
+
+        Just exerciseProgressData ->
+            Completed exerciseProgressData.isPerfect
+
+
 
 -- Data loading
 
@@ -1128,7 +1178,7 @@ decodeExerciseListData data =
     in
     case result of
         Ok exerciseListData ->
-            ExerciseListInProgress exerciseListData
+            ExerciseListInProgress exerciseListData NotSynchronized
 
         Err err ->
             ExerciseListLoadingFailed (Json.Decode.errorToString err)

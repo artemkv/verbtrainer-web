@@ -26,8 +26,8 @@
 - Render progress bar in the verb conjugator control bar
 - Report exercise progress update to JS, update the state and send back to the app
 - Currently I'm checking that messages are compatible with the state of the model, but messages are async, so might arrive when model is already changed
+- --For the "data received" messages, I could check that the id of exercise/list received still matches the one requested, but that seem to be overengineering--
 --------------------------
-- Check async messages, like on data received, that they match the requested data, by id
 - Keep track of completed exercises, save in local storage and show completion mark in the exercise list
 - Return correct data from the API instead of fake hard-coded
 - Use all 6 verb forms
