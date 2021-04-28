@@ -1,6 +1,7 @@
 - formatting is too aggressive. My "TODO" comments are constantly forced away from functions and type definitions
-- many JS APIs are not available in Elm (e.g. String.localCompare)
-- Messages are separated from model, but many messages only make sense when model is an a certain state, which requires checking and creates a potential for runtime errors
+- many JS APIs are not available in Elm (e.g. String.localCompare), and accessing them through ports is not practical
+- Messages are separated from model, but many messages only make sense when model is an a certain state. Messages can also arrive async. So you need to check every time that the model is still what you expect
 - Initial prototyping went super fast and easy, but adding routing and JS interop took some mind bending
 - Using navkey at the root of the model is polluting the model
 - Focusing elements using Cmd is very annoying, pollutes update methods with unnecessary dom-related code
+- Scope is global and even "local variables" don't shadow global functions. So basically you have a single context for the complete dictionary of you program terms. Many time I get a name clash
