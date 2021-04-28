@@ -8,8 +8,10 @@ const app = Elm.Main.init({
 })
 
 
+// TODO: the JS part didn't get enough attention, hard-coded and dirty
+
 const exerciseList = require('./exercises/es/presente.json');
-const exercises = {}
+const exercises = {};
 
 exerciseList.forEach((exercise, idx) => {
     let nextIdx = idx + 1;
@@ -80,8 +82,14 @@ app.ports.requestExerciseData.subscribe(function (id) {
 });
 
 
-const progress = [];
-
+let progress = [];
+let progressText = localStorage.getItem("PROGRESS");
+if (!progressText) {
+    progress = [];
+    localStorage.setItem("PROGRESS", JSON.stringify(progress));
+} else {
+    progress = JSON.parse(progressText);
+}
 
 app.ports.requestExerciseListProgressData.subscribe(function (id) {
     let result = {
@@ -96,7 +104,6 @@ app.ports.requestExerciseListProgressData.subscribe(function (id) {
     }, 250);
 });
 
-
 app.ports.sendExerciseProgressData.subscribe(function ([id, isPerfect]) {
     let exerciseProgress = progress.find(x => x.id === id);
     if (exerciseProgress) {
@@ -108,6 +115,7 @@ app.ports.sendExerciseProgressData.subscribe(function ([id, isPerfect]) {
         };
         progress.push(exerciseProgress);
     }
+    localStorage.setItem("PROGRESS", JSON.stringify(progress));
 
     let result = {
         isOk: true,

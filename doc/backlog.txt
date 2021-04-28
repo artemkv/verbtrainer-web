@@ -28,10 +28,10 @@
 - Currently I'm checking that messages are compatible with the state of the model, but messages are async, so might arrive when model is already changed
 - --For the "data received" messages, I could check that the id of exercise/list received still matches the one requested, but that seem to be overengineering--
 - Keep track of completed exercises and show completion mark in the exercise list
+- Save completion in local storage
 --------------------------
 - Return correct data from the API instead of fake hard-coded
 - Use all 6 verb forms
-- Save completion in local storage
 - Render errors nicely
 
 TODO:
