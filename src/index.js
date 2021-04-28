@@ -7,6 +7,40 @@ const app = Elm.Main.init({
     node: document.getElementById("app")
 })
 
+
+const exerciseList = require('./exercises/es/presente.json');
+const exercises = {}
+
+exerciseList.forEach((exercise, idx) => {
+    let nextIdx = idx + 1;
+    if (nextIdx >= exerciseList.length) {
+        nextIdx = 0;
+    }
+    let nextExercise = exerciseList[nextIdx];
+
+    let exerciseData = {
+        id: exercise.id,
+        listId: "presente",
+        verb: exercise.verb,
+        tense: "Presente",
+        labels: {
+            firstSingular: "Yo",
+            secondSingular: "Tú",
+            thirdSingular: "",
+            firstPlural: "",
+            secondPlural: "",
+            thirdPlural: ""
+        },
+        answers: exercise.answers,
+        exercisesInList: exerciseList.length,
+        next: {
+            verb: nextExercise.verb,
+            id: nextExercise.id
+        }
+    };
+    exercises[exercise.id] = exerciseData;
+});
+
 app.ports.requestExerciseListData.subscribe(function (id) {
     let result = {
         isOk: true,
@@ -14,20 +48,10 @@ app.ports.requestExerciseListData.subscribe(function (id) {
             id: "presente",
             title: "100 Spanish Verbs", // TODO: should be a label
             subtitle: "Presente", // TODO: should be a label
-            exercises: [
-                {
-                    id: "hablar",
-                    name: "hablar"
-                },
-                {
-                    id: "estar",
-                    name: "estar"
-                },
-                {
-                    id: "ser",
-                    name: "ser"
-                }
-            ]
+            exercises: exerciseList.map(x => ({
+                id: x.id,
+                name: x.name
+            }))
         }
     }
 
@@ -37,78 +61,16 @@ app.ports.requestExerciseListData.subscribe(function (id) {
 });
 
 app.ports.requestExerciseData.subscribe(function (id) {
-    // TODO: this is hard-coded implementation
-    let hablar = {
-        id: "hablar",
-        listId: "presente",
-        verb: "Hablar",
-        tense: "Presente",
-        labels: {
-            firstSingular: "Yo",
-            secondSingular: "Tú",
-            thirdSingular: "",
-            firstPlural: "",
-            secondPlural: "",
-            thirdPlural: ""
-        },
-        answers: {
-            firstSingular: ["hablo"],
-            secondSingular: ["hablas"],
-            thirdSingular: [""],
-            firstPlural: [""],
-            secondPlural: [""],
-            thirdPlural: [""]
-        },
-        exercisesInList: 3,
-        next: {
-            verb: "Estar",
-            id: "estar"
-        }
-    };
-
-    let estar = {
-        id: "estar",
-        listId: "presente",
-        verb: "Estar",
-        tense: "Presente",
-        labels: {
-            firstSingular: "Yo",
-            secondSingular: "Tú",
-            thirdSingular: "",
-            firstPlural: "",
-            secondPlural: "",
-            thirdPlural: ""
-        },
-        answers: {
-            firstSingular: ["estoy"],
-            secondSingular: ["estás"],
-            thirdSingular: [""],
-            firstPlural: [""],
-            secondPlural: [""],
-            thirdPlural: [""]
-        },
-        exercisesInList: 3,
-        next: {
-            verb: "Ser",
-            id: "ser"
-        }
-    };
-
     let result = {
         isOk: false,
         data: {
             err: "Could not load exercise data"
         }
     }
-    if (id === "hablar") {
+    if (id in exercises) {
         result = {
             isOk: true,
-            data: hablar
-        }
-    } else if (id === "estar") {
-        result = {
-            isOk: true,
-            data: estar
+            data: exercises[id]
         }
     }
 

@@ -633,7 +633,7 @@ exerciseList data progress =
 
 exerciseLink : ExerciseListProgress -> ExerciseDescription -> Html Msg
 exerciseLink progress description =
-    div []
+    div [ class "exercise-list-exercise-allow-access" ]
         [ a
             [ class "exercise-list-exercise-link"
             , href (getExerciseLink description.id)

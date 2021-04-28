@@ -1,0 +1,2602 @@
+[
+    {
+        "id": "hablar",
+        "name": "hablar",
+        "verb": "Hablar",
+        "access": "free",
+        "answers": {
+            "firstSingular": [
+                "hablo"
+            ],
+            "secondSingular": [
+                "hablas"
+            ],
+            "thirdSingular": [
+                "habla"
+            ],
+            "firstPlural": [
+                "hablamos"
+            ],
+            "secondPlural": [
+                "habláis"
+            ],
+            "thirdPlural": [
+                "hablan"
+            ]
+        }
+    },
+    {
+        "id": "estar",
+        "name": "estar",
+        "verb": "Estar",
+        "access": "free",
+        "answers": {
+            "firstSingular": [
+                "estoy"
+            ],
+            "secondSingular": [
+                "estás"
+            ],
+            "thirdSingular": [
+                "está"
+            ],
+            "firstPlural": [
+                "estamos"
+            ],
+            "secondPlural": [
+                "estáis"
+            ],
+            "thirdPlural": [
+                "están"
+            ]
+        }
+    },
+    {
+        "id": "ser",
+        "name": "ser",
+        "verb": "Ser",
+        "access": "free",
+        "answers": {
+            "firstSingular": [
+                "soy"
+            ],
+            "secondSingular": [
+                "eres"
+            ],
+            "thirdSingular": [
+                "es"
+            ],
+            "firstPlural": [
+                "somos"
+            ],
+            "secondPlural": [
+                "sois"
+            ],
+            "thirdPlural": [
+                "son"
+            ]
+        }
+    },
+    {
+        "id": "ir",
+        "name": "ir",
+        "verb": "Ir",
+        "access": "free",
+        "answers": {
+            "firstSingular": [
+                "voy"
+            ],
+            "secondSingular": [
+                "vas"
+            ],
+            "thirdSingular": [
+                "va"
+            ],
+            "firstPlural": [
+                "vamos"
+            ],
+            "secondPlural": [
+                "vais"
+            ],
+            "thirdPlural": [
+                "van"
+            ]
+        }
+    },
+    {
+        "id": "venir",
+        "name": "venir",
+        "verb": "Venir",
+        "access": "free",
+        "answers": {
+            "firstSingular": [
+                "vengo"
+            ],
+            "secondSingular": [
+                "vienes"
+            ],
+            "thirdSingular": [
+                "viene"
+            ],
+            "firstPlural": [
+                "venimos"
+            ],
+            "secondPlural": [
+                "venís"
+            ],
+            "thirdPlural": [
+                "vienen"
+            ]
+        }
+    },
+    {
+        "id": "tener",
+        "name": "tener",
+        "verb": "Tener",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "tengo"
+            ],
+            "secondSingular": [
+                "tienes"
+            ],
+            "thirdSingular": [
+                "tiene"
+            ],
+            "firstPlural": [
+                "tenemos"
+            ],
+            "secondPlural": [
+                "tenéis"
+            ],
+            "thirdPlural": [
+                "tienen"
+            ]
+        }
+    },
+    {
+        "id": "pensar",
+        "name": "pensar",
+        "verb": "Pensar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "pienso"
+            ],
+            "secondSingular": [
+                "piensas"
+            ],
+            "thirdSingular": [
+                "piensa"
+            ],
+            "firstPlural": [
+                "pensamos"
+            ],
+            "secondPlural": [
+                "pensáis"
+            ],
+            "thirdPlural": [
+                "piensan"
+            ]
+        }
+    },
+    {
+        "id": "vivir",
+        "name": "vivir",
+        "verb": "Vivir",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "vivo"
+            ],
+            "secondSingular": [
+                "vives"
+            ],
+            "thirdSingular": [
+                "vive"
+            ],
+            "firstPlural": [
+                "vivimos"
+            ],
+            "secondPlural": [
+                "vivís"
+            ],
+            "thirdPlural": [
+                "viven"
+            ]
+        }
+    },
+    {
+        "id": "hacer",
+        "name": "hacer",
+        "verb": "Hacer",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "hago"
+            ],
+            "secondSingular": [
+                "haces"
+            ],
+            "thirdSingular": [
+                "hace"
+            ],
+            "firstPlural": [
+                "hacemos"
+            ],
+            "secondPlural": [
+                "hacéis"
+            ],
+            "thirdPlural": [
+                "hacen"
+            ]
+        }
+    },
+    {
+        "id": "poder",
+        "name": "poder",
+        "verb": "Poder",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "puedo"
+            ],
+            "secondSingular": [
+                "puedes"
+            ],
+            "thirdSingular": [
+                "puede"
+            ],
+            "firstPlural": [
+                "podemos"
+            ],
+            "secondPlural": [
+                "podéis"
+            ],
+            "thirdPlural": [
+                "pueden"
+            ]
+        }
+    },
+    {
+        "id": "decir",
+        "name": "decir",
+        "verb": "Decir",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "digo"
+            ],
+            "secondSingular": [
+                "dices"
+            ],
+            "thirdSingular": [
+                "dice"
+            ],
+            "firstPlural": [
+                "decimos"
+            ],
+            "secondPlural": [
+                "decís"
+            ],
+            "thirdPlural": [
+                "dicen"
+            ]
+        }
+    },
+    {
+        "id": "buscar",
+        "name": "buscar",
+        "verb": "Buscar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "busco"
+            ],
+            "secondSingular": [
+                "buscas"
+            ],
+            "thirdSingular": [
+                "busca"
+            ],
+            "firstPlural": [
+                "buscamos"
+            ],
+            "secondPlural": [
+                "buscáis"
+            ],
+            "thirdPlural": [
+                "buscan"
+            ]
+        }
+    },
+    {
+        "id": "volver",
+        "name": "volver",
+        "verb": "Volver",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "vuelvo"
+            ],
+            "secondSingular": [
+                "vuelves"
+            ],
+            "thirdSingular": [
+                "vuelve"
+            ],
+            "firstPlural": [
+                "volvemos"
+            ],
+            "secondPlural": [
+                "volvéis"
+            ],
+            "thirdPlural": [
+                "vuelven"
+            ]
+        }
+    },
+    {
+        "id": "desear",
+        "name": "desear",
+        "verb": "Desear",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "deseo"
+            ],
+            "secondSingular": [
+                "deseas"
+            ],
+            "thirdSingular": [
+                "desea"
+            ],
+            "firstPlural": [
+                "deseamos"
+            ],
+            "secondPlural": [
+                "deseáis"
+            ],
+            "thirdPlural": [
+                "desean"
+            ]
+        }
+    },
+    {
+        "id": "saber",
+        "name": "saber",
+        "verb": "Saber",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "sé"
+            ],
+            "secondSingular": [
+                "sabes"
+            ],
+            "thirdSingular": [
+                "sabe"
+            ],
+            "firstPlural": [
+                "sabemos"
+            ],
+            "secondPlural": [
+                "sabéis"
+            ],
+            "thirdPlural": [
+                "saben"
+            ]
+        }
+    },
+    {
+        "id": "escuchar",
+        "name": "escuchar",
+        "verb": "Escuchar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "escucho"
+            ],
+            "secondSingular": [
+                "escuchas"
+            ],
+            "thirdSingular": [
+                "escucha"
+            ],
+            "firstPlural": [
+                "escuchamos"
+            ],
+            "secondPlural": [
+                "escucháis"
+            ],
+            "thirdPlural": [
+                "escuchan"
+            ]
+        }
+    },
+    {
+        "id": "ver",
+        "name": "ver",
+        "verb": "Ver",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "veo"
+            ],
+            "secondSingular": [
+                "ves"
+            ],
+            "thirdSingular": [
+                "ve"
+            ],
+            "firstPlural": [
+                "vemos"
+            ],
+            "secondPlural": [
+                "veis"
+            ],
+            "thirdPlural": [
+                "ven"
+            ]
+        }
+    },
+    {
+        "id": "dormir",
+        "name": "dormir",
+        "verb": "Dormir",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "duermo"
+            ],
+            "secondSingular": [
+                "duermes"
+            ],
+            "thirdSingular": [
+                "duerme"
+            ],
+            "firstPlural": [
+                "dormimos"
+            ],
+            "secondPlural": [
+                "dormís"
+            ],
+            "thirdPlural": [
+                "duermen"
+            ]
+        }
+    },
+    {
+        "id": "comer",
+        "name": "comer",
+        "verb": "Comer",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "como"
+            ],
+            "secondSingular": [
+                "comes"
+            ],
+            "thirdSingular": [
+                "come"
+            ],
+            "firstPlural": [
+                "comemos"
+            ],
+            "secondPlural": [
+                "coméis"
+            ],
+            "thirdPlural": [
+                "comen"
+            ]
+        }
+    },
+    {
+        "id": "cantar",
+        "name": "cantar",
+        "verb": "Cantar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "canto"
+            ],
+            "secondSingular": [
+                "cantas"
+            ],
+            "thirdSingular": [
+                "canta"
+            ],
+            "firstPlural": [
+                "cantamos"
+            ],
+            "secondPlural": [
+                "cantáis"
+            ],
+            "thirdPlural": [
+                "cantan"
+            ]
+        }
+    },
+    {
+        "id": "beber",
+        "name": "beber",
+        "verb": "Beber",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "bebo"
+            ],
+            "secondSingular": [
+                "bebes"
+            ],
+            "thirdSingular": [
+                "bebe"
+            ],
+            "firstPlural": [
+                "bebemos"
+            ],
+            "secondPlural": [
+                "bebéis"
+            ],
+            "thirdPlural": [
+                "beben"
+            ]
+        }
+    },
+    {
+        "id": "bailar",
+        "name": "bailar",
+        "verb": "Bailar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "bailo"
+            ],
+            "secondSingular": [
+                "bailas"
+            ],
+            "thirdSingular": [
+                "baila"
+            ],
+            "firstPlural": [
+                "bailamos"
+            ],
+            "secondPlural": [
+                "bailáis"
+            ],
+            "thirdPlural": [
+                "bailan"
+            ]
+        }
+    },
+    {
+        "id": "salir",
+        "name": "salir",
+        "verb": "Salir",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "salgo"
+            ],
+            "secondSingular": [
+                "sales"
+            ],
+            "thirdSingular": [
+                "sale"
+            ],
+            "firstPlural": [
+                "salimos"
+            ],
+            "secondPlural": [
+                "salís"
+            ],
+            "thirdPlural": [
+                "salen"
+            ]
+        }
+    },
+    {
+        "id": "dar",
+        "name": "dar",
+        "verb": "Dar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "doy"
+            ],
+            "secondSingular": [
+                "das"
+            ],
+            "thirdSingular": [
+                "da"
+            ],
+            "firstPlural": [
+                "damos"
+            ],
+            "secondPlural": [
+                "dais"
+            ],
+            "thirdPlural": [
+                "dan"
+            ]
+        }
+    },
+    {
+        "id": "mover",
+        "name": "mover",
+        "verb": "Mover",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "muevo"
+            ],
+            "secondSingular": [
+                "mueves"
+            ],
+            "thirdSingular": [
+                "mueve"
+            ],
+            "firstPlural": [
+                "movemos"
+            ],
+            "secondPlural": [
+                "movéis"
+            ],
+            "thirdPlural": [
+                "mueven"
+            ]
+        }
+    },
+    {
+        "id": "viajar",
+        "name": "viajar",
+        "verb": "Viajar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "viajo"
+            ],
+            "secondSingular": [
+                "viajas"
+            ],
+            "thirdSingular": [
+                "viaja"
+            ],
+            "firstPlural": [
+                "viajamos"
+            ],
+            "secondPlural": [
+                "viajáis"
+            ],
+            "thirdPlural": [
+                "viajan"
+            ]
+        }
+    },
+    {
+        "id": "poner",
+        "name": "poner",
+        "verb": "Poner",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "pongo"
+            ],
+            "secondSingular": [
+                "pones"
+            ],
+            "thirdSingular": [
+                "pone"
+            ],
+            "firstPlural": [
+                "ponemos"
+            ],
+            "secondPlural": [
+                "ponéis"
+            ],
+            "thirdPlural": [
+                "ponen"
+            ]
+        }
+    },
+    {
+        "id": "cocinar",
+        "name": "cocinar",
+        "verb": "Cocinar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "cocino"
+            ],
+            "secondSingular": [
+                "cocinas"
+            ],
+            "thirdSingular": [
+                "cocina"
+            ],
+            "firstPlural": [
+                "cocinamos"
+            ],
+            "secondPlural": [
+                "cocináis"
+            ],
+            "thirdPlural": [
+                "cocinan"
+            ]
+        }
+    },
+    {
+        "id": "querer",
+        "name": "querer",
+        "verb": "Querer",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "quiero"
+            ],
+            "secondSingular": [
+                "quieres"
+            ],
+            "thirdSingular": [
+                "quiere"
+            ],
+            "firstPlural": [
+                "queremos"
+            ],
+            "secondPlural": [
+                "queréis"
+            ],
+            "thirdPlural": [
+                "quieren"
+            ]
+        }
+    },
+    {
+        "id": "comprar",
+        "name": "comprar",
+        "verb": "Comprar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "compro"
+            ],
+            "secondSingular": [
+                "compras"
+            ],
+            "thirdSingular": [
+                "compra"
+            ],
+            "firstPlural": [
+                "compramos"
+            ],
+            "secondPlural": [
+                "compráis"
+            ],
+            "thirdPlural": [
+                "compran"
+            ]
+        }
+    },
+    {
+        "id": "entender",
+        "name": "entender",
+        "verb": "Entender",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "entiendo"
+            ],
+            "secondSingular": [
+                "entiendes"
+            ],
+            "thirdSingular": [
+                "entiende"
+            ],
+            "firstPlural": [
+                "entendemos"
+            ],
+            "secondPlural": [
+                "entendéis"
+            ],
+            "thirdPlural": [
+                "entienden"
+            ]
+        }
+    },
+    {
+        "id": "escribir",
+        "name": "escribir",
+        "verb": "Escribir",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "escribo"
+            ],
+            "secondSingular": [
+                "escribes"
+            ],
+            "thirdSingular": [
+                "escribe"
+            ],
+            "firstPlural": [
+                "escribimos"
+            ],
+            "secondPlural": [
+                "escribís"
+            ],
+            "thirdPlural": [
+                "escriben"
+            ]
+        }
+    },
+    {
+        "id": "olvidar",
+        "name": "olvidar",
+        "verb": "Olvidar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "olvido"
+            ],
+            "secondSingular": [
+                "olvidas"
+            ],
+            "thirdSingular": [
+                "olvida"
+            ],
+            "firstPlural": [
+                "olvidamos"
+            ],
+            "secondPlural": [
+                "olvidáis"
+            ],
+            "thirdPlural": [
+                "olvidan"
+            ]
+        }
+    },
+    {
+        "id": "deber",
+        "name": "deber",
+        "verb": "Deber",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "debo"
+            ],
+            "secondSingular": [
+                "debes"
+            ],
+            "thirdSingular": [
+                "debe"
+            ],
+            "firstPlural": [
+                "debemos"
+            ],
+            "secondPlural": [
+                "debéis"
+            ],
+            "thirdPlural": [
+                "deben"
+            ]
+        }
+    },
+    {
+        "id": "esperar",
+        "name": "esperar",
+        "verb": "Esperar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "espero"
+            ],
+            "secondSingular": [
+                "esperas"
+            ],
+            "thirdSingular": [
+                "espera"
+            ],
+            "firstPlural": [
+                "esperamos"
+            ],
+            "secondPlural": [
+                "esperáis"
+            ],
+            "thirdPlural": [
+                "esperan"
+            ]
+        }
+    },
+    {
+        "id": "pedir",
+        "name": "pedir",
+        "verb": "Pedir",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "pido"
+            ],
+            "secondSingular": [
+                "pides"
+            ],
+            "thirdSingular": [
+                "pide"
+            ],
+            "firstPlural": [
+                "pedimos"
+            ],
+            "secondPlural": [
+                "pedís"
+            ],
+            "thirdPlural": [
+                "piden"
+            ]
+        }
+    },
+    {
+        "id": "leer",
+        "name": "leer",
+        "verb": "Leer",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "leo"
+            ],
+            "secondSingular": [
+                "lees"
+            ],
+            "thirdSingular": [
+                "lee"
+            ],
+            "firstPlural": [
+                "leemos"
+            ],
+            "secondPlural": [
+                "leéis"
+            ],
+            "thirdPlural": [
+                "leen"
+            ]
+        }
+    },
+    {
+        "id": "cambiar",
+        "name": "cambiar",
+        "verb": "Cambiar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "cambio"
+            ],
+            "secondSingular": [
+                "cambias"
+            ],
+            "thirdSingular": [
+                "cambia"
+            ],
+            "firstPlural": [
+                "cambiamos"
+            ],
+            "secondPlural": [
+                "cambiáis"
+            ],
+            "thirdPlural": [
+                "cambian"
+            ]
+        }
+    },
+    {
+        "id": "caer",
+        "name": "caer",
+        "verb": "Caer",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "caigo"
+            ],
+            "secondSingular": [
+                "caes"
+            ],
+            "thirdSingular": [
+                "cae"
+            ],
+            "firstPlural": [
+                "caemos"
+            ],
+            "secondPlural": [
+                "caéis"
+            ],
+            "thirdPlural": [
+                "caen"
+            ]
+        }
+    },
+    {
+        "id": "acabar",
+        "name": "acabar",
+        "verb": "Acabar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "acabo"
+            ],
+            "secondSingular": [
+                "acabas"
+            ],
+            "thirdSingular": [
+                "acaba"
+            ],
+            "firstPlural": [
+                "acabamos"
+            ],
+            "secondPlural": [
+                "acabáis"
+            ],
+            "thirdPlural": [
+                "acaban"
+            ]
+        }
+    },
+    {
+        "id": "traer",
+        "name": "traer",
+        "verb": "Traer",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "traigo"
+            ],
+            "secondSingular": [
+                "traes"
+            ],
+            "thirdSingular": [
+                "trae"
+            ],
+            "firstPlural": [
+                "traemos"
+            ],
+            "secondPlural": [
+                "traéis"
+            ],
+            "thirdPlural": [
+                "traen"
+            ]
+        }
+    },
+    {
+        "id": "trabajar",
+        "name": "trabajar",
+        "verb": "Trabajar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "trabajo"
+            ],
+            "secondSingular": [
+                "trabajas"
+            ],
+            "thirdSingular": [
+                "trabaja"
+            ],
+            "firstPlural": [
+                "trabajamos"
+            ],
+            "secondPlural": [
+                "trabajáis"
+            ],
+            "thirdPlural": [
+                "trabajan"
+            ]
+        }
+    },
+    {
+        "id": "vender",
+        "name": "vender",
+        "verb": "Vender",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "vendo"
+            ],
+            "secondSingular": [
+                "vendes"
+            ],
+            "thirdSingular": [
+                "vende"
+            ],
+            "firstPlural": [
+                "vendemos"
+            ],
+            "secondPlural": [
+                "vendéis"
+            ],
+            "thirdPlural": [
+                "venden"
+            ]
+        }
+    },
+    {
+        "id": "recibir",
+        "name": "recibir",
+        "verb": "Recibir",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "recibo"
+            ],
+            "secondSingular": [
+                "recibes"
+            ],
+            "thirdSingular": [
+                "recibe"
+            ],
+            "firstPlural": [
+                "recibimos"
+            ],
+            "secondPlural": [
+                "recibís"
+            ],
+            "thirdPlural": [
+                "reciben"
+            ]
+        }
+    },
+    {
+        "id": "llevar",
+        "name": "llevar",
+        "verb": "Llevar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "llevo"
+            ],
+            "secondSingular": [
+                "llevas"
+            ],
+            "thirdSingular": [
+                "lleva"
+            ],
+            "firstPlural": [
+                "llevamos"
+            ],
+            "secondPlural": [
+                "lleváis"
+            ],
+            "thirdPlural": [
+                "llevan"
+            ]
+        }
+    },
+    {
+        "id": "preferir",
+        "name": "preferir",
+        "verb": "Preferir",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "prefiero"
+            ],
+            "secondSingular": [
+                "prefieres"
+            ],
+            "thirdSingular": [
+                "prefiere"
+            ],
+            "firstPlural": [
+                "preferimos"
+            ],
+            "secondPlural": [
+                "preferís"
+            ],
+            "thirdPlural": [
+                "prefieren"
+            ]
+        }
+    },
+    {
+        "id": "llegar",
+        "name": "llegar",
+        "verb": "Llegar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "llego"
+            ],
+            "secondSingular": [
+                "llegas"
+            ],
+            "thirdSingular": [
+                "llega"
+            ],
+            "firstPlural": [
+                "llegamos"
+            ],
+            "secondPlural": [
+                "llegáis"
+            ],
+            "thirdPlural": [
+                "llegan"
+            ]
+        }
+    },
+    {
+        "id": "conducir",
+        "name": "conducir",
+        "verb": "Conducir",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "conduzco"
+            ],
+            "secondSingular": [
+                "conduces"
+            ],
+            "thirdSingular": [
+                "conduce"
+            ],
+            "firstPlural": [
+                "conducimos"
+            ],
+            "secondPlural": [
+                "conducís"
+            ],
+            "thirdPlural": [
+                "conducen"
+            ]
+        }
+    },
+    {
+        "id": "convertir",
+        "name": "convertir",
+        "verb": "Convertir",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "convierto"
+            ],
+            "secondSingular": [
+                "conviertes"
+            ],
+            "thirdSingular": [
+                "convierte"
+            ],
+            "firstPlural": [
+                "convertimos"
+            ],
+            "secondPlural": [
+                "convertís"
+            ],
+            "thirdPlural": [
+                "convierten"
+            ]
+        }
+    },
+    {
+        "id": "repetir",
+        "name": "repetir",
+        "verb": "Repetir",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "repito"
+            ],
+            "secondSingular": [
+                "repites"
+            ],
+            "thirdSingular": [
+                "repite"
+            ],
+            "firstPlural": [
+                "repetimos"
+            ],
+            "secondPlural": [
+                "repetís"
+            ],
+            "thirdPlural": [
+                "repiten"
+            ]
+        }
+    },
+    {
+        "id": "mostrar",
+        "name": "mostrar",
+        "verb": "Mostrar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "muestro"
+            ],
+            "secondSingular": [
+                "muestras"
+            ],
+            "thirdSingular": [
+                "muestra"
+            ],
+            "firstPlural": [
+                "mostramos"
+            ],
+            "secondPlural": [
+                "mostráis"
+            ],
+            "thirdPlural": [
+                "muestran"
+            ]
+        }
+    },
+    {
+        "id": "elegir",
+        "name": "elegir",
+        "verb": "Elegir",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "elijo"
+            ],
+            "secondSingular": [
+                "eliges"
+            ],
+            "thirdSingular": [
+                "elige"
+            ],
+            "firstPlural": [
+                "elegimos"
+            ],
+            "secondPlural": [
+                "elegís"
+            ],
+            "thirdPlural": [
+                "eligen"
+            ]
+        }
+    },
+    {
+        "id": "encontrar",
+        "name": "encontrar",
+        "verb": "Encontrar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "encuentro"
+            ],
+            "secondSingular": [
+                "encuentras"
+            ],
+            "thirdSingular": [
+                "encuentra"
+            ],
+            "firstPlural": [
+                "encontramos"
+            ],
+            "secondPlural": [
+                "encontráis"
+            ],
+            "thirdPlural": [
+                "encuentran"
+            ]
+        }
+    },
+    {
+        "id": "llamar",
+        "name": "llamar",
+        "verb": "Llamar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "llamo"
+            ],
+            "secondSingular": [
+                "llamas"
+            ],
+            "thirdSingular": [
+                "llama"
+            ],
+            "firstPlural": [
+                "llamamos"
+            ],
+            "secondPlural": [
+                "llamáis"
+            ],
+            "thirdPlural": [
+                "llaman"
+            ]
+        }
+    },
+    {
+        "id": "producir",
+        "name": "producir",
+        "verb": "Producir",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "produzco"
+            ],
+            "secondSingular": [
+                "produces"
+            ],
+            "thirdSingular": [
+                "produce"
+            ],
+            "firstPlural": [
+                "producimos"
+            ],
+            "secondPlural": [
+                "producís"
+            ],
+            "thirdPlural": [
+                "producen"
+            ]
+        }
+    },
+    {
+        "id": "mirar",
+        "name": "mirar",
+        "verb": "Mirar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "miro"
+            ],
+            "secondSingular": [
+                "miras"
+            ],
+            "thirdSingular": [
+                "mira"
+            ],
+            "firstPlural": [
+                "miramos"
+            ],
+            "secondPlural": [
+                "miráis"
+            ],
+            "thirdPlural": [
+                "miran"
+            ]
+        }
+    },
+    {
+        "id": "aprender",
+        "name": "aprender",
+        "verb": "Aprender",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "aprendo"
+            ],
+            "secondSingular": [
+                "aprendes"
+            ],
+            "thirdSingular": [
+                "aprende"
+            ],
+            "firstPlural": [
+                "aprendemos"
+            ],
+            "secondPlural": [
+                "aprendéis"
+            ],
+            "thirdPlural": [
+                "aprenden"
+            ]
+        }
+    },
+    {
+        "id": "empezar",
+        "name": "empezar",
+        "verb": "Empezar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "empiezo"
+            ],
+            "secondSingular": [
+                "empiezas"
+            ],
+            "thirdSingular": [
+                "empieza"
+            ],
+            "firstPlural": [
+                "empezamos"
+            ],
+            "secondPlural": [
+                "empezáis"
+            ],
+            "thirdPlural": [
+                "empiezan"
+            ]
+        }
+    },
+    {
+        "id": "seguir",
+        "name": "seguir",
+        "verb": "Seguir",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "sigo"
+            ],
+            "secondSingular": [
+                "sigues"
+            ],
+            "thirdSingular": [
+                "sigue"
+            ],
+            "firstPlural": [
+                "seguimos"
+            ],
+            "secondPlural": [
+                "seguís"
+            ],
+            "thirdPlural": [
+                "siguen"
+            ]
+        }
+    },
+    {
+        "id": "preguntar",
+        "name": "preguntar",
+        "verb": "Preguntar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "pregunto"
+            ],
+            "secondSingular": [
+                "preguntas"
+            ],
+            "thirdSingular": [
+                "pregunta"
+            ],
+            "firstPlural": [
+                "preguntamos"
+            ],
+            "secondPlural": [
+                "preguntáis"
+            ],
+            "thirdPlural": [
+                "preguntan"
+            ]
+        }
+    },
+    {
+        "id": "creer",
+        "name": "creer",
+        "verb": "Creer",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "creo"
+            ],
+            "secondSingular": [
+                "crees"
+            ],
+            "thirdSingular": [
+                "cree"
+            ],
+            "firstPlural": [
+                "creemos"
+            ],
+            "secondPlural": [
+                "creéis"
+            ],
+            "thirdPlural": [
+                "creen"
+            ]
+        }
+    },
+    {
+        "id": "conocer",
+        "name": "conocer",
+        "verb": "Conocer",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "conozco"
+            ],
+            "secondSingular": [
+                "conoces"
+            ],
+            "thirdSingular": [
+                "conoce"
+            ],
+            "firstPlural": [
+                "conocemos"
+            ],
+            "secondPlural": [
+                "conocéis"
+            ],
+            "thirdPlural": [
+                "conocen"
+            ]
+        }
+    },
+    {
+        "id": "sentir",
+        "name": "sentir",
+        "verb": "Sentir",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "siento"
+            ],
+            "secondSingular": [
+                "sientes"
+            ],
+            "thirdSingular": [
+                "siente"
+            ],
+            "firstPlural": [
+                "sentimos"
+            ],
+            "secondPlural": [
+                "sentís"
+            ],
+            "thirdPlural": [
+                "sienten"
+            ]
+        }
+    },
+    {
+        "id": "coger",
+        "name": "coger",
+        "verb": "Coger",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "cojo"
+            ],
+            "secondSingular": [
+                "coges"
+            ],
+            "thirdSingular": [
+                "coge"
+            ],
+            "firstPlural": [
+                "cogemos"
+            ],
+            "secondPlural": [
+                "cogéis"
+            ],
+            "thirdPlural": [
+                "cogen"
+            ]
+        }
+    },
+    {
+        "id": "tomar",
+        "name": "tomar",
+        "verb": "Tomar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "tomo"
+            ],
+            "secondSingular": [
+                "tomas"
+            ],
+            "thirdSingular": [
+                "toma"
+            ],
+            "firstPlural": [
+                "tomamos"
+            ],
+            "secondPlural": [
+                "tomáis"
+            ],
+            "thirdPlural": [
+                "toman"
+            ]
+        }
+    },
+    {
+        "id": "servir",
+        "name": "servir",
+        "verb": "Servir",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "sirvo"
+            ],
+            "secondSingular": [
+                "sirves"
+            ],
+            "thirdSingular": [
+                "sirve"
+            ],
+            "firstPlural": [
+                "servimos"
+            ],
+            "secondPlural": [
+                "servís"
+            ],
+            "thirdPlural": [
+                "sirven"
+            ]
+        }
+    },
+    {
+        "id": "pagar",
+        "name": "pagar",
+        "verb": "Pagar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "pago"
+            ],
+            "secondSingular": [
+                "pagas"
+            ],
+            "thirdSingular": [
+                "paga"
+            ],
+            "firstPlural": [
+                "pagamos"
+            ],
+            "secondPlural": [
+                "pagáis"
+            ],
+            "thirdPlural": [
+                "pagan"
+            ]
+        }
+    },
+    {
+        "id": "permitir",
+        "name": "permitir",
+        "verb": "Permitir",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "permito"
+            ],
+            "secondSingular": [
+                "permites"
+            ],
+            "thirdSingular": [
+                "permite"
+            ],
+            "firstPlural": [
+                "permitimos"
+            ],
+            "secondPlural": [
+                "permitís"
+            ],
+            "thirdPlural": [
+                "permiten"
+            ]
+        }
+    },
+    {
+        "id": "oir",
+        "name": "oír",
+        "verb": "Oír",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "oigo"
+            ],
+            "secondSingular": [
+                "oyes"
+            ],
+            "thirdSingular": [
+                "oye"
+            ],
+            "firstPlural": [
+                "oímos"
+            ],
+            "secondPlural": [
+                "oís"
+            ],
+            "thirdPlural": [
+                "oyen"
+            ]
+        }
+    },
+    {
+        "id": "necesitar",
+        "name": "necesitar",
+        "verb": "Necesitar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "necesito"
+            ],
+            "secondSingular": [
+                "necesitas"
+            ],
+            "thirdSingular": [
+                "necesita"
+            ],
+            "firstPlural": [
+                "necesitamos"
+            ],
+            "secondPlural": [
+                "necesitáis"
+            ],
+            "thirdPlural": [
+                "necesitan"
+            ]
+        }
+    },
+    {
+        "id": "mantener",
+        "name": "mantener",
+        "verb": "Mantener",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "mantengo"
+            ],
+            "secondSingular": [
+                "mantienes"
+            ],
+            "thirdSingular": [
+                "mantiene"
+            ],
+            "firstPlural": [
+                "mantenemos"
+            ],
+            "secondPlural": [
+                "mantenéis"
+            ],
+            "thirdPlural": [
+                "mantienen"
+            ]
+        }
+    },
+    {
+        "id": "tocar",
+        "name": "tocar",
+        "verb": "Tocar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "toco"
+            ],
+            "secondSingular": [
+                "tocas"
+            ],
+            "thirdSingular": [
+                "toca"
+            ],
+            "firstPlural": [
+                "tocamos"
+            ],
+            "secondPlural": [
+                "tocáis"
+            ],
+            "thirdPlural": [
+                "tocan"
+            ]
+        }
+    },
+    {
+        "id": "jugar",
+        "name": "jugar",
+        "verb": "Jugar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "juego"
+            ],
+            "secondSingular": [
+                "juegas"
+            ],
+            "thirdSingular": [
+                "juega"
+            ],
+            "firstPlural": [
+                "jugamos"
+            ],
+            "secondPlural": [
+                "jugáis"
+            ],
+            "thirdPlural": [
+                "juegan"
+            ]
+        }
+    },
+    {
+        "id": "crecer",
+        "name": "crecer",
+        "verb": "Crecer",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "crezco"
+            ],
+            "secondSingular": [
+                "creces"
+            ],
+            "thirdSingular": [
+                "crece"
+            ],
+            "firstPlural": [
+                "crecemos"
+            ],
+            "secondPlural": [
+                "crecéis"
+            ],
+            "thirdPlural": [
+                "crecen"
+            ]
+        }
+    },
+    {
+        "id": "enviar",
+        "name": "enviar",
+        "verb": "Enviar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "envío"
+            ],
+            "secondSingular": [
+                "envías"
+            ],
+            "thirdSingular": [
+                "envía"
+            ],
+            "firstPlural": [
+                "enviamos"
+            ],
+            "secondPlural": [
+                "enviáis"
+            ],
+            "thirdPlural": [
+                "envían"
+            ]
+        }
+    },
+    {
+        "id": "subir",
+        "name": "subir",
+        "verb": "Subir",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "subo"
+            ],
+            "secondSingular": [
+                "subes"
+            ],
+            "thirdSingular": [
+                "sube"
+            ],
+            "firstPlural": [
+                "subimos"
+            ],
+            "secondPlural": [
+                "subís"
+            ],
+            "thirdPlural": [
+                "suben"
+            ]
+        }
+    },
+    {
+        "id": "explicar",
+        "name": "explicar",
+        "verb": "Explicar",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "explico"
+            ],
+            "secondSingular": [
+                "explicas"
+            ],
+            "thirdSingular": [
+                "explica"
+            ],
+            "firstPlural": [
+                "explicamos"
+            ],
+            "secondPlural": [
+                "explicáis"
+            ],
+            "thirdPlural": [
+                "explican"
+            ]
+        }
+    },
+    {
+        "id": "descubrir",
+        "name": "descubrir",
+        "verb": "Descubrir",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "descubro"
+            ],
+            "secondSingular": [
+                "descubres"
+            ],
+            "thirdSingular": [
+                "descubre"
+            ],
+            "firstPlural": [
+                "descubrimos"
+            ],
+            "secondPlural": [
+                "descubrís"
+            ],
+            "thirdPlural": [
+                "descubren"
+            ]
+        }
+    },
+    {
+        "id": "correr",
+        "name": "correr",
+        "verb": "Correr",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "corro"
+            ],
+            "secondSingular": [
+                "corres"
+            ],
+            "thirdSingular": [
+                "corre"
+            ],
+            "firstPlural": [
+                "corremos"
+            ],
+            "secondPlural": [
+                "corréis"
+            ],
+            "thirdPlural": [
+                "corren"
+            ]
+        }
+    },
+    {
+        "id": "abrir",
+        "name": "abrir",
+        "verb": "Abrir",
+        "access": "freemium",
+        "answers": {
+            "firstSingular": [
+                "abro"
+            ],
+            "secondSingular": [
+                "abres"
+            ],
+            "thirdSingular": [
+                "abre"
+            ],
+            "firstPlural": [
+                "abrimos"
+            ],
+            "secondPlural": [
+                "abrís"
+            ],
+            "thirdPlural": [
+                "abren"
+            ]
+        }
+    },
+    {
+        "id": "ayudar",
+        "name": "ayudar",
+        "verb": "Ayudar",
+        "access": "paid",
+        "answers": {
+            "firstSingular": [
+                "ayudo"
+            ],
+            "secondSingular": [
+                "ayudas"
+            ],
+            "thirdSingular": [
+                "ayuda"
+            ],
+            "firstPlural": [
+                "ayudamos"
+            ],
+            "secondPlural": [
+                "ayudáis"
+            ],
+            "thirdPlural": [
+                "ayudan"
+            ]
+        }
+    },
+    {
+        "id": "ofrecer",
+        "name": "ofrecer",
+        "verb": "Ofrecer",
+        "access": "paid",
+        "answers": {
+            "firstSingular": [
+                "ofrezco"
+            ],
+            "secondSingular": [
+                "ofreces"
+            ],
+            "thirdSingular": [
+                "ofrece"
+            ],
+            "firstPlural": [
+                "ofrecemos"
+            ],
+            "secondPlural": [
+                "ofrecéis"
+            ],
+            "thirdPlural": [
+                "ofrecen"
+            ]
+        }
+    },
+    {
+        "id": "estudiar",
+        "name": "estudiar",
+        "verb": "Estudiar",
+        "access": "paid",
+        "answers": {
+            "firstSingular": [
+                "estudio"
+            ],
+            "secondSingular": [
+                "estudias"
+            ],
+            "thirdSingular": [
+                "estudia"
+            ],
+            "firstPlural": [
+                "estudiamos"
+            ],
+            "secondPlural": [
+                "estudiáis"
+            ],
+            "thirdPlural": [
+                "estudian"
+            ]
+        }
+    },
+    {
+        "id": "nacer",
+        "name": "nacer",
+        "verb": "Nacer",
+        "access": "paid",
+        "answers": {
+            "firstSingular": [
+                "nazco"
+            ],
+            "secondSingular": [
+                "naces"
+            ],
+            "thirdSingular": [
+                "nace"
+            ],
+            "firstPlural": [
+                "nacemos"
+            ],
+            "secondPlural": [
+                "nacéis"
+            ],
+            "thirdPlural": [
+                "nacen"
+            ]
+        }
+    },
+    {
+        "id": "suponer",
+        "name": "suponer",
+        "verb": "Suponer",
+        "access": "paid",
+        "answers": {
+            "firstSingular": [
+                "supongo"
+            ],
+            "secondSingular": [
+                "supones"
+            ],
+            "thirdSingular": [
+                "supone"
+            ],
+            "firstPlural": [
+                "suponemos"
+            ],
+            "secondPlural": [
+                "suponéis"
+            ],
+            "thirdPlural": [
+                "suponen"
+            ]
+        }
+    },
+    {
+        "id": "morir",
+        "name": "morir",
+        "verb": "Morir",
+        "access": "paid",
+        "answers": {
+            "firstSingular": [
+                "muero"
+            ],
+            "secondSingular": [
+                "mueres"
+            ],
+            "thirdSingular": [
+                "muere"
+            ],
+            "firstPlural": [
+                "morimos"
+            ],
+            "secondPlural": [
+                "morís"
+            ],
+            "thirdPlural": [
+                "mueren"
+            ]
+        }
+    },
+    {
+        "id": "realizar",
+        "name": "realizar",
+        "verb": "Realizar",
+        "access": "paid",
+        "answers": {
+            "firstSingular": [
+                "realizo"
+            ],
+            "secondSingular": [
+                "realizas"
+            ],
+            "thirdSingular": [
+                "realiza"
+            ],
+            "firstPlural": [
+                "realizamos"
+            ],
+            "secondPlural": [
+                "realizáis"
+            ],
+            "thirdPlural": [
+                "realizan"
+            ]
+        }
+    },
+    {
+        "id": "recordar",
+        "name": "recordar",
+        "verb": "Recordar",
+        "access": "paid",
+        "answers": {
+            "firstSingular": [
+                "recuerdo"
+            ],
+            "secondSingular": [
+                "recuerdas"
+            ],
+            "thirdSingular": [
+                "recuerda"
+            ],
+            "firstPlural": [
+                "recordamos"
+            ],
+            "secondPlural": [
+                "recordáis"
+            ],
+            "thirdPlural": [
+                "recuerdan"
+            ]
+        }
+    },
+    {
+        "id": "existir",
+        "name": "existir",
+        "verb": "Existir",
+        "access": "paid",
+        "answers": {
+            "firstSingular": [
+                "existo"
+            ],
+            "secondSingular": [
+                "existes"
+            ],
+            "thirdSingular": [
+                "existe"
+            ],
+            "firstPlural": [
+                "existimos"
+            ],
+            "secondPlural": [
+                "existís"
+            ],
+            "thirdPlural": [
+                "existen"
+            ]
+        }
+    },
+    {
+        "id": "crear",
+        "name": "crear",
+        "verb": "Crear",
+        "access": "paid",
+        "answers": {
+            "firstSingular": [
+                "creo"
+            ],
+            "secondSingular": [
+                "creas"
+            ],
+            "thirdSingular": [
+                "crea"
+            ],
+            "firstPlural": [
+                "creamos"
+            ],
+            "secondPlural": [
+                "creáis"
+            ],
+            "thirdPlural": [
+                "crean"
+            ]
+        }
+    },
+    {
+        "id": "contar",
+        "name": "contar",
+        "verb": "Contar",
+        "access": "paid",
+        "answers": {
+            "firstSingular": [
+                "cuento"
+            ],
+            "secondSingular": [
+                "cuentas"
+            ],
+            "thirdSingular": [
+                "cuenta"
+            ],
+            "firstPlural": [
+                "contamos"
+            ],
+            "secondPlural": [
+                "contáis"
+            ],
+            "thirdPlural": [
+                "cuentan"
+            ]
+        }
+    },
+    {
+        "id": "perder",
+        "name": "perder",
+        "verb": "Perder",
+        "access": "paid",
+        "answers": {
+            "firstSingular": [
+                "pierdo"
+            ],
+            "secondSingular": [
+                "pierdes"
+            ],
+            "thirdSingular": [
+                "pierde"
+            ],
+            "firstPlural": [
+                "perdemos"
+            ],
+            "secondPlural": [
+                "perdéis"
+            ],
+            "thirdPlural": [
+                "pierden"
+            ]
+        }
+    },
+    {
+        "id": "conseguir",
+        "name": "conseguir",
+        "verb": "Conseguir",
+        "access": "paid",
+        "answers": {
+            "firstSingular": [
+                "consigo"
+            ],
+            "secondSingular": [
+                "consigues"
+            ],
+            "thirdSingular": [
+                "consigue"
+            ],
+            "firstPlural": [
+                "conseguimos"
+            ],
+            "secondPlural": [
+                "conseguís"
+            ],
+            "thirdPlural": [
+                "consiguen"
+            ]
+        }
+    },
+    {
+        "id": "traducir",
+        "name": "traducir",
+        "verb": "Traducir",
+        "access": "paid",
+        "answers": {
+            "firstSingular": [
+                "traduzco"
+            ],
+            "secondSingular": [
+                "traduces"
+            ],
+            "thirdSingular": [
+                "traduce"
+            ],
+            "firstPlural": [
+                "traducimos"
+            ],
+            "secondPlural": [
+                "traducís"
+            ],
+            "thirdPlural": [
+                "traducen"
+            ]
+        }
+    },
+    {
+        "id": "oler",
+        "name": "oler",
+        "verb": "Oler",
+        "access": "paid",
+        "answers": {
+            "firstSingular": [
+                "huelo"
+            ],
+            "secondSingular": [
+                "hueles"
+            ],
+            "thirdSingular": [
+                "huele"
+            ],
+            "firstPlural": [
+                "olemos"
+            ],
+            "secondPlural": [
+                "oléis"
+            ],
+            "thirdPlural": [
+                "huelen"
+            ]
+        }
+    },
+    {
+        "id": "construir",
+        "name": "construir",
+        "verb": "Construir",
+        "access": "paid",
+        "answers": {
+            "firstSingular": [
+                "construyo"
+            ],
+            "secondSingular": [
+                "construyes"
+            ],
+            "thirdSingular": [
+                "construye"
+            ],
+            "firstPlural": [
+                "construimos"
+            ],
+            "secondPlural": [
+                "construís"
+            ],
+            "thirdPlural": [
+                "construyen"
+            ]
+        }
+    },
+    {
+        "id": "probar",
+        "name": "probar",
+        "verb": "Probar",
+        "access": "paid",
+        "answers": {
+            "firstSingular": [
+                "pruebo"
+            ],
+            "secondSingular": [
+                "pruebas"
+            ],
+            "thirdSingular": [
+                "prueba"
+            ],
+            "firstPlural": [
+                "probamos"
+            ],
+            "secondPlural": [
+                "probáis"
+            ],
+            "thirdPlural": [
+                "prueban"
+            ]
+        }
+    },
+    {
+        "id": "reir",
+        "name": "reir",
+        "verb": "Reir",
+        "access": "paid",
+        "answers": {
+            "firstSingular": [
+                "río"
+            ],
+            "secondSingular": [
+                "ríes"
+            ],
+            "thirdSingular": [
+                "ríe"
+            ],
+            "firstPlural": [
+                "reímos"
+            ],
+            "secondPlural": [
+                "reís"
+            ],
+            "thirdPlural": [
+                "ríen"
+            ]
+        }
+    },
+    {
+        "id": "aparecer",
+        "name": "aparecer",
+        "verb": "Aparecer",
+        "access": "paid",
+        "answers": {
+            "firstSingular": [
+                "aparezco"
+            ],
+            "secondSingular": [
+                "apareces"
+            ],
+            "thirdSingular": [
+                "aparece"
+            ],
+            "firstPlural": [
+                "aparecemos"
+            ],
+            "secondPlural": [
+                "aparecéis"
+            ],
+            "thirdPlural": [
+                "aparecen"
+            ]
+        }
+    },
+    {
+        "id": "cerrar",
+        "name": "cerrar",
+        "verb": "Cerrar",
+        "access": "paid",
+        "answers": {
+            "firstSingular": [
+                "cierro"
+            ],
+            "secondSingular": [
+                "cierras"
+            ],
+            "thirdSingular": [
+                "cierra"
+            ],
+            "firstPlural": [
+                "cerramos"
+            ],
+            "secondPlural": [
+                "cerráis"
+            ],
+            "thirdPlural": [
+                "cierran"
+            ]
+        }
+    }
+]
