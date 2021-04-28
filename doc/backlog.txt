@@ -29,18 +29,22 @@
 - --For the "data received" messages, I could check that the id of exercise/list received still matches the one requested, but that seem to be overengineering--
 - Keep track of completed exercises and show completion mark in the exercise list
 - Save completion in local storage
---------------------------
 - Use all 6 verb forms
+--------------------------
 
 TODO:
-- Render errors nicely
-- ? Handle loading errors differently, depending on the error, potentially adding button to retry loading exercise on certain errors
 - Extract labels
 - Localize
+- Add exercise book with all exercise lists
+- Add grammar for every list
+- Add french exercise book
+- Home screen allows to choose which language to practice
+- Home screen allows to choose the user language
+- Render errors nicely
 - Add sitemap
 - Every url must have correct and localized meta
-- Return correct data from the API instead of fake hard-coded
 - Review https://github.com/hurwitzlab/elm-imicrobe-spa
+- ? Handle loading errors differently, depending on the error, potentially adding button to retry loading exercise on certain errors
 
 
 Webpack references:

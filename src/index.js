@@ -12,7 +12,7 @@ const DATA_LOAD_DELAY = 0;
 
 // TODO: the JS part didn't get enough attention, hard-coded and dirty
 
-const exerciseList = require('./exercises/es/presente.json');
+const exerciseList = require('./data/exercises/es/presente.json');
 const exercises = {};
 
 exerciseList.forEach((exercise, idx) => {
@@ -30,10 +30,10 @@ exerciseList.forEach((exercise, idx) => {
         labels: {
             firstSingular: "Yo",
             secondSingular: "Tú",
-            thirdSingular: "",
-            firstPlural: "",
-            secondPlural: "",
-            thirdPlural: ""
+            thirdSingular: "Él/ella",
+            firstPlural: "Nosotros",
+            secondPlural: "Vosotros",
+            thirdPlural: "Ellos/ellas"
         },
         answers: exercise.answers,
         exercisesInList: exerciseList.length,

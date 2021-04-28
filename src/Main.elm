@@ -6,7 +6,7 @@ import Browser.Navigation as Nav
 import Html exposing (Html, a, button, div, img, input, label, span, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onFocus, onInput)
-import Json.Decode exposing (Decoder, bool, decodeString, field, int, map2, map3, map4, map8, string)
+import Json.Decode exposing (Decoder, bool, decodeString, field, int, map2, map3, map4, map6, map8, string)
 import Presente exposing (spanishPresente)
 import String exposing (fromInt)
 import Task
@@ -75,12 +75,20 @@ type alias ExerciseSpec =
 type alias ExerciseLabels =
     { firstSingular : String
     , secondSingular : String
+    , thirdSingular : String
+    , firstPlural : String
+    , secondPlural : String
+    , thirdPlural : String
     }
 
 
 type alias ExerciseAnswers =
     { firstSingular : List String
     , secondSingular : List String
+    , thirdSingular : List String
+    , firstPlural : List String
+    , secondPlural : List String
+    , thirdPlural : List String
     }
 
 
@@ -93,6 +101,10 @@ type alias NextExerciseData =
 type alias ExerciseCurrentState =
     { firstSingular : FillBoxState
     , secondSingular : FillBoxState
+    , thirdSingular : FillBoxState
+    , firstPlural : FillBoxState
+    , secondPlural : FillBoxState
+    , thirdPlural : FillBoxState
     , activeFillBox : FillBoxReference
     }
 
@@ -104,6 +116,10 @@ type FillBoxReference
 type VerbForm
     = FirstSingular
     | SecondSingular
+    | ThirdSingular
+    | FirstPlural
+    | SecondPlural
+    | ThirdPlural
 
 
 type alias FillBoxState =
@@ -150,6 +166,10 @@ emptyExerciseState : ExerciseCurrentState
 emptyExerciseState =
     { firstSingular = emptyFillBoxState
     , secondSingular = emptyFillBoxState
+    , thirdSingular = emptyFillBoxState
+    , firstPlural = emptyFillBoxState
+    , secondPlural = emptyFillBoxState
+    , thirdPlural = emptyFillBoxState
     , activeFillBox = FillBox FirstSingular
     }
 
@@ -164,6 +184,10 @@ type alias ExerciseSummary =
 type alias ExerciseFinalResults =
     { firstSingular : FinalResult
     , secondSingular : FinalResult
+    , thirdSingular : FinalResult
+    , firstPlural : FinalResult
+    , secondPlural : FinalResult
+    , thirdPlural : FinalResult
     }
 
 
@@ -190,8 +214,16 @@ type Msg
     | ExerciseListProgressDataReceived String
     | FirstSingularChange String
     | SecondSingularChange String
+    | ThirdSingularChange String
+    | FirstPluralChange String
+    | SecondPluralChange String
+    | ThirdPluralChange String
     | FirstSingularFocused
     | SecondSingularFocused
+    | ThirdSingularFocused
+    | FirstPluralFocused
+    | SecondPluralFocused
+    | ThirdPluralFocused
     | VirtualKeyPressed String
     | RetryCompletedExercise
     | FocusResult (Result Dom.Error ())
@@ -228,10 +260,34 @@ update msg model =
         SecondSingularChange _ ->
             updateExerciseInProgress msg appModel |> asNewAppModelPlusCommandOf model
 
+        ThirdSingularChange _ ->
+            updateExerciseInProgress msg appModel |> asNewAppModelPlusCommandOf model
+
+        FirstPluralChange _ ->
+            updateExerciseInProgress msg appModel |> asNewAppModelPlusCommandOf model
+
+        SecondPluralChange _ ->
+            updateExerciseInProgress msg appModel |> asNewAppModelPlusCommandOf model
+
+        ThirdPluralChange _ ->
+            updateExerciseInProgress msg appModel |> asNewAppModelPlusCommandOf model
+
         FirstSingularFocused ->
             handleFillBoxFocused msg appModel |> asNewAppModelOf model |> justModel
 
         SecondSingularFocused ->
+            handleFillBoxFocused msg appModel |> asNewAppModelOf model |> justModel
+
+        ThirdSingularFocused ->
+            handleFillBoxFocused msg appModel |> asNewAppModelOf model |> justModel
+
+        FirstPluralFocused ->
+            handleFillBoxFocused msg appModel |> asNewAppModelOf model |> justModel
+
+        SecondPluralFocused ->
+            handleFillBoxFocused msg appModel |> asNewAppModelOf model |> justModel
+
+        ThirdPluralFocused ->
             handleFillBoxFocused msg appModel |> asNewAppModelOf model |> justModel
 
         VirtualKeyPressed char ->
@@ -341,6 +397,18 @@ handleFillBoxFocused msg model =
                 SecondSingularFocused ->
                     ExerciseInProgress spec { state | activeFillBox = FillBox SecondSingular } progress
 
+                ThirdSingularFocused ->
+                    ExerciseInProgress spec { state | activeFillBox = FillBox ThirdSingular } progress
+
+                FirstPluralFocused ->
+                    ExerciseInProgress spec { state | activeFillBox = FillBox FirstPlural } progress
+
+                SecondPluralFocused ->
+                    ExerciseInProgress spec { state | activeFillBox = FillBox SecondPlural } progress
+
+                ThirdPluralFocused ->
+                    ExerciseInProgress spec { state | activeFillBox = FillBox ThirdPlural } progress
+
                 _ ->
                     model
 
@@ -430,6 +498,30 @@ updateExerciseInProgress msg model =
                         { state | secondSingular = getNewFillBoxState spec.answers.secondSingular newValue state.secondSingular }
                         progress
 
+                ThirdSingularChange newValue ->
+                    returnAsExerciseInProgressOrCompleted
+                        spec
+                        { state | thirdSingular = getNewFillBoxState spec.answers.thirdSingular newValue state.thirdSingular }
+                        progress
+
+                FirstPluralChange newValue ->
+                    returnAsExerciseInProgressOrCompleted
+                        spec
+                        { state | firstPlural = getNewFillBoxState spec.answers.firstPlural newValue state.firstPlural }
+                        progress
+
+                SecondPluralChange newValue ->
+                    returnAsExerciseInProgressOrCompleted
+                        spec
+                        { state | secondPlural = getNewFillBoxState spec.answers.secondPlural newValue state.secondPlural }
+                        progress
+
+                ThirdPluralChange newValue ->
+                    returnAsExerciseInProgressOrCompleted
+                        spec
+                        { state | thirdPlural = getNewFillBoxState spec.answers.thirdPlural newValue state.thirdPlural }
+                        progress
+
                 _ ->
                     ( model, Cmd.none )
 
@@ -484,6 +576,30 @@ handleVirtualKeyPress char model =
                         { state | secondSingular = getNewFillBoxState spec.answers.secondSingular (state.secondSingular.value ++ char) state.secondSingular }
                         progress
 
+                FillBox ThirdSingular ->
+                    returnAsExerciseInProgressOrCompleted
+                        spec
+                        { state | thirdSingular = getNewFillBoxState spec.answers.thirdSingular (state.thirdSingular.value ++ char) state.thirdSingular }
+                        progress
+
+                FillBox FirstPlural ->
+                    returnAsExerciseInProgressOrCompleted
+                        spec
+                        { state | firstPlural = getNewFillBoxState spec.answers.firstPlural (state.firstPlural.value ++ char) state.firstPlural }
+                        progress
+
+                FillBox SecondPlural ->
+                    returnAsExerciseInProgressOrCompleted
+                        spec
+                        { state | secondPlural = getNewFillBoxState spec.answers.secondPlural (state.secondPlural.value ++ char) state.secondPlural }
+                        progress
+
+                FillBox ThirdPlural ->
+                    returnAsExerciseInProgressOrCompleted
+                        spec
+                        { state | thirdPlural = getNewFillBoxState spec.answers.thirdPlural (state.thirdPlural.value ++ char) state.thirdPlural }
+                        progress
+
         _ ->
             ( model, Cmd.none )
 
@@ -495,6 +611,10 @@ returnAsExerciseInProgressOrCompleted spec state progress =
             incorrectTotal =
                 (isPerfect state.firstSingular.errorCount |> conditionallyPick 0 1)
                     + (isPerfect state.secondSingular.errorCount |> conditionallyPick 0 1)
+                    + (isPerfect state.thirdSingular.errorCount |> conditionallyPick 0 1)
+                    + (isPerfect state.firstPlural.errorCount |> conditionallyPick 0 1)
+                    + (isPerfect state.secondPlural.errorCount |> conditionallyPick 0 1)
+                    + (isPerfect state.thirdPlural.errorCount |> conditionallyPick 0 1)
 
             isExercisePerfect =
                 incorrectTotal == 0
@@ -508,6 +628,10 @@ returnAsExerciseInProgressOrCompleted spec state progress =
             , finalResults =
                 { firstSingular = finalResult state.firstSingular.errorCount
                 , secondSingular = finalResult state.secondSingular.errorCount
+                , thirdSingular = finalResult state.thirdSingular.errorCount
+                , firstPlural = finalResult state.firstPlural.errorCount
+                , secondPlural = finalResult state.secondPlural.errorCount
+                , thirdPlural = finalResult state.thirdPlural.errorCount
                 }
             }
             progress
@@ -704,6 +828,34 @@ verbConjugator spec state progress =
                 state.secondSingular
                 SecondSingularChange
                 SecondSingularFocused
+            , fillBox
+                (getFillBoxElementId ThirdSingular)
+                spec.labels.thirdSingular
+                spec.answers.thirdSingular
+                state.thirdSingular
+                ThirdSingularChange
+                ThirdSingularFocused
+            , fillBox
+                (getFillBoxElementId FirstPlural)
+                spec.labels.firstPlural
+                spec.answers.firstPlural
+                state.firstPlural
+                FirstPluralChange
+                FirstPluralFocused
+            , fillBox
+                (getFillBoxElementId SecondPlural)
+                spec.labels.secondPlural
+                spec.answers.secondPlural
+                state.secondPlural
+                SecondPluralChange
+                SecondPluralFocused
+            , fillBox
+                (getFillBoxElementId ThirdPlural)
+                spec.labels.thirdPlural
+                spec.answers.thirdPlural
+                state.thirdPlural
+                ThirdPluralChange
+                ThirdPluralFocused
             ]
         , nextExerciseReference spec.next
         , virtualKeyboard
@@ -758,6 +910,18 @@ getFillBoxElementId verbForm =
 
         SecondSingular ->
             "secondSingular"
+
+        ThirdSingular ->
+            "thirdSingular"
+
+        FirstPlural ->
+            "firstPlural"
+
+        SecondPlural ->
+            "secondPlural"
+
+        ThirdPlural ->
+            "thirdPlural"
 
 
 type alias OnInputChangeMessageProducer =
@@ -919,6 +1083,22 @@ verbConjugatorCompletionScore spec summary progress =
                         spec.labels.secondSingular
                         spec.answers.secondSingular
                         summary.finalResults.secondSingular
+                    , resultBox
+                        spec.labels.thirdSingular
+                        spec.answers.thirdSingular
+                        summary.finalResults.thirdSingular
+                    , resultBox
+                        spec.labels.firstPlural
+                        spec.answers.firstPlural
+                        summary.finalResults.firstPlural
+                    , resultBox
+                        spec.labels.secondPlural
+                        spec.answers.secondPlural
+                        summary.finalResults.secondPlural
+                    , resultBox
+                        spec.labels.thirdPlural
+                        spec.answers.thirdPlural
+                        summary.finalResults.thirdPlural
                     ]
                 , div [ class "result-box-inner3" ] []
                 ]
@@ -1058,7 +1238,12 @@ isPerfect errorCount =
 
 isExerciseCompleted : ExerciseCurrentState -> Bool
 isExerciseCompleted state =
-    state.firstSingular.isCompleted && state.secondSingular.isCompleted
+    state.firstSingular.isCompleted
+        && state.secondSingular.isCompleted
+        && state.thirdSingular.isCompleted
+        && state.firstPlural.isCompleted
+        && state.secondPlural.isCompleted
+        && state.thirdPlural.isCompleted
 
 
 finalResult : Int -> FinalResult
@@ -1338,16 +1523,24 @@ exerciseSpecDecoder =
 
 exerciseLabelsDecoder : Decoder ExerciseLabels
 exerciseLabelsDecoder =
-    map2 ExerciseLabels
+    map6 ExerciseLabels
         (field "firstSingular" string)
         (field "secondSingular" string)
+        (field "thirdSingular" string)
+        (field "firstPlural" string)
+        (field "secondPlural" string)
+        (field "thirdPlural" string)
 
 
 exerciseAnswersDecoder : Decoder ExerciseAnswers
 exerciseAnswersDecoder =
-    map2 ExerciseAnswers
+    map6 ExerciseAnswers
         (field "firstSingular" (Json.Decode.list string))
         (field "secondSingular" (Json.Decode.list string))
+        (field "thirdSingular" (Json.Decode.list string))
+        (field "firstPlural" (Json.Decode.list string))
+        (field "secondPlural" (Json.Decode.list string))
+        (field "thirdPlural" (Json.Decode.list string))
 
 
 exerciseNextDecoder : Decoder NextExerciseData
