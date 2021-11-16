@@ -11,6 +11,12 @@ npm run clean
 Cleans the dist folder
 
 ```
+npm run gentran
+```
+
+Generates translation files
+
+```
 npm run test
 ```
 

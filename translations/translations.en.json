@@ -1,0 +1,267 @@
+{
+    "account": {
+        "sign_in": "SIGN IN",
+        "sign_out": "SIGN OUT"
+    },
+    "hero": {
+        "title": "VERB CONJUGATION PRACTICE",
+        "subtitle": "Verb conjugation drills to perfection your French and Spanish",
+        "my_language": "I speak:",
+        "learning_language": "I want to learn:",
+        "call_to_action": "PRACTICE"
+    },
+    "language": {
+        "french": "French",
+        "spanish": "Spanish"
+    },
+    "meta": {
+        "home": {
+            "title": "Verb Conjugation Exercises",
+            "description": "Practice verb conjugation and get a perfect score"
+        },
+        "spanish": {
+            "exercise_book": {
+                "title": "Spanish Verb Conjugation Exercises",
+                "description": "Practice Spanish verb conjugation and get a perfect score in Spanish Grammar."
+            },
+            "exercise_list": {
+                "title": "Spanish Verb Conjugation Exercises - {0}",
+                "description": "Practice conjugating 100 Spanish verbs in {0}"
+            },
+            "verb_conjugator": {
+                "title": "Spanish Exercises - {0} in {1}",
+                "description": "Practice conjugating verb {0} in {1}"
+            },
+            "grammar": {
+                "title": "Spanish Grammar - Verb Conjugation Rules",
+                "description": "Study rules of Spanish verb conjugation in basic tenses - present simple, past imperfect, past preterite and future."
+            },
+            "grammar_presente": {
+                "title": "Spanish verb conjugation reference - Presente",
+                "description": "Spanish verb conjugation rules in Presente (Present Simple tense)"
+            },
+            "grammar_imperfecto": {
+                "title": "Spanish verb conjugation reference - Pretérito Imperfecto",
+                "description": "Spanish verb conjugation rules in Pretérito Imperfecto (Past Imperfect tense)"
+            },
+            "grammar_indefinido": {
+                "title": "Spanish verb conjugation reference - Pretérito Indefinido",
+                "description": "Spanish verb conjugation rules in Pretérito Indefinido (Past Preterite tense)"
+            },
+            "grammar_futuro": {
+                "title": "Spanish verb conjugation reference - Futuro",
+                "description": "Spanish verb conjugation rules in Futuro (Future tense)"
+            }
+        },
+        "french": {
+            "exercise_book": {
+                "title": "French Verb Conjugation Exercises",
+                "description": "Practice French verb conjugation and get a perfect score in French Grammar."
+            },
+            "exercise_list": {
+                "title": "French Verb Conjugation Exercises - {0}",
+                "description": "Practice conjugating 100 French verbs in {0}"
+            },
+            "verb_conjugator": {
+                "title": "French Exercises - {0} in {1}",
+                "description": "Practice conjugating verb {0} in {1}"
+            },
+            "grammar": {
+                "title": "French Grammar - Verb Conjugation Rules",
+                "description": "Study rules of French verb conjugation in basic tenses."
+            },
+            "grammar_present": {
+                "title": "French verb conjugation reference - Présent",
+                "description": "French verb conjugation rules in Présent (Present tense)"
+            },
+            "grammar_imparfait": {
+                "title": "French verb conjugation reference - Imparfait",
+                "description": "French verb conjugation rules in Imparfait (Past imperfective tense)"
+            },
+            "grammar_futur": {
+                "title": "French verb conjugation reference - Futur",
+                "description": "French verb conjugation rules in Futur (Simple future tense)"
+            },
+            "grammar_conditionnel": {
+                "title": "French verb conjugation reference - Conditionnel",
+                "description": "French verb conjugation rules in Conditionnel (Conditional tense)"
+            },
+            "grammar_subjonctif": {
+                "title": "French verb conjugation reference - Subjonctif",
+                "description": "French verb conjugation rules in Subjonctif (Subjunctive mood)"
+            }
+        }
+    },
+    "menu": {
+        "home": "Home",
+        "exercises": "Exercises",
+        "grammar": "Grammar"
+    },
+    "exercises": {
+        "all_verbs_links": "< All Verbs",
+        "retry_button": "Retry",
+        "results": {
+            "perfect": {
+                "result1": "Perfect score!",
+                "result2": "Great job!"
+            },
+            "good": {
+                "result1": "Well done!",
+                "result2": "Almost there!"
+            },
+            "ok": {
+                "result1": "Keep practicing!",
+                "result2": "You'll get there!"
+            },
+            "bad": {
+                "result1": "Don't give up!",
+                "result2": "You will do better next time!"
+            }
+        },
+        "not_implemented": "This exercise is not available yet. We need your support to keep going."
+    },
+    "grammar": {
+        "click_to_practice": "Click to practice"
+    },
+    "spanish_exercises": {
+        "title": "Castilian Spanish",
+        "subtitle": "All exercises",
+        "presente": {
+            "name": "Presente",
+            "title": "100 Spanish Verbs",
+            "subtitle": "Presente"
+        },
+        "preterito_imperfecto": {
+            "name": "Pretérito Imperfecto",
+            "title": "100 Spanish Verbs",
+            "subtitle": "Pretérito Imperfecto"
+        },
+        "preterito_indefinido": {
+            "name": "Pretérito Indefinido",
+            "title": "100 Spanish Verbs",
+            "subtitle": "Pretérito Indefinido"
+        },
+        "futuro": {
+            "name": "Futuro",
+            "title": "100 Spanish Verbs",
+            "subtitle": "Futuro"
+        },
+        "condicional": {
+            "name": "Condicional",
+            "title": "100 Spanish Verbs",
+            "subtitle": "Condicional"
+        },
+        "subjuntivo_presente": {
+            "name": "Subjuntivo Presente",
+            "title": "100 Spanish Verbs",
+            "subtitle": "Subjuntivo Presente"
+        },
+        "subjuntivo_imperfecto": {
+            "name": "Subjuntivo Imperfecto",
+            "title": "100 Spanish Verbs",
+            "subtitle": "Subjuntivo Imperfecto"
+        },
+        "subjuntivo_futuro": {
+            "name": "Subjuntivo Futuro",
+            "title": "100 Spanish Verbs",
+            "subtitle": "Subjuntivo Futuro"
+        },
+        "imperativo_afirmativo": {
+            "name": "Imperativo Afirmativo",
+            "title": "100 Spanish Verbs",
+            "subtitle": "Imperativo Afirmativo"
+        },
+        "imperativo_negativo": {
+            "name": "Imperativo Negativo",
+            "title": "100 Spanish Verbs",
+            "subtitle": "Imperativo Negativo"
+        }
+    },
+    "spanish_grammar": {
+        "title": "Castilian Spanish",
+        "subtitle": "Grammar",
+        "regular_verbs": "Regular verbs",
+        "radical_changing_verbs": "Radical changing verbs",
+        "xx_verbs_prefix": "",
+        "xx_verbs_suffix": " verbs",
+        "irregular_verbs_ir_ser_estar": "Irregular verbs - Ir, Ser, Estar",
+        "irregular_verbs_dar_tener_poner": "Irregular verbs - Dar, Tener, Poner",
+        "irregular_verbs_hacer_saber_conocer": "Irregular verbs - Hacer, Saber, Conocer",
+        "irregular_verbs_ir_ser_ver": "Irregular verbs - Ir, Ser, Ver",
+        "irregular_verbs_hacer_saber_venir": "Irregular verbs - Hacer, Saber, Venir",
+        "irregular_verbs_decir_poder_querer": "Irregular verbs - Decir, Poder, Querer",
+        "irregular_verbs_reir_traer_conducir": "Irregular verbs - Reír, Traer, Conducir",
+        "irregular_verbs_decir_hacer_poder": "Irregular verbs - Decir, Hacer, Poder",
+        "irregular_verbs_poner_querer_saber": "Irregular verbs - Poner, Querer, Saber",
+        "irregular_verbs_salir_tener_venir": "Irregular verbs - Salir, Tener, Venir"
+    },
+    "french_exercises": {
+        "title": "French Language",
+        "subtitle": "All exercises",
+        "present": {
+            "name": "Présent",
+            "title": "100 French Verbs",
+            "subtitle": "Présent"
+        },
+        "imparfait": {
+            "name": "Imparfait",
+            "title": "100 French Verbs",
+            "subtitle": "Imparfait"
+        },
+        "futur": {
+            "name": "Futur",
+            "title": "100 French Verbs",
+            "subtitle": "Futur"
+        },
+        "conditionnel": {
+            "name": "Conditionnel",
+            "title": "100 French Verbs",
+            "subtitle": "Conditionnel"
+        },
+        "subjonctif": {
+            "name": "Subjonctif",
+            "title": "100 French Verbs",
+            "subtitle": "Subjonctif"
+        },
+        "passe_simple": {
+            "name": "Passé Simple",
+            "title": "100 French Verbs",
+            "subtitle": "Passé Simple"
+        },
+        "subjonctif_imparfait": {
+            "name": "Subjonctif Imparfait",
+            "title": "100 French Verbs",
+            "subtitle": "Subjonctif Imparfait"
+        }
+    },
+    "french_grammar": {
+        "title": "French Language",
+        "subtitle": "Grammar",
+        "regular_verbs": "Regular verbs",
+        "radical_changing_verbs": "Radical changing verbs",
+        "xx_verbs_prefix": "",
+        "xx_verbs_suffix": " verbs",
+        "irregular_verbs_etre_avoir_aller": "Irregular verbs - Être, Avoir, Aller",
+        "irregular_verbs_faire_savoir_venir": "Irregular verbs - Faire, Savoir, Venir",
+        "irregular_verbs_pouvoir_devoir_vouloir": "Irregular verbs - Pouvoir, Devoir, Vouloir",
+        "irregular_ir_er": "-ir verbs that conjugate as -er verbs",
+        "irregular_ir_re": "-ir verbs that conjugate as some of -re verbs",
+        "irregular_verbs_tenir_voir": "Irregular verbs - Tenir, Voir",
+        "re_verbs_vendre_prendre": "-re verbs - Vendre, Prendre",
+        "re_verbs_dire_lire_ecrire": "-re verbs - Dire, Lire, Écrire",
+        "re_verbs_connaître_comprendre_suivre": "-re verbs - Connaître, Comprendre, Suivre",
+        "re_verbs_vivre_boire_croire": "-re verbs - Vivre, Boire, Croire",
+        "re_verbs_like_mettre": "Verbs like Mettre",
+        "imparfait_rules_1": "Find the \"nous\" form of the present tense",
+        "imparfait_rules_2": "Remove the ending ",
+        "imparfait_rules_3": "Add the endings ",
+        "verb_etre": "Verb Être",
+        "ininitif_plus": "Infinitive + ",
+        "irregular_verbs_devoir_pouvoir_savoir": "Irregular verbs - Devoir, Pouvoir, Savoir",
+        "irregular_verbs_venir_tenir_voir": "Irregular verbs - Venir, Tenir, Voir",
+        "futur_plus_imperfect": "The stem of the future + the endings of the imperfect: ",
+        "subjonctif_rule1": "Find the \"ils/elles\" form of the present tense",
+        "subjonctif_rule2": "Remove the ending ",
+        "subjonctif_rule3": "Add the endings "
+    }
+}

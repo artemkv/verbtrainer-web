@@ -19,6 +19,7 @@
     "babel-loader": "^8.0.4",
     "copy-webpack-plugin": "^4.6.0",
     "css-loader": "^2.1.0",
+    "elm-i18next-gen": "^1.1.0",
     "elm-test": "^0.19.1-revision6",
     "elm-webpack-loader": "^8.0.0",
     "html-webpack-plugin": "^3.2.0",
@@ -30,12 +31,13 @@
     "webpack-merge": "^4.1.4"
   },
   "scripts": {
-    "clean": "rimraf dist",
+    "clean": "rimraf dist && rimraf src/Translations",
+    "gentran": "elm-i18next-gen --source translations/translations.en.json --target src",
     "test": "elm-test",
     "build:dev": "webpack --config webpack.dev.js",
     "build:prod": "webpack --config webpack.prod.js",
-    "dev": "npm run clean && npm run test && npm run build:dev",
-    "prod": "npm run clean && npm run test && npm run build:prod",
+    "dev": "npm run clean && npm run gentran && npm run test && npm run build:dev",
+    "prod": "npm run clean && npm run gentran && npm run test && npm run build:prod",
     "start": "npm run dev && webpack-dev-server --config webpack.dev.js --hot",
     "startprod": "npm run prod && webpack-dev-server --config webpack.prod.js"
   }

@@ -35,6 +35,7 @@
 TODO:
 - Extract labels
 - Localize
+- Use i18next feature to interpolate string instead of manually concatenating translated parts
 - Add exercise book with all exercise lists
 - Add grammar for every list
 - Add french exercise book

@@ -1,12 +1,18 @@
 import "./main.css";
 import "./spinner.css";
 
+// this is how we fetch labels
+// initially we pass them as flags
+// to support language switch, we would need to fetch the labels from another json file
+// and pass it back to elm to decode
+const translations = require('../translations/translations.en.json');
+
 // inject bundled Elm app into div#app
 const { Elm } = require('./Main.elm');
 const app = Elm.Main.init({
-    node: document.getElementById("app")
+    node: document.getElementById("app"),
+    flags: translations
 })
-
 
 const DATA_LOAD_DELAY = 0;
 

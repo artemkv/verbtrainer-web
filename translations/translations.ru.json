@@ -1,0 +1,267 @@
+{
+    "account": {
+        "sign_in": "Войти",
+        "sign_out": "Выйти"
+    },
+    "hero": {
+        "title": "ТРЕНИРОВАТЬ СПРЯЖЕНИЕ ГЛАГОЛОВ",
+        "subtitle": "Овладей французским и испанским языком в совершенстве",
+        "my_language": "Мой язык:",
+        "learning_language": "Я хочу учить:",
+        "call_to_action": "ТРЕНИРОВАТЬСЯ"
+    },
+    "language": {
+        "french": "Французский",
+        "spanish": "Испанский"
+    },
+    "meta": {
+        "home": {
+            "title": "Тренировать спряжение глаголов",
+            "description": "Тренируй спряжение глаголов и выучи язык в совершенстве"
+        },
+        "spanish": {
+            "exercise_book": {
+                "title": "Испанский язык - Тренировать спряжение глаголов",
+                "description": "Тренируй спряжение испанских глаголов и выучи испанский в совершенстве"
+            },
+            "exercise_list": {
+                "title": "Испанский язык - Тренировать спряжение глаголов в {0}",
+                "description": "Тренируй спряжение 100 испанских глаголов в {0}"
+            },
+            "verb_conjugator": {
+                "title": "Испанский язык, упражнение - глагол {0} в {1}",
+                "description": "Тренировать спряжение глагола {0} в {1}"
+            },
+            "grammar": {
+                "title": "Испанская грамматика - Правила спряжений глаголов",
+                "description": "Правила спряжений испанских глаголов в базовых временах"
+            },
+            "grammar_presente": {
+                "title": "Испанский язык - спряжение глаголов в Presente",
+                "description": "Правила спряжений испанских глаголов в Presente (Настоящее время)"
+            },
+            "grammar_imperfecto": {
+                "title": "Испанский язык - спряжение глаголов в Pretérito Imperfecto",
+                "description": "Правила спряжений испанских глаголов в Pretérito Imperfecto (Прошедшее продолженное время)"
+            },
+            "grammar_indefinido": {
+                "title": "Испанский язык - спряжение глаголов в Pretérito Indefinido",
+                "description": "Правила спряжений испанских глаголов в Pretérito Indefinido (Историческое прошедшее время)"
+            },
+            "grammar_futuro": {
+                "title": "Испанский язык - спряжение глаголов в Futuro",
+                "description": "Правила спряжений испанских глаголов в Futuro (Простое будущее время)"
+            }
+        },
+        "french": {
+            "exercise_book": {
+                "title": "Французский язык - Тренировать спряжение глаголов",
+                "description": "Тренируй спряжение французских глаголов и добейся идеальных результатов."
+            },
+            "exercise_list": {
+                "title": "Французский язык - Тренировать спряжение глаголов в {0}",
+                "description": "Тренируй спряжение 100 французских глаголов в {0}"
+            },
+            "verb_conjugator": {
+                "title": "Французский язык, упражнение - глагол {0} в {1}",
+                "description": "Тренировать спряжение глагола {0} в {1}"
+            },
+            "grammar": {
+                "title": "Французская грамматика - Правила спряжений глаголов",
+                "description": "Правила спряжений французских глаголов в базовых временах."
+            },
+            "grammar_present": {
+                "title": "Французский язык - спряжение глаголов в Présent",
+                "description": "Правила спряжений испанских глаголов в Présent (Настоящее время)"
+            },
+            "grammar_imparfait": {
+                "title": "Французский язык - спряжение глаголов в Imparfait",
+                "description": "Правила спряжений испанских глаголов в Imparfait (Прошедшее незавершенное время)"
+            },
+            "grammar_futur": {
+                "title": "Французский язык - спряжение глаголов в Futur",
+                "description": "Правила спряжений испанских глаголов в Futur (Простое будущее время)"
+            },
+            "grammar_conditionnel": {
+                "title": "Французский язык - спряжение глаголов в Conditionnel",
+                "description": "Правила спряжений испанских глаголов в Conditionnel (Условное наклонение)"
+            },
+            "grammar_subjonctif": {
+                "title": "Французский язык - спряжение глаголов в Subjonctif",
+                "description": "Правила спряжений испанских глаголов в Subjonctif (Сослагательное наклонение)"
+            }
+        }
+    },
+    "menu": {
+        "home": "На главную",
+        "exercises": "Упражнения",
+        "grammar": "Грамматика"
+    },
+    "exercises": {
+        "all_verbs_links": "< К списку",
+        "retry_button": "Повторить",
+        "results": {
+            "perfect": {
+                "result1": "Молодец!",
+                "result2": "Отличный результат!"
+            },
+            "good": {
+                "result1": "Очень хорошо!",
+                "result2": "Почти без ошибок!"
+            },
+            "ok": {
+                "result1": "Нужна практика",
+                "result2": "Продолжаем тренироваться!"
+            },
+            "bad": {
+                "result1": "Не сдаватсья!",
+                "result2": "В следующий раз будет лучше!"
+            }
+        },
+        "not_implemented": "Это упражнение еще не доступно. Нам нужна Ваша поддержка чтобы продолжать развиваться!"
+    },
+    "grammar": {
+        "click_to_practice": "К упражнениям"
+    },
+    "spanish_exercises": {
+        "title": "Испанский язык",
+        "subtitle": "Упражнения",
+        "presente": {
+            "name": "Presente",
+            "title": "100 испанских глаголов",
+            "subtitle": "Presente"
+        },
+        "preterito_imperfecto": {
+            "name": "Pretérito Imperfecto",
+            "title": "100 испанских глаголов",
+            "subtitle": "Pretérito Imperfecto"
+        },
+        "preterito_indefinido": {
+            "name": "Pretérito Indefinido",
+            "title": "100 испанских глаголов",
+            "subtitle": "Pretérito Indefinido"
+        },
+        "futuro": {
+            "name": "Futuro",
+            "title": "100 испанских глаголов",
+            "subtitle": "Futuro"
+        },
+        "condicional": {
+            "name": "Condicional",
+            "title": "100 испанских глаголов",
+            "subtitle": "Condicional"
+        },
+        "subjuntivo_presente": {
+            "name": "Subjuntivo Presente",
+            "title": "100 испанских глаголов",
+            "subtitle": "Subjuntivo Presente"
+        },
+        "subjuntivo_imperfecto": {
+            "name": "Subjuntivo Imperfecto",
+            "title": "100 испанских глаголов",
+            "subtitle": "Subjuntivo Imperfecto"
+        },
+        "subjuntivo_futuro": {
+            "name": "Subjuntivo Futuro",
+            "title": "100 испанских глаголов",
+            "subtitle": "Subjuntivo Futuro"
+        },
+        "imperativo_afirmativo": {
+            "name": "Imperativo Afirmativo",
+            "title": "100 испанских глаголов",
+            "subtitle": "Imperativo Afirmativo"
+        },
+        "imperativo_negativo": {
+            "name": "Imperativo Negativo",
+            "title": "100 испанских глаголов",
+            "subtitle": "Imperativo Negativo"
+        }
+    },
+    "spanish_grammar": {
+        "title": "Испанский язык",
+        "subtitle": "Грамматика",
+        "regular_verbs": "Правильные глаголы",
+        "radical_changing_verbs": "Глаголы с изменениями корневого гласного",
+        "xx_verbs_prefix": "Глаголы на ",
+        "xx_verbs_suffix": "",
+        "irregular_verbs_ir_ser_estar": "Неправильные глаголы - Ir, Ser, Estar",
+        "irregular_verbs_dar_tener_poner": "Неправильные глаголы - Dar, Tener, Poner",
+        "irregular_verbs_hacer_saber_conocer": "Неправильные глаголы - Hacer, Saber, Conocer",
+        "irregular_verbs_ir_ser_ver": "Неправильные глаголы - Ir, Ser, Ver",
+        "irregular_verbs_hacer_saber_venir": "Неправильные глаголы - Hacer, Saber, Venir",
+        "irregular_verbs_decir_poder_querer": "Неправильные глаголы - Decir, Poder, Querer",
+        "irregular_verbs_reir_traer_conducir": "Неправильные глаголы - Reír, Traer, Conducir",
+        "irregular_verbs_decir_hacer_poder": "Неправильные глаголы - Decir, Hacer, Poder",
+        "irregular_verbs_poner_querer_saber": "Неправильные глаголы - Poner, Querer, Saber",
+        "irregular_verbs_salir_tener_venir": "Неправильные глаголы - Salir, Tener, Venir"
+    },
+    "french_exercises": {
+        "title": "Французский язык",
+        "subtitle": "Упражнения",
+        "present": {
+            "name": "Présent",
+            "title": "100 французских глаголов",
+            "subtitle": "Présent"
+        },
+        "imparfait": {
+            "name": "Imparfait",
+            "title": "100 французских глаголов",
+            "subtitle": "Imparfait"
+        },
+        "futur": {
+            "name": "Futur",
+            "title": "100 французских глаголов",
+            "subtitle": "Futur"
+        },
+        "conditionnel": {
+            "name": "Conditionnel",
+            "title": "100 французских глаголов",
+            "subtitle": "Conditionnel"
+        },
+        "subjonctif": {
+            "name": "Subjonctif",
+            "title": "100 французских глаголов",
+            "subtitle": "Subjonctif"
+        },
+        "passe_simple": {
+            "name": "Passé Simple",
+            "title": "100 французских глаголов",
+            "subtitle": "Passé Simple"
+        },
+        "subjonctif_imparfait": {
+            "name": "Subjonctif Imparfait",
+            "title": "100 французских глаголов",
+            "subtitle": "Subjonctif Imparfait"
+        }
+    },
+    "french_grammar": {
+        "title": "Французский язык",
+        "subtitle": "Грамматика",
+        "regular_verbs": "Правильные глаголы",
+        "radical_changing_verbs": "Глаголы с изменениями корневого гласного",
+        "xx_verbs_prefix": "Глаголы на ",
+        "xx_verbs_suffix": "",
+        "irregular_verbs_etre_avoir_aller": "Неправильные глаголы - Être, Avoir, Aller",
+        "irregular_verbs_faire_savoir_venir": "Неправильные глаголы - Faire, Savoir, Venir",
+        "irregular_verbs_pouvoir_devoir_vouloir": "Неправильные глаголы - Pouvoir, Devoir, Vouloir",
+        "irregular_ir_er": "Глаголы на -ir, спрягающиеся как глаголы на -er",
+        "irregular_ir_re": "Глаголы на -ir, спрягающиеся как некоторые глаголы на -re",
+        "irregular_verbs_tenir_voir": "Неправильные глаголы - Tenir, Voir",
+        "re_verbs_vendre_prendre": "Глаголы на -re: Vendre, Prendre",
+        "re_verbs_dire_lire_ecrire": "Глаголы на -re: Dire, Lire, Écrire",
+        "re_verbs_connaître_comprendre_suivre": "Глаголы на -re: Connaître, Comprendre, Suivre",
+        "re_verbs_vivre_boire_croire": "Глаголы на -re: Vivre, Boire, Croire",
+        "re_verbs_like_mettre": "Глаголы как Mettre",
+        "imparfait_rules_1": "Находим фому \"nous\" глагола в настоящем времени",
+        "imparfait_rules_2": "Удаляем окончание ",
+        "imparfait_rules_3": "Добавляем окончания ",
+        "verb_etre": "Verb Être",
+        "ininitif_plus": "Инфинитив + ",
+        "irregular_verbs_devoir_pouvoir_savoir": "Неправильные глаголы - Devoir, Pouvoir, Savoir",
+        "irregular_verbs_venir_tenir_voir": "Неправильные глаголы - Venir, Tenir, Voir",
+        "futur_plus_imperfect": "Основа Futur + окончания Imparfait: ",
+        "subjonctif_rule1": "Находим фому \"ils/elles\" глагола в настоящем времени",
+        "subjonctif_rule2": "Удаляем окончание ",
+        "subjonctif_rule3": "Добавляем окончания "
+    }
+}

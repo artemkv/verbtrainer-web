@@ -3,13 +3,17 @@ port module Main exposing (..)
 import Browser exposing (UrlRequest(..))
 import Browser.Dom as Dom
 import Browser.Navigation as Nav
+import Dict exposing (Dict)
 import Html exposing (Html, a, button, div, img, input, label, span, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onFocus, onInput)
+import I18Next
 import Json.Decode exposing (Decoder, bool, decodeString, field, int, map2, map3, map4, map6, map8, string)
+import Json.Encode
 import Presente exposing (spanishPresente)
 import String exposing (fromInt)
 import Task
+import Translations.Exercises
 import Url
 import Url.Parser exposing ((</>), Parser)
 import Util exposing (conditionallyPick)
@@ -19,8 +23,14 @@ import Util exposing (conditionallyPick)
 -- Model
 
 
-type alias Model =
+type Model
+    = Initialized ExtendedModel
+    | FailedToInitialize String
+
+
+type alias ExtendedModel =
     { navKey : Nav.Key
+    , translations : I18Next.Translations
     , appModel : AppModel
     }
 
@@ -196,9 +206,20 @@ type FinalResult
     | Incorrect
 
 
-init : () -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
-init _ url navKey =
-    handleRouteChange url (Model navKey ExerciseListNotLoaded)
+init : Json.Encode.Value -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
+init flags url navKey =
+    case Json.Decode.decodeValue I18Next.translationsDecoder flags of
+        Ok translations ->
+            handleRouteChange url (ExtendedModel navKey translations ExerciseListNotLoaded)
+                |> toInitialized
+
+        Err err ->
+            ( FailedToInitialize (Json.Decode.errorToString err), Cmd.none )
+
+
+toInitialized : ( ExtendedModel, Cmd Msg ) -> ( Model, Cmd Msg )
+toInitialized ( extendedmodel, cmd ) =
+    ( Initialized extendedmodel, cmd )
 
 
 
@@ -231,6 +252,16 @@ type Msg
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
+    case model of
+        Initialized extendedModel ->
+            updateExtendedModel msg extendedModel |> toInitialized
+
+        FailedToInitialize err ->
+            ( FailedToInitialize err, Cmd.none )
+
+
+updateExtendedModel : Msg -> ExtendedModel -> ( ExtendedModel, Cmd Msg )
+updateExtendedModel msg model =
     let
         appModel =
             model.appModel
@@ -300,17 +331,17 @@ update msg model =
             handleFocusResult model result
 
 
-asNewAppModelOf : Model -> AppModel -> Model
+asNewAppModelOf : ExtendedModel -> AppModel -> ExtendedModel
 asNewAppModelOf model appModel =
     { model | appModel = appModel }
 
 
-asNewAppModelPlusCommandOf : Model -> ( AppModel, Cmd Msg ) -> ( Model, Cmd Msg )
+asNewAppModelPlusCommandOf : ExtendedModel -> ( AppModel, Cmd Msg ) -> ( ExtendedModel, Cmd Msg )
 asNewAppModelPlusCommandOf model ( appModel, cmd ) =
     ( appModel |> asNewAppModelOf model, cmd )
 
 
-justModel : Model -> ( Model, Cmd Msg )
+justModel : ExtendedModel -> ( ExtendedModel, Cmd Msg )
 justModel model =
     ( model, Cmd.none )
 
@@ -319,7 +350,7 @@ justModel model =
 -- Navigation
 
 
-navigate : Browser.UrlRequest -> Model -> ( Model, Cmd Msg )
+navigate : Browser.UrlRequest -> ExtendedModel -> ( ExtendedModel, Cmd Msg )
 navigate urlRequest model =
     case urlRequest of
         Browser.Internal url ->
@@ -329,7 +360,7 @@ navigate urlRequest model =
             ( model, Nav.load href )
 
 
-handleRouteChange : Url.Url -> Model -> ( Model, Cmd Msg )
+handleRouteChange : Url.Url -> ExtendedModel -> ( ExtendedModel, Cmd Msg )
 handleRouteChange url model =
     case toRoute url of
         -- TODO: handle home correctly
@@ -349,7 +380,7 @@ handleRouteChange url model =
             PageNotFound |> asNewAppModelOf model |> justModel
 
 
-navigateToExercise : ExerciseId -> Model -> ( Model, Cmd Msg )
+navigateToExercise : ExerciseId -> ExtendedModel -> ( ExtendedModel, Cmd Msg )
 navigateToExercise id model =
     ( model, Nav.pushUrl model.navKey (getExerciseLink id) )
 
@@ -363,7 +394,7 @@ focusElement elementId =
     Dom.focus elementId |> Task.attempt FocusResult
 
 
-handleFocusResult : Model -> Result Dom.Error () -> ( Model, Cmd Msg )
+handleFocusResult : ExtendedModel -> Result Dom.Error () -> ( ExtendedModel, Cmd Msg )
 handleFocusResult model result =
     case result of
         Err (Dom.NotFound id) ->
@@ -674,19 +705,34 @@ subscriptions _ =
 
 view : Model -> Browser.Document Msg
 view model =
+    let
+        bodyContent =
+            case model of
+                Initialized extendedModel ->
+                    [ body extendedModel.appModel extendedModel.translations ]
+
+                FailedToInitialize err ->
+                    [ div []
+                        [ text <|
+                            "Failed to initialize the app: '"
+                                ++ err
+                                ++ "'. Check that translations are loaded correctly."
+                        ]
+                    ]
+    in
     -- TODO: where should the title come from?
     { title = "Verb Conjugation Exercises"
-    , body = [ body model.appModel ]
+    , body = bodyContent
     }
 
 
-body : AppModel -> Html Msg
-body model =
+body : AppModel -> I18Next.Translations -> Html Msg
+body model translations =
     div []
         [ header
         , div
             [ class "content" ]
-            [ content model ]
+            [ content model translations ]
         ]
 
 
@@ -700,8 +746,8 @@ header =
         ]
 
 
-content : AppModel -> Html Msg
-content model =
+content : AppModel -> I18Next.Translations -> Html Msg
+content model translations =
     case model of
         ExerciseListNotLoaded ->
             div [] [ spinner ]
@@ -721,10 +767,10 @@ content model =
             div [] [ text reason ]
 
         ExerciseInProgress spec state progress ->
-            verbConjugator spec state progress
+            verbConjugator spec state progress translations
 
         ExerciseCompleted spec summary progress ->
-            verbConjugatorCompletionScore spec summary progress
+            verbConjugatorCompletionScore spec summary progress translations
 
         GrammarTopicContent id ->
             spanishPresente (getExerciseListLink id)
@@ -786,8 +832,8 @@ exerciseLinkCompletion progress id =
             nothing
 
 
-verbConjugator : ExerciseSpec -> ExerciseCurrentState -> ExerciseListProgress -> Html Msg
-verbConjugator spec state progress =
+verbConjugator : ExerciseSpec -> ExerciseCurrentState -> ExerciseListProgress -> I18Next.Translations -> Html Msg
+verbConjugator spec state progress translations =
     div []
         [ controlBar
             [ div [ class "control-bar-inner1" ]
@@ -797,8 +843,7 @@ verbConjugator spec state progress =
                     [ class "to-all-verbs-link"
                     , href (getExerciseListLink spec.listId)
                     ]
-                    -- TODO: should be a label
-                    [ text "< All Verbs" ]
+                    [ text <| Translations.Exercises.allVerbsLinks translations ]
                 , exerciseProgress progress spec.exercisesInList
                 ]
             , div [ class "control-bar-inner3" ]
@@ -1051,8 +1096,8 @@ nextExerciseReference next =
         ]
 
 
-verbConjugatorCompletionScore : ExerciseSpec -> ExerciseSummary -> ExerciseListProgress -> Html Msg
-verbConjugatorCompletionScore spec summary progress =
+verbConjugatorCompletionScore : ExerciseSpec -> ExerciseSummary -> ExerciseListProgress -> I18Next.Translations -> Html Msg
+verbConjugatorCompletionScore spec summary progress translations =
     div []
         [ controlBar
             [ div [ class "control-bar-inner1" ]
@@ -1062,8 +1107,7 @@ verbConjugatorCompletionScore spec summary progress =
                     [ class "to-all-verbs-link"
                     , href (getExerciseListLink spec.listId)
                     ]
-                    -- TODO: should be a label
-                    [ text "< All Verbs" ]
+                    [ text <| Translations.Exercises.allVerbsLinks translations ]
                 , exerciseProgress progress spec.exercisesInList
                 ]
             , div [ class "control-bar-inner3" ]
@@ -1601,7 +1645,7 @@ getGrammarTopicLink id =
 -- Main
 
 
-main : Program () Model Msg
+main : Program Json.Encode.Value Model Msg
 main =
     Browser.application
         { init = init
