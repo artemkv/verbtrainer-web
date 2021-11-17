@@ -2,10 +2,13 @@ module Presente exposing (..)
 
 import Html exposing (Html, a, div, span, text)
 import Html.Attributes exposing (..)
+import I18Next exposing (Translations)
+import Translations.Grammar
+import Translations.SpanishGrammar
 
 
-spanishPresente : String -> Html msg
-spanishPresente exerciseListLink =
+spanishPresente : String -> I18Next.Translations -> Html msg
+spanishPresente exerciseListLink translations =
     div [ class "grammar-topic" ]
         [ div [ class "grammar-topic-name" ]
             [ text "Presente" ]
@@ -14,19 +17,19 @@ spanishPresente exerciseListLink =
                 [ class "grammar-to-exercises-link"
                 , href exerciseListLink
                 ]
-                [ text "click_to_practice" ]
+                [ text <| Translations.Grammar.clickToPractice translations ]
             ]
         , div [ class "grammar-topic-content" ]
             [ div [ class "grammar-topic-section" ]
                 [ div [ class "grammar-topic-section-title" ]
-                    [ text (localize "spanish_grammar.regular_verbs") ]
+                    [ text <| Translations.SpanishGrammar.regularVerbs translations ]
                 , div [ class "grammar-topic-section-content" ]
                     [ div [ class "grammar-topic-subsection" ]
                         [ div [ class "grammar-topic-subsection-title" ]
-                            [ text (localize "spanish_grammar.xx_verbs_prefix")
+                            [ text <| Translations.SpanishGrammar.xxVerbsPrefix translations
                             , span [ class "grammar-topic-verb-form-ending" ]
                                 [ text "-ar" ]
-                            , text (localize "spanish_grammar.xx_verbs_suffix")
+                            , text <| Translations.SpanishGrammar.xxVerbsSuffix translations
                             ]
                         , div [ class "grammar-topic-verb-conjugation" ]
                             [ div [ class "grammar-topic-verb" ]
@@ -67,10 +70,10 @@ spanishPresente exerciseListLink =
                         ]
                     , div [ class "grammar-topic-subsection" ]
                         [ div [ class "grammar-topic-subsection-title" ]
-                            [ text (localize "spanish_grammar.xx_verbs_prefix")
+                            [ text <| Translations.SpanishGrammar.xxVerbsPrefix translations
                             , span [ class "grammar-topic-verb-form-ending" ]
                                 [ text "-er" ]
-                            , text (localize "spanish_grammar.xx_verbs_suffix")
+                            , text <| Translations.SpanishGrammar.xxVerbsSuffix translations
                             ]
                         , div [ class "grammar-topic-verb-conjugation" ]
                             [ div [ class "grammar-topic-verb" ]
@@ -111,10 +114,10 @@ spanishPresente exerciseListLink =
                         ]
                     , div [ class "grammar-topic-subsection" ]
                         [ div [ class "grammar-topic-subsection-title" ]
-                            [ text (localize "spanish_grammar.xx_verbs_prefix")
+                            [ text <| Translations.SpanishGrammar.xxVerbsPrefix translations
                             , span [ class "grammar-topic-verb-form-ending" ]
                                 [ text "-ir" ]
-                            , text (localize "spanish_grammar.xx_verbs_suffix")
+                            , text <| Translations.SpanishGrammar.xxVerbsSuffix translations
                             ]
                         , div [ class "grammar-topic-verb-conjugation" ]
                             [ div [ class "grammar-topic-verb" ]
@@ -157,7 +160,7 @@ spanishPresente exerciseListLink =
                 ]
             , div [ class "grammar-topic-section" ]
                 [ div [ class "grammar-topic-section-title" ]
-                    [ text (localize "spanish_grammar.radical_changing_verbs") ]
+                    [ text <| Translations.SpanishGrammar.radicalChangingVerbs translations ]
                 , div [ class "grammar-topic-section-content" ]
                     [ div [ class "grammar-topic-subsection" ]
                         [ div [ class "grammar-topic-subsection-title" ]
@@ -383,7 +386,7 @@ spanishPresente exerciseListLink =
                 ]
             , div [ class "grammar-topic-section" ]
                 [ div [ class "grammar-topic-section-title" ]
-                    [ text (localize "spanish_grammar.irregular_verbs_ir_ser_estar") ]
+                    [ text <| Translations.SpanishGrammar.irregularVerbsIrSerEstar translations ]
                 , div [ class "grammar-topic-section-content" ]
                     [ div [ class "grammar-topic-subsection" ]
                         [ div [ class "grammar-topic-verb-conjugation" ]
@@ -449,7 +452,7 @@ spanishPresente exerciseListLink =
                 ]
             , div [ class "grammar-topic-section" ]
                 [ div [ class "grammar-topic-section-title" ]
-                    [ text (localize "spanish_grammar.irregular_verbs_dar_tener_poner") ]
+                    [ text <| Translations.SpanishGrammar.irregularVerbsDarTenerPoner translations ]
                 , div [ class "grammar-topic-section-content" ]
                     [ div [ class "grammar-topic-subsection" ]
                         [ div [ class "grammar-topic-verb-conjugation" ]
@@ -582,7 +585,7 @@ spanishPresente exerciseListLink =
                 ]
             , div [ class "grammar-topic-section" ]
                 [ div [ class "grammar-topic-section-title" ]
-                    [ text (localize "spanish_grammar.irregular_verbs_hacer_saber_conocer") ]
+                    [ text <| Translations.SpanishGrammar.irregularVerbsHacerSaberConocer translations ]
                 , div [ class "grammar-topic-section-content" ]
                     [ div [ class "grammar-topic-subsection" ]
                         [ div [ class "grammar-topic-verb-conjugation" ]
@@ -706,32 +709,3 @@ spanishPresente exerciseListLink =
                 ]
             ]
         ]
-
-
-localize : String -> String
-localize text =
-    -- TODO: this is a dummy implementation
-    case text of
-        "spanish_grammar.regular_verbs" ->
-            "Regular verbs"
-
-        "spanish_grammar.xx_verbs_prefix" ->
-            ""
-
-        "spanish_grammar.xx_verbs_suffix" ->
-            " verbs"
-
-        "spanish_grammar.radical_changing_verbs" ->
-            "Radical changing verbs"
-
-        "spanish_grammar.irregular_verbs_ir_ser_estar" ->
-            "Irregular verbs - Ir, Ser, Estar"
-
-        "spanish_grammar.irregular_verbs_dar_tener_poner" ->
-            "Irregular verbs - Dar, Tener, Poner"
-
-        "spanish_grammar.irregular_verbs_hacer_saber_conocer" ->
-            "Irregular verbs - Hacer, Saber, Conocer"
-
-        _ ->
-            "__" ++ text ++ "__"

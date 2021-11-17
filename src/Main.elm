@@ -3,7 +3,6 @@ port module Main exposing (..)
 import Browser exposing (UrlRequest(..))
 import Browser.Dom as Dom
 import Browser.Navigation as Nav
-import Dict exposing (Dict)
 import Html exposing (Html, a, button, div, img, input, label, span, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onFocus, onInput)
@@ -773,7 +772,7 @@ content model translations =
             verbConjugatorCompletionScore spec summary progress translations
 
         GrammarTopicContent id ->
-            spanishPresente (getExerciseListLink id)
+            spanishPresente (getExerciseListLink id) translations
 
         Error err ->
             div [] [ text err ]
