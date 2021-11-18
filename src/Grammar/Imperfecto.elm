@@ -1,4 +1,4 @@
-module Imperfecto exposing (..)
+module Grammar.Imperfecto exposing (..)
 
 import Html exposing (Html, a, div, span, text)
 import Html.Attributes exposing (..)

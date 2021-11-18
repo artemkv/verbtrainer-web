@@ -1,11 +1,10 @@
-module Futuro exposing (..)
+module Grammar.Futuro exposing (..)
 
 import Html exposing (Html, a, div, span, text)
 import Html.Attributes exposing (..)
 import I18Next exposing (Translations)
 import Translations.Grammar
 import Translations.SpanishGrammar
-
 
 spanishFuturo : String -> Translations -> Html msg
 spanishFuturo exerciseListLink translations =

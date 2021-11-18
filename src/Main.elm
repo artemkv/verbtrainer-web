@@ -3,15 +3,16 @@ port module Main exposing (..)
 import Browser exposing (UrlRequest(..))
 import Browser.Dom as Dom
 import Browser.Navigation as Nav
-import Futuro exposing (spanishFuturo)
+import Grammar.Futuro exposing (spanishFuturo)
+import Grammar.Imperfecto exposing (spanishImperfecto)
+import Grammar.Indefinido exposing (spanishIndefinido)
+import Grammar.Presente exposing (spanishPresente)
 import Html exposing (Html, a, button, div, img, input, label, span, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onFocus, onInput)
 import I18Next
-import Imperfecto exposing (spanishImperfecto)
 import Json.Decode exposing (Decoder, bool, decodeString, field, int, map2, map3, map4, map6, map8, string)
 import Json.Encode
-import Presente exposing (spanishPresente)
 import String exposing (fromInt)
 import Task
 import Translations.Exercises
@@ -848,6 +849,9 @@ grammarTopicContent id translations =
 
         "futuro" ->
             spanishFuturo (getExerciseListLink id) translations
+
+        "indefinido" ->
+            spanishIndefinido (getExerciseListLink id) translations
 
         _ ->
             notFound404
