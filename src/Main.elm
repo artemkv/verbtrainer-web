@@ -772,7 +772,11 @@ body model translations =
 header : Html msg
 header =
     div []
-        [ div [ class "standard-header" ]
+        [ div [ class "mobile-header" ]
+            [ div [ class "header" ]
+                [ logo ]
+            ]
+        , div [ class "standard-header" ]
             [ div [ class "header" ]
                 [ logo ]
             ]
