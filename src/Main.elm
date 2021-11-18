@@ -773,6 +773,19 @@ header =
     div []
         [ div [ class "standard-header" ]
             [ div [ class "header" ]
+                [ logo ]
+            ]
+        ]
+
+
+logo : Html msg
+logo =
+    a [ class "logo-link", href "/" ]
+        [ div [ class "logo" ]
+            [ img
+                [ class "logo-image"
+                , src "/logo.png"
+                ]
                 []
             ]
         ]

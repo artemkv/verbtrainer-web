@@ -80,6 +80,7 @@ module.exports = {
             { from: './public/hero_square.jpg' },
             { from: './public/hero_fb.jpg' },
 
+            { from: './src/resources/logo.png' },
             { from: './src/resources/correct.png' },
             { from: './src/resources/incorrect.png' },
             { from: './src/resources/notcompleted.png' },
