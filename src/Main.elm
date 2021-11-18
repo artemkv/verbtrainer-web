@@ -3,6 +3,7 @@ port module Main exposing (..)
 import Browser exposing (UrlRequest(..))
 import Browser.Dom as Dom
 import Browser.Navigation as Nav
+import Futuro exposing (spanishFuturo)
 import Html exposing (Html, a, button, div, img, input, label, span, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onFocus, onInput)
@@ -35,7 +36,10 @@ type alias ExtendedModel =
 
 
 type AppModel
-    = ExerciseListNotLoaded
+    = ExerciseBookNotLoaded
+    | ExerciseBookLoadingFailed String
+    | ExerciseBook ExerciseBookData
+    | ExerciseListNotLoaded
     | ExerciseListLoadingFailed String
     | ExerciseListInProgress ExerciseListData ExerciseListProgress
     | ExerciseNotLoaded
@@ -53,6 +57,19 @@ type alias ExerciseId =
 
 type alias ExerciseListId =
     String
+
+
+type alias ExerciseBookData =
+    { title : String
+    , subtitle : String
+    , exerciseLists : List ExerciseListDescription
+    }
+
+
+type alias ExerciseListDescription =
+    { id : ExerciseId
+    , name : String
+    }
 
 
 type alias ExerciseListData =
@@ -209,7 +226,7 @@ init : Json.Encode.Value -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags url navKey =
     case Json.Decode.decodeValue I18Next.translationsDecoder flags of
         Ok translations ->
-            handleRouteChange url (ExtendedModel navKey translations ExerciseListNotLoaded)
+            handleRouteChange url (ExtendedModel navKey translations ExerciseBookNotLoaded)
                 |> toInitialized
 
         Err err ->
@@ -228,7 +245,8 @@ toInitialized ( extendedmodel, cmd ) =
 type Msg
     = LinkClicked Browser.UrlRequest
     | UrlChanged Url.Url
-    | MoveToExercise ExerciseId
+    | MoveToExercise ExerciseListId ExerciseId
+    | ExerciseBookDataReceived String
     | ExerciseDataReceived String
     | ExerciseListDataReceived String
     | ExerciseListProgressDataReceived String
@@ -272,8 +290,11 @@ updateExtendedModel msg model =
         UrlChanged url ->
             handleRouteChange url model
 
-        MoveToExercise id ->
-            navigateToExercise id model
+        MoveToExercise listId id ->
+            navigateToExercise listId id model
+
+        ExerciseBookDataReceived data ->
+            updateExerciseBookFromReceivedData data appModel |> asNewAppModelPlusCommandOf model
 
         ExerciseListDataReceived data ->
             updateExerciseListFromReceivedData data appModel |> asNewAppModelPlusCommandOf model
@@ -364,13 +385,13 @@ handleRouteChange url model =
     case toRoute url of
         -- TODO: handle home correctly
         Home ->
-            ( ExerciseListNotLoaded |> asNewAppModelOf model, requestExerciseListData "presente" )
+            ( ExerciseBookNotLoaded |> asNewAppModelOf model, requestExerciseBookData () )
 
         ExerciseList id ->
             ( ExerciseListNotLoaded |> asNewAppModelOf model, requestExerciseListData id )
 
-        Exercise id ->
-            ( ExerciseNotLoaded |> asNewAppModelOf model, requestExerciseData id )
+        Exercise listId id ->
+            ( ExerciseNotLoaded |> asNewAppModelOf model, requestExerciseData ( listId, id ) )
 
         GrammarTopic id ->
             GrammarTopicContent id |> asNewAppModelOf model |> justModel
@@ -379,9 +400,9 @@ handleRouteChange url model =
             PageNotFound |> asNewAppModelOf model |> justModel
 
 
-navigateToExercise : ExerciseId -> ExtendedModel -> ( ExtendedModel, Cmd Msg )
-navigateToExercise id model =
-    ( model, Nav.pushUrl model.navKey (getExerciseLink id) )
+navigateToExercise : ExerciseListId -> ExerciseId -> ExtendedModel -> ( ExtendedModel, Cmd Msg )
+navigateToExercise listId id model =
+    ( model, Nav.pushUrl model.navKey (getExerciseLink listId id) )
 
 
 
@@ -448,6 +469,16 @@ handleFillBoxFocused msg model =
 
 
 -- Other model updates
+
+
+updateExerciseBookFromReceivedData : String -> AppModel -> ( AppModel, Cmd Msg )
+updateExerciseBookFromReceivedData data model =
+    case model of
+        ExerciseBookNotLoaded ->
+            ( decodeExerciseBookDataOrError data, Cmd.none )
+
+        _ ->
+            ( model, Cmd.none )
 
 
 updateExerciseListFromReceivedData : String -> AppModel -> ( AppModel, Cmd Msg )
@@ -666,7 +697,7 @@ returnAsExerciseInProgressOrCompleted spec state progress =
             }
             progress
         , Cmd.batch
-            [ sendExerciseProgressData ( spec.id, isExercisePerfect )
+            [ sendExerciseProgressData ( spec.listId, spec.id, isExercisePerfect )
             , focusElement exerciseCompletionScoreNextButtonId
             ]
         )
@@ -692,7 +723,8 @@ clearExerciseState model =
 subscriptions : Model -> Sub Msg
 subscriptions _ =
     Sub.batch
-        [ exerciseDataReceived ExerciseDataReceived
+        [ exerciseBookDataReceived ExerciseBookDataReceived
+        , exerciseDataReceived ExerciseDataReceived
         , exerciseListDataReceived ExerciseListDataReceived
         , exerciseListProgressDataReceived ExerciseListProgressDataReceived
         ]
@@ -748,6 +780,16 @@ header =
 content : AppModel -> I18Next.Translations -> Html Msg
 content model translations =
     case model of
+        ExerciseBookNotLoaded ->
+            div [] [ spinner ]
+
+        ExerciseBookLoadingFailed reason ->
+            -- TODO: render error correctly
+            div [] [ text reason ]
+
+        ExerciseBook data ->
+            exerciseBook data
+
         ExerciseListNotLoaded ->
             div [] [ spinner ]
 
@@ -772,13 +814,50 @@ content model translations =
             verbConjugatorCompletionScore spec summary progress translations
 
         GrammarTopicContent id ->
-            spanishPresente (getExerciseListLink id) translations
+            grammarTopicContent id translations
 
         Error err ->
             div [] [ text err ]
 
         PageNotFound ->
             notFound404
+
+
+grammarTopicContent : ExerciseListId -> I18Next.Translations -> Html Msg
+grammarTopicContent id translations =
+    case id of
+        "presente" ->
+            spanishPresente (getExerciseListLink id) translations
+
+        "futuro" ->
+            spanishFuturo (getExerciseListLink id) translations
+
+        _ ->
+            notFound404
+
+
+exerciseBook : ExerciseBookData -> Html Msg
+exerciseBook data =
+    div []
+        [ controlBar [ nothing ]
+        , div [ class "exercise-book" ]
+            [ div [ class "exercise-book-title" ] [ text data.title ]
+            , div [ class "exercise-book-subtitle" ] [ text data.subtitle ]
+            , div [ class "exercise-book-exercise-lists" ]
+                (data.exerciseLists |> List.map exerciseListLink)
+            ]
+        ]
+
+
+exerciseListLink : ExerciseListDescription -> Html Msg
+exerciseListLink description =
+    div [ class "exercise-book-exercise-list" ]
+        [ a
+            [ class "exercise-book-exercise-list-link"
+            , href (getExerciseListLink description.id)
+            ]
+            [ text description.name ]
+        ]
 
 
 exerciseList : ExerciseListData -> ExerciseListProgress -> Html Msg
@@ -795,17 +874,17 @@ exerciseList data progress =
                     [ text data.subtitle ]
                 ]
             , div [ class "exercise-list-exercises" ]
-                (data.exercises |> List.map (exerciseLink progress))
+                (data.exercises |> List.map (exerciseLink data.id progress))
             ]
         ]
 
 
-exerciseLink : ExerciseListProgress -> ExerciseDescription -> Html Msg
-exerciseLink progress description =
+exerciseLink : ExerciseListId -> ExerciseListProgress -> ExerciseDescription -> Html Msg
+exerciseLink listId progress description =
     div [ class "exercise-list-exercise-allow-access" ]
         [ a
             [ class "exercise-list-exercise-link"
-            , href (getExerciseLink description.id)
+            , href (getExerciseLink listId description.id)
             ]
             [ text description.name ]
         , exerciseLinkCompletion progress description.id
@@ -901,7 +980,7 @@ verbConjugator spec state progress translations =
                 ThirdPluralChange
                 ThirdPluralFocused
             ]
-        , nextExerciseReference spec.next
+        , nextExerciseReference spec.listId spec.next
         , virtualKeyboard
         ]
 
@@ -1080,14 +1159,14 @@ calculateFillBoxInputClass isAnswerCompleted isAnswerCorrectSoFar =
         "fill-box-input"
 
 
-nextExerciseReference : NextExerciseData -> Html Msg
-nextExerciseReference next =
+nextExerciseReference : ExerciseListId -> NextExerciseData -> Html Msg
+nextExerciseReference listId next =
     div [ class "verb-conjugator-next" ]
         [ div [ class "verb-conjugator-next-inner1" ] []
         , div [ class "verb-conjugator-next-inner2" ]
             [ a
                 [ class "verb-conjugator-next-link"
-                , href (getExerciseLink next.id)
+                , href (getExerciseLink listId next.id)
                 ]
                 [ text (next.verb ++ " >") ]
             ]
@@ -1159,7 +1238,7 @@ verbConjugatorCompletionScore spec summary progress translations =
                     , button
                         [ id exerciseCompletionScoreNextButtonId
                         , class "exercise-completion-score-next-button"
-                        , onClick (MoveToExercise spec.next.id)
+                        , onClick (MoveToExercise spec.listId spec.next.id)
                         ]
                         -- TODO: move to labels
                         [ text (spec.next.verb ++ " >") ]
@@ -1359,25 +1438,77 @@ getExerciseProgress progressData id =
 -- Data loading
 
 
-port requestExerciseListData : String -> Cmd id
+port requestExerciseBookData : () -> Cmd id
+
+
+port exerciseBookDataReceived : (String -> msg) -> Sub msg
+
+
+port requestExerciseListData : ExerciseListId -> Cmd id
 
 
 port exerciseListDataReceived : (String -> msg) -> Sub msg
 
 
-port requestExerciseData : String -> Cmd id
+port requestExerciseData : ( ExerciseListId, ExerciseId ) -> Cmd id
 
 
 port exerciseDataReceived : (String -> msg) -> Sub msg
 
 
-port requestExerciseListProgressData : String -> Cmd id
+port requestExerciseListProgressData : ExerciseListId -> Cmd id
 
 
 port exerciseListProgressDataReceived : (String -> msg) -> Sub msg
 
 
-port sendExerciseProgressData : ( String, Bool ) -> Cmd id
+port sendExerciseProgressData : ( ExerciseListId, ExerciseId, Bool ) -> Cmd id
+
+
+decodeExerciseBookDataOrError : String -> AppModel
+decodeExerciseBookDataOrError data =
+    let
+        isOk =
+            data |> decodeString (field "isOk" bool)
+    in
+    case isOk of
+        Ok success ->
+            if success then
+                decodeExerciseBookData data
+
+            else
+                decodeExerciseBookLoadingErrorData data
+
+        Err err ->
+            ExerciseBookLoadingFailed (Json.Decode.errorToString err)
+
+
+decodeExerciseBookData : String -> AppModel
+decodeExerciseBookData data =
+    let
+        result =
+            data |> decodeString exerciseBookDataDecoder
+    in
+    case result of
+        Ok exerciseBookData ->
+            ExerciseBook exerciseBookData
+
+        Err err ->
+            ExerciseBookLoadingFailed (Json.Decode.errorToString err)
+
+
+decodeExerciseBookLoadingErrorData : String -> AppModel
+decodeExerciseBookLoadingErrorData data =
+    let
+        result =
+            data |> decodeString dataLoadingErrorDecoder
+    in
+    case result of
+        Ok err ->
+            ExerciseBookLoadingFailed err
+
+        Err err ->
+            ExerciseBookLoadingFailed (Json.Decode.errorToString err)
 
 
 decodeExerciseListDataOrError : String -> AppModel
@@ -1470,6 +1601,22 @@ decodeExerciseLoadingErrorData data =
 
         Err err ->
             ExerciseLoadingFailed (Json.Decode.errorToString err)
+
+
+exerciseBookDataDecoder : Decoder ExerciseBookData
+exerciseBookDataDecoder =
+    field "data" <|
+        map3 ExerciseBookData
+            (field "title" string)
+            (field "subtitle" string)
+            (field "exerciseLists" (Json.Decode.list exerciseBookItemDataDecoder))
+
+
+exerciseBookItemDataDecoder : Decoder ExerciseListDescription
+exerciseBookItemDataDecoder =
+    map2 ExerciseListDescription
+        (field "id" string)
+        (field "name" string)
 
 
 exerciseListDataDecoder : Decoder ExerciseListData
@@ -1605,7 +1752,7 @@ dataLoadingErrorDecoder =
 type Route
     = Home
     | ExerciseList ExerciseListId
-    | Exercise ExerciseId
+    | Exercise ExerciseListId ExerciseId
     | GrammarTopic ExerciseListId
     | NotFound
 
@@ -1614,7 +1761,7 @@ routeParser : Parser (Route -> a) a
 routeParser =
     Url.Parser.oneOf
         [ Url.Parser.map Home Url.Parser.top
-        , Url.Parser.map Exercise (Url.Parser.s "exercise" </> Url.Parser.string)
+        , Url.Parser.map Exercise (Url.Parser.s "exercise" </> Url.Parser.string </> Url.Parser.string)
         , Url.Parser.map ExerciseList (Url.Parser.s "exercise-list" </> Url.Parser.string)
         , Url.Parser.map GrammarTopic (Url.Parser.s "grammar-topic" </> Url.Parser.string)
         ]
@@ -1630,9 +1777,9 @@ getExerciseListLink id =
     "/exercise-list/" ++ id
 
 
-getExerciseLink : ExerciseId -> String
-getExerciseLink id =
-    "/exercise/" ++ id
+getExerciseLink : ExerciseListId -> ExerciseId -> String
+getExerciseLink listId id =
+    "/exercise/" ++ listId ++ "/" ++ id
 
 
 getGrammarTopicLink : ExerciseListId -> String

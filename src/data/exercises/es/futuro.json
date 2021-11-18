@@ -1,0 +1,2602 @@
+[
+  {
+    "id": "hablar",
+    "name": "hablar",
+    "verb": "Hablar",
+    "access": "free",
+    "answers": {
+      "firstSingular": [
+        "hablaré"
+      ],
+      "secondSingular": [
+        "hablarás"
+      ],
+      "thirdSingular": [
+        "hablará"
+      ],
+      "firstPlural": [
+        "hablaremos"
+      ],
+      "secondPlural": [
+        "hablaréis"
+      ],
+      "thirdPlural": [
+        "hablarán"
+      ]
+    }
+  },
+  {
+    "id": "estar",
+    "name": "estar",
+    "verb": "Estar",
+    "access": "free",
+    "answers": {
+      "firstSingular": [
+        "estaré"
+      ],
+      "secondSingular": [
+        "estarás"
+      ],
+      "thirdSingular": [
+        "estará"
+      ],
+      "firstPlural": [
+        "estaremos"
+      ],
+      "secondPlural": [
+        "estaréis"
+      ],
+      "thirdPlural": [
+        "estarán"
+      ]
+    }
+  },
+  {
+    "id": "ser",
+    "name": "ser",
+    "verb": "Ser",
+    "access": "free",
+    "answers": {
+      "firstSingular": [
+        "seré"
+      ],
+      "secondSingular": [
+        "serás"
+      ],
+      "thirdSingular": [
+        "será"
+      ],
+      "firstPlural": [
+        "seremos"
+      ],
+      "secondPlural": [
+        "seréis"
+      ],
+      "thirdPlural": [
+        "serán"
+      ]
+    }
+  },
+  {
+    "id": "ir",
+    "name": "ir",
+    "verb": "Ir",
+    "access": "free",
+    "answers": {
+      "firstSingular": [
+        "iré"
+      ],
+      "secondSingular": [
+        "irás"
+      ],
+      "thirdSingular": [
+        "irá"
+      ],
+      "firstPlural": [
+        "iremos"
+      ],
+      "secondPlural": [
+        "iréis"
+      ],
+      "thirdPlural": [
+        "irán"
+      ]
+    }
+  },
+  {
+    "id": "venir",
+    "name": "venir",
+    "verb": "Venir",
+    "access": "free",
+    "answers": {
+      "firstSingular": [
+        "vendré"
+      ],
+      "secondSingular": [
+        "vendrás"
+      ],
+      "thirdSingular": [
+        "vendrá"
+      ],
+      "firstPlural": [
+        "vendremos"
+      ],
+      "secondPlural": [
+        "vendréis"
+      ],
+      "thirdPlural": [
+        "vendrán"
+      ]
+    }
+  },
+  {
+    "id": "tener",
+    "name": "tener",
+    "verb": "Tener",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "tendré"
+      ],
+      "secondSingular": [
+        "tendrás"
+      ],
+      "thirdSingular": [
+        "tendrá"
+      ],
+      "firstPlural": [
+        "tendremos"
+      ],
+      "secondPlural": [
+        "tendréis"
+      ],
+      "thirdPlural": [
+        "tendrán"
+      ]
+    }
+  },
+  {
+    "id": "pensar",
+    "name": "pensar",
+    "verb": "Pensar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "pensaré"
+      ],
+      "secondSingular": [
+        "pensarás"
+      ],
+      "thirdSingular": [
+        "pensará"
+      ],
+      "firstPlural": [
+        "pensaremos"
+      ],
+      "secondPlural": [
+        "pensaréis"
+      ],
+      "thirdPlural": [
+        "pensarán"
+      ]
+    }
+  },
+  {
+    "id": "vivir",
+    "name": "vivir",
+    "verb": "Vivir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "viviré"
+      ],
+      "secondSingular": [
+        "vivirás"
+      ],
+      "thirdSingular": [
+        "vivirá"
+      ],
+      "firstPlural": [
+        "viviremos"
+      ],
+      "secondPlural": [
+        "viviréis"
+      ],
+      "thirdPlural": [
+        "vivirán"
+      ]
+    }
+  },
+  {
+    "id": "hacer",
+    "name": "hacer",
+    "verb": "Hacer",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "haré"
+      ],
+      "secondSingular": [
+        "harás"
+      ],
+      "thirdSingular": [
+        "hará"
+      ],
+      "firstPlural": [
+        "haremos"
+      ],
+      "secondPlural": [
+        "haréis"
+      ],
+      "thirdPlural": [
+        "harán"
+      ]
+    }
+  },
+  {
+    "id": "poder",
+    "name": "poder",
+    "verb": "Poder",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "podré"
+      ],
+      "secondSingular": [
+        "podrás"
+      ],
+      "thirdSingular": [
+        "podrá"
+      ],
+      "firstPlural": [
+        "podremos"
+      ],
+      "secondPlural": [
+        "podréis"
+      ],
+      "thirdPlural": [
+        "podrán"
+      ]
+    }
+  },
+  {
+    "id": "decir",
+    "name": "decir",
+    "verb": "Decir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "diré"
+      ],
+      "secondSingular": [
+        "dirás"
+      ],
+      "thirdSingular": [
+        "dirá"
+      ],
+      "firstPlural": [
+        "diremos"
+      ],
+      "secondPlural": [
+        "diréis"
+      ],
+      "thirdPlural": [
+        "dirán"
+      ]
+    }
+  },
+  {
+    "id": "buscar",
+    "name": "buscar",
+    "verb": "Buscar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "buscaré"
+      ],
+      "secondSingular": [
+        "buscarás"
+      ],
+      "thirdSingular": [
+        "buscará"
+      ],
+      "firstPlural": [
+        "buscaremos"
+      ],
+      "secondPlural": [
+        "buscaréis"
+      ],
+      "thirdPlural": [
+        "buscarán"
+      ]
+    }
+  },
+  {
+    "id": "volver",
+    "name": "volver",
+    "verb": "Volver",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "volveré"
+      ],
+      "secondSingular": [
+        "volverás"
+      ],
+      "thirdSingular": [
+        "volverá"
+      ],
+      "firstPlural": [
+        "volveremos"
+      ],
+      "secondPlural": [
+        "volveréis"
+      ],
+      "thirdPlural": [
+        "volverán"
+      ]
+    }
+  },
+  {
+    "id": "desear",
+    "name": "desear",
+    "verb": "Desear",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "desearé"
+      ],
+      "secondSingular": [
+        "desearás"
+      ],
+      "thirdSingular": [
+        "deseará"
+      ],
+      "firstPlural": [
+        "desearemos"
+      ],
+      "secondPlural": [
+        "desearéis"
+      ],
+      "thirdPlural": [
+        "desearán"
+      ]
+    }
+  },
+  {
+    "id": "saber",
+    "name": "saber",
+    "verb": "Saber",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "sabré"
+      ],
+      "secondSingular": [
+        "sabrás"
+      ],
+      "thirdSingular": [
+        "sabrá"
+      ],
+      "firstPlural": [
+        "sabremos"
+      ],
+      "secondPlural": [
+        "sabréis"
+      ],
+      "thirdPlural": [
+        "sabrán"
+      ]
+    }
+  },
+  {
+    "id": "escuchar",
+    "name": "escuchar",
+    "verb": "Escuchar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "escucharé"
+      ],
+      "secondSingular": [
+        "escucharás"
+      ],
+      "thirdSingular": [
+        "escuchará"
+      ],
+      "firstPlural": [
+        "escucharemos"
+      ],
+      "secondPlural": [
+        "escucharéis"
+      ],
+      "thirdPlural": [
+        "escucharán"
+      ]
+    }
+  },
+  {
+    "id": "ver",
+    "name": "ver",
+    "verb": "Ver",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "veré"
+      ],
+      "secondSingular": [
+        "verás"
+      ],
+      "thirdSingular": [
+        "verá"
+      ],
+      "firstPlural": [
+        "veremos"
+      ],
+      "secondPlural": [
+        "veréis"
+      ],
+      "thirdPlural": [
+        "verán"
+      ]
+    }
+  },
+  {
+    "id": "dormir",
+    "name": "dormir",
+    "verb": "Dormir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "dormiré"
+      ],
+      "secondSingular": [
+        "dormirás"
+      ],
+      "thirdSingular": [
+        "dormirá"
+      ],
+      "firstPlural": [
+        "dormiremos"
+      ],
+      "secondPlural": [
+        "dormiréis"
+      ],
+      "thirdPlural": [
+        "dormirán"
+      ]
+    }
+  },
+  {
+    "id": "comer",
+    "name": "comer",
+    "verb": "Comer",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "comeré"
+      ],
+      "secondSingular": [
+        "comerás"
+      ],
+      "thirdSingular": [
+        "comerá"
+      ],
+      "firstPlural": [
+        "comeremos"
+      ],
+      "secondPlural": [
+        "comeréis"
+      ],
+      "thirdPlural": [
+        "comerán"
+      ]
+    }
+  },
+  {
+    "id": "cantar",
+    "name": "cantar",
+    "verb": "Cantar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "cantaré"
+      ],
+      "secondSingular": [
+        "cantarás"
+      ],
+      "thirdSingular": [
+        "cantará"
+      ],
+      "firstPlural": [
+        "cantaremos"
+      ],
+      "secondPlural": [
+        "cantaréis"
+      ],
+      "thirdPlural": [
+        "cantarán"
+      ]
+    }
+  },
+  {
+    "id": "beber",
+    "name": "beber",
+    "verb": "Beber",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "beberé"
+      ],
+      "secondSingular": [
+        "beberás"
+      ],
+      "thirdSingular": [
+        "beberá"
+      ],
+      "firstPlural": [
+        "beberemos"
+      ],
+      "secondPlural": [
+        "beberéis"
+      ],
+      "thirdPlural": [
+        "beberán"
+      ]
+    }
+  },
+  {
+    "id": "bailar",
+    "name": "bailar",
+    "verb": "Bailar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "bailaré"
+      ],
+      "secondSingular": [
+        "bailarás"
+      ],
+      "thirdSingular": [
+        "bailará"
+      ],
+      "firstPlural": [
+        "bailaremos"
+      ],
+      "secondPlural": [
+        "bailaréis"
+      ],
+      "thirdPlural": [
+        "bailarán"
+      ]
+    }
+  },
+  {
+    "id": "salir",
+    "name": "salir",
+    "verb": "Salir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "saldré"
+      ],
+      "secondSingular": [
+        "saldrás"
+      ],
+      "thirdSingular": [
+        "saldrá"
+      ],
+      "firstPlural": [
+        "saldremos"
+      ],
+      "secondPlural": [
+        "saldréis"
+      ],
+      "thirdPlural": [
+        "saldrán"
+      ]
+    }
+  },
+  {
+    "id": "dar",
+    "name": "dar",
+    "verb": "Dar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "daré"
+      ],
+      "secondSingular": [
+        "darás"
+      ],
+      "thirdSingular": [
+        "dará"
+      ],
+      "firstPlural": [
+        "daremos"
+      ],
+      "secondPlural": [
+        "daréis"
+      ],
+      "thirdPlural": [
+        "darán"
+      ]
+    }
+  },
+  {
+    "id": "mover",
+    "name": "mover",
+    "verb": "Mover",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "moveré"
+      ],
+      "secondSingular": [
+        "moverás"
+      ],
+      "thirdSingular": [
+        "moverá"
+      ],
+      "firstPlural": [
+        "moveremos"
+      ],
+      "secondPlural": [
+        "moveréis"
+      ],
+      "thirdPlural": [
+        "moverán"
+      ]
+    }
+  },
+  {
+    "id": "viajar",
+    "name": "viajar",
+    "verb": "Viajar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "viajaré"
+      ],
+      "secondSingular": [
+        "viajarás"
+      ],
+      "thirdSingular": [
+        "viajará"
+      ],
+      "firstPlural": [
+        "viajaremos"
+      ],
+      "secondPlural": [
+        "viajaréis"
+      ],
+      "thirdPlural": [
+        "viajarán"
+      ]
+    }
+  },
+  {
+    "id": "poner",
+    "name": "poner",
+    "verb": "Poner",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "pondré"
+      ],
+      "secondSingular": [
+        "pondrás"
+      ],
+      "thirdSingular": [
+        "pondrá"
+      ],
+      "firstPlural": [
+        "pondremos"
+      ],
+      "secondPlural": [
+        "pondréis"
+      ],
+      "thirdPlural": [
+        "pondrán"
+      ]
+    }
+  },
+  {
+    "id": "cocinar",
+    "name": "cocinar",
+    "verb": "Cocinar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "cocinaré"
+      ],
+      "secondSingular": [
+        "cocinarás"
+      ],
+      "thirdSingular": [
+        "cocinará"
+      ],
+      "firstPlural": [
+        "cocinaremos"
+      ],
+      "secondPlural": [
+        "cocinaréis"
+      ],
+      "thirdPlural": [
+        "cocinarán"
+      ]
+    }
+  },
+  {
+    "id": "querer",
+    "name": "querer",
+    "verb": "Querer",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "querré"
+      ],
+      "secondSingular": [
+        "querrás"
+      ],
+      "thirdSingular": [
+        "querrá"
+      ],
+      "firstPlural": [
+        "querremos"
+      ],
+      "secondPlural": [
+        "querréis"
+      ],
+      "thirdPlural": [
+        "querrán"
+      ]
+    }
+  },
+  {
+    "id": "comprar",
+    "name": "comprar",
+    "verb": "Comprar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "compraré"
+      ],
+      "secondSingular": [
+        "comprarás"
+      ],
+      "thirdSingular": [
+        "comprará"
+      ],
+      "firstPlural": [
+        "compraremos"
+      ],
+      "secondPlural": [
+        "compraréis"
+      ],
+      "thirdPlural": [
+        "comprarán"
+      ]
+    }
+  },
+  {
+    "id": "entender",
+    "name": "entender",
+    "verb": "Entender",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "entenderé"
+      ],
+      "secondSingular": [
+        "entenderás"
+      ],
+      "thirdSingular": [
+        "entenderá"
+      ],
+      "firstPlural": [
+        "entenderemos"
+      ],
+      "secondPlural": [
+        "entenderéis"
+      ],
+      "thirdPlural": [
+        "entenderán"
+      ]
+    }
+  },
+  {
+    "id": "escribir",
+    "name": "escribir",
+    "verb": "Escribir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "escribiré"
+      ],
+      "secondSingular": [
+        "escribirás"
+      ],
+      "thirdSingular": [
+        "escribirá"
+      ],
+      "firstPlural": [
+        "escribiremos"
+      ],
+      "secondPlural": [
+        "escribiréis"
+      ],
+      "thirdPlural": [
+        "escribirán"
+      ]
+    }
+  },
+  {
+    "id": "olvidar",
+    "name": "olvidar",
+    "verb": "Olvidar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "olvidaré"
+      ],
+      "secondSingular": [
+        "olvidarás"
+      ],
+      "thirdSingular": [
+        "olvidará"
+      ],
+      "firstPlural": [
+        "olvidaremos"
+      ],
+      "secondPlural": [
+        "olvidaréis"
+      ],
+      "thirdPlural": [
+        "olvidarán"
+      ]
+    }
+  },
+  {
+    "id": "deber",
+    "name": "deber",
+    "verb": "Deber",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "deberé"
+      ],
+      "secondSingular": [
+        "deberás"
+      ],
+      "thirdSingular": [
+        "deberá"
+      ],
+      "firstPlural": [
+        "deberemos"
+      ],
+      "secondPlural": [
+        "deberéis"
+      ],
+      "thirdPlural": [
+        "deberán"
+      ]
+    }
+  },
+  {
+    "id": "esperar",
+    "name": "esperar",
+    "verb": "Esperar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "esperaré"
+      ],
+      "secondSingular": [
+        "esperarás"
+      ],
+      "thirdSingular": [
+        "esperará"
+      ],
+      "firstPlural": [
+        "esperaremos"
+      ],
+      "secondPlural": [
+        "esperaréis"
+      ],
+      "thirdPlural": [
+        "esperarán"
+      ]
+    }
+  },
+  {
+    "id": "pedir",
+    "name": "pedir",
+    "verb": "Pedir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "pediré"
+      ],
+      "secondSingular": [
+        "pedirás"
+      ],
+      "thirdSingular": [
+        "pedirá"
+      ],
+      "firstPlural": [
+        "pediremos"
+      ],
+      "secondPlural": [
+        "pediréis"
+      ],
+      "thirdPlural": [
+        "pedirán"
+      ]
+    }
+  },
+  {
+    "id": "leer",
+    "name": "leer",
+    "verb": "Leer",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "leeré"
+      ],
+      "secondSingular": [
+        "leerás"
+      ],
+      "thirdSingular": [
+        "leerá"
+      ],
+      "firstPlural": [
+        "leeremos"
+      ],
+      "secondPlural": [
+        "leeréis"
+      ],
+      "thirdPlural": [
+        "leerán"
+      ]
+    }
+  },
+  {
+    "id": "cambiar",
+    "name": "cambiar",
+    "verb": "Cambiar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "cambiaré"
+      ],
+      "secondSingular": [
+        "cambiarás"
+      ],
+      "thirdSingular": [
+        "cambiará"
+      ],
+      "firstPlural": [
+        "cambiaremos"
+      ],
+      "secondPlural": [
+        "cambiaréis"
+      ],
+      "thirdPlural": [
+        "cambiarán"
+      ]
+    }
+  },
+  {
+    "id": "caer",
+    "name": "caer",
+    "verb": "Caer",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "caeré"
+      ],
+      "secondSingular": [
+        "caerás"
+      ],
+      "thirdSingular": [
+        "caerá"
+      ],
+      "firstPlural": [
+        "caeremos"
+      ],
+      "secondPlural": [
+        "caeréis"
+      ],
+      "thirdPlural": [
+        "caerán"
+      ]
+    }
+  },
+  {
+    "id": "acabar",
+    "name": "acabar",
+    "verb": "Acabar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "acabaré"
+      ],
+      "secondSingular": [
+        "acabarás"
+      ],
+      "thirdSingular": [
+        "acabará"
+      ],
+      "firstPlural": [
+        "acabaremos"
+      ],
+      "secondPlural": [
+        "acabaréis"
+      ],
+      "thirdPlural": [
+        "acabarán"
+      ]
+    }
+  },
+  {
+    "id": "traer",
+    "name": "traer",
+    "verb": "Traer",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "traeré"
+      ],
+      "secondSingular": [
+        "traerás"
+      ],
+      "thirdSingular": [
+        "traerá"
+      ],
+      "firstPlural": [
+        "traeremos"
+      ],
+      "secondPlural": [
+        "traeréis"
+      ],
+      "thirdPlural": [
+        "traerán"
+      ]
+    }
+  },
+  {
+    "id": "trabajar",
+    "name": "trabajar",
+    "verb": "Trabajar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "trabajaré"
+      ],
+      "secondSingular": [
+        "trabajarás"
+      ],
+      "thirdSingular": [
+        "trabajará"
+      ],
+      "firstPlural": [
+        "trabajaremos"
+      ],
+      "secondPlural": [
+        "trabajaréis"
+      ],
+      "thirdPlural": [
+        "trabajarán"
+      ]
+    }
+  },
+  {
+    "id": "vender",
+    "name": "vender",
+    "verb": "Vender",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "venderé"
+      ],
+      "secondSingular": [
+        "venderás"
+      ],
+      "thirdSingular": [
+        "venderá"
+      ],
+      "firstPlural": [
+        "venderemos"
+      ],
+      "secondPlural": [
+        "venderéis"
+      ],
+      "thirdPlural": [
+        "venderán"
+      ]
+    }
+  },
+  {
+    "id": "recibir",
+    "name": "recibir",
+    "verb": "Recibir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "recibiré"
+      ],
+      "secondSingular": [
+        "recibirás"
+      ],
+      "thirdSingular": [
+        "recibirá"
+      ],
+      "firstPlural": [
+        "recibiremos"
+      ],
+      "secondPlural": [
+        "recibiréis"
+      ],
+      "thirdPlural": [
+        "recibirán"
+      ]
+    }
+  },
+  {
+    "id": "llevar",
+    "name": "llevar",
+    "verb": "Llevar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "llevaré"
+      ],
+      "secondSingular": [
+        "llevarás"
+      ],
+      "thirdSingular": [
+        "llevará"
+      ],
+      "firstPlural": [
+        "llevaremos"
+      ],
+      "secondPlural": [
+        "llevaréis"
+      ],
+      "thirdPlural": [
+        "llevarán"
+      ]
+    }
+  },
+  {
+    "id": "preferir",
+    "name": "preferir",
+    "verb": "Preferir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "preferiré"
+      ],
+      "secondSingular": [
+        "preferirás"
+      ],
+      "thirdSingular": [
+        "preferirá"
+      ],
+      "firstPlural": [
+        "preferiremos"
+      ],
+      "secondPlural": [
+        "preferiréis"
+      ],
+      "thirdPlural": [
+        "preferirán"
+      ]
+    }
+  },
+  {
+    "id": "llegar",
+    "name": "llegar",
+    "verb": "Llegar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "llegaré"
+      ],
+      "secondSingular": [
+        "llegarás"
+      ],
+      "thirdSingular": [
+        "llegará"
+      ],
+      "firstPlural": [
+        "llegaremos"
+      ],
+      "secondPlural": [
+        "llegaréis"
+      ],
+      "thirdPlural": [
+        "llegarán"
+      ]
+    }
+  },
+  {
+    "id": "conducir",
+    "name": "conducir",
+    "verb": "Conducir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "conduciré"
+      ],
+      "secondSingular": [
+        "conducirás"
+      ],
+      "thirdSingular": [
+        "conducirá"
+      ],
+      "firstPlural": [
+        "conduciremos"
+      ],
+      "secondPlural": [
+        "conduciréis"
+      ],
+      "thirdPlural": [
+        "conducirán"
+      ]
+    }
+  },
+  {
+    "id": "convertir",
+    "name": "convertir",
+    "verb": "Convertir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "convertiré"
+      ],
+      "secondSingular": [
+        "convertirás"
+      ],
+      "thirdSingular": [
+        "convertirá"
+      ],
+      "firstPlural": [
+        "convertiremos"
+      ],
+      "secondPlural": [
+        "convertiréis"
+      ],
+      "thirdPlural": [
+        "convertirán"
+      ]
+    }
+  },
+  {
+    "id": "repetir",
+    "name": "repetir",
+    "verb": "Repetir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "repetiré"
+      ],
+      "secondSingular": [
+        "repetirás"
+      ],
+      "thirdSingular": [
+        "repetirá"
+      ],
+      "firstPlural": [
+        "repetiremos"
+      ],
+      "secondPlural": [
+        "repetiréis"
+      ],
+      "thirdPlural": [
+        "repetirán"
+      ]
+    }
+  },
+  {
+    "id": "mostrar",
+    "name": "mostrar",
+    "verb": "Mostrar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "mostraré"
+      ],
+      "secondSingular": [
+        "mostrarás"
+      ],
+      "thirdSingular": [
+        "mostrará"
+      ],
+      "firstPlural": [
+        "mostraremos"
+      ],
+      "secondPlural": [
+        "mostraréis"
+      ],
+      "thirdPlural": [
+        "mostrarán"
+      ]
+    }
+  },
+  {
+    "id": "elegir",
+    "name": "elegir",
+    "verb": "Elegir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "elegiré"
+      ],
+      "secondSingular": [
+        "elegirás"
+      ],
+      "thirdSingular": [
+        "elegirá"
+      ],
+      "firstPlural": [
+        "elegiremos"
+      ],
+      "secondPlural": [
+        "elegiréis"
+      ],
+      "thirdPlural": [
+        "elegirán"
+      ]
+    }
+  },
+  {
+    "id": "encontrar",
+    "name": "encontrar",
+    "verb": "Encontrar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "encontraré"
+      ],
+      "secondSingular": [
+        "encontrarás"
+      ],
+      "thirdSingular": [
+        "encontrará"
+      ],
+      "firstPlural": [
+        "encontraremos"
+      ],
+      "secondPlural": [
+        "encontraréis"
+      ],
+      "thirdPlural": [
+        "encontrarán"
+      ]
+    }
+  },
+  {
+    "id": "llamar",
+    "name": "llamar",
+    "verb": "Llamar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "llamaré"
+      ],
+      "secondSingular": [
+        "llamarás"
+      ],
+      "thirdSingular": [
+        "llamará"
+      ],
+      "firstPlural": [
+        "llamaremos"
+      ],
+      "secondPlural": [
+        "llamaréis"
+      ],
+      "thirdPlural": [
+        "llamarán"
+      ]
+    }
+  },
+  {
+    "id": "producir",
+    "name": "producir",
+    "verb": "Producir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "produciré"
+      ],
+      "secondSingular": [
+        "producirás"
+      ],
+      "thirdSingular": [
+        "producirá"
+      ],
+      "firstPlural": [
+        "produciremos"
+      ],
+      "secondPlural": [
+        "produciréis"
+      ],
+      "thirdPlural": [
+        "producirán"
+      ]
+    }
+  },
+  {
+    "id": "mirar",
+    "name": "mirar",
+    "verb": "Mirar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "miraré"
+      ],
+      "secondSingular": [
+        "mirarás"
+      ],
+      "thirdSingular": [
+        "mirará"
+      ],
+      "firstPlural": [
+        "miraremos"
+      ],
+      "secondPlural": [
+        "miraréis"
+      ],
+      "thirdPlural": [
+        "mirarán"
+      ]
+    }
+  },
+  {
+    "id": "aprender",
+    "name": "aprender",
+    "verb": "Aprender",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "aprenderé"
+      ],
+      "secondSingular": [
+        "aprenderás"
+      ],
+      "thirdSingular": [
+        "aprenderá"
+      ],
+      "firstPlural": [
+        "aprenderemos"
+      ],
+      "secondPlural": [
+        "aprenderéis"
+      ],
+      "thirdPlural": [
+        "aprenderán"
+      ]
+    }
+  },
+  {
+    "id": "empezar",
+    "name": "empezar",
+    "verb": "Empezar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "empezaré"
+      ],
+      "secondSingular": [
+        "empezarás"
+      ],
+      "thirdSingular": [
+        "empezará"
+      ],
+      "firstPlural": [
+        "empezaremos"
+      ],
+      "secondPlural": [
+        "empezaréis"
+      ],
+      "thirdPlural": [
+        "empezarán"
+      ]
+    }
+  },
+  {
+    "id": "seguir",
+    "name": "seguir",
+    "verb": "Seguir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "seguiré"
+      ],
+      "secondSingular": [
+        "seguirás"
+      ],
+      "thirdSingular": [
+        "seguirá"
+      ],
+      "firstPlural": [
+        "seguiremos"
+      ],
+      "secondPlural": [
+        "seguiréis"
+      ],
+      "thirdPlural": [
+        "seguirán"
+      ]
+    }
+  },
+  {
+    "id": "preguntar",
+    "name": "preguntar",
+    "verb": "Preguntar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "preguntaré"
+      ],
+      "secondSingular": [
+        "preguntarás"
+      ],
+      "thirdSingular": [
+        "preguntará"
+      ],
+      "firstPlural": [
+        "preguntaremos"
+      ],
+      "secondPlural": [
+        "preguntaréis"
+      ],
+      "thirdPlural": [
+        "preguntarán"
+      ]
+    }
+  },
+  {
+    "id": "creer",
+    "name": "creer",
+    "verb": "Creer",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "creeré"
+      ],
+      "secondSingular": [
+        "creerás"
+      ],
+      "thirdSingular": [
+        "creerá"
+      ],
+      "firstPlural": [
+        "creeremos"
+      ],
+      "secondPlural": [
+        "creeréis"
+      ],
+      "thirdPlural": [
+        "creerán"
+      ]
+    }
+  },
+  {
+    "id": "conocer",
+    "name": "conocer",
+    "verb": "Conocer",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "conoceré"
+      ],
+      "secondSingular": [
+        "conocerás"
+      ],
+      "thirdSingular": [
+        "conocerá"
+      ],
+      "firstPlural": [
+        "conoceremos"
+      ],
+      "secondPlural": [
+        "conoceréis"
+      ],
+      "thirdPlural": [
+        "conocerán"
+      ]
+    }
+  },
+  {
+    "id": "sentir",
+    "name": "sentir",
+    "verb": "Sentir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "sentiré"
+      ],
+      "secondSingular": [
+        "sentirás"
+      ],
+      "thirdSingular": [
+        "sentirá"
+      ],
+      "firstPlural": [
+        "sentiremos"
+      ],
+      "secondPlural": [
+        "sentiréis"
+      ],
+      "thirdPlural": [
+        "sentirán"
+      ]
+    }
+  },
+  {
+    "id": "coger",
+    "name": "coger",
+    "verb": "Coger",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "cogeré"
+      ],
+      "secondSingular": [
+        "cogerás"
+      ],
+      "thirdSingular": [
+        "cogerá"
+      ],
+      "firstPlural": [
+        "cogeremos"
+      ],
+      "secondPlural": [
+        "cogeréis"
+      ],
+      "thirdPlural": [
+        "cogerán"
+      ]
+    }
+  },
+  {
+    "id": "tomar",
+    "name": "tomar",
+    "verb": "Tomar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "tomaré"
+      ],
+      "secondSingular": [
+        "tomarás"
+      ],
+      "thirdSingular": [
+        "tomará"
+      ],
+      "firstPlural": [
+        "tomaremos"
+      ],
+      "secondPlural": [
+        "tomaréis"
+      ],
+      "thirdPlural": [
+        "tomarán"
+      ]
+    }
+  },
+  {
+    "id": "servir",
+    "name": "servir",
+    "verb": "Servir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "serviré"
+      ],
+      "secondSingular": [
+        "servirás"
+      ],
+      "thirdSingular": [
+        "servirá"
+      ],
+      "firstPlural": [
+        "serviremos"
+      ],
+      "secondPlural": [
+        "serviréis"
+      ],
+      "thirdPlural": [
+        "servirán"
+      ]
+    }
+  },
+  {
+    "id": "pagar",
+    "name": "pagar",
+    "verb": "Pagar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "pagaré"
+      ],
+      "secondSingular": [
+        "pagarás"
+      ],
+      "thirdSingular": [
+        "pagará"
+      ],
+      "firstPlural": [
+        "pagaremos"
+      ],
+      "secondPlural": [
+        "pagaréis"
+      ],
+      "thirdPlural": [
+        "pagarán"
+      ]
+    }
+  },
+  {
+    "id": "permitir",
+    "name": "permitir",
+    "verb": "Permitir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "permitiré"
+      ],
+      "secondSingular": [
+        "permitirás"
+      ],
+      "thirdSingular": [
+        "permitirá"
+      ],
+      "firstPlural": [
+        "permitiremos"
+      ],
+      "secondPlural": [
+        "permitiréis"
+      ],
+      "thirdPlural": [
+        "permitirán"
+      ]
+    }
+  },
+  {
+    "id": "oir",
+    "name": "oír",
+    "verb": "Oír",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "oiré"
+      ],
+      "secondSingular": [
+        "oirás"
+      ],
+      "thirdSingular": [
+        "oirá"
+      ],
+      "firstPlural": [
+        "oiremos"
+      ],
+      "secondPlural": [
+        "oiréis"
+      ],
+      "thirdPlural": [
+        "oirán"
+      ]
+    }
+  },
+  {
+    "id": "necesitar",
+    "name": "necesitar",
+    "verb": "Necesitar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "necesitaré"
+      ],
+      "secondSingular": [
+        "necesitarás"
+      ],
+      "thirdSingular": [
+        "necesitará"
+      ],
+      "firstPlural": [
+        "necesitaremos"
+      ],
+      "secondPlural": [
+        "necesitaréis"
+      ],
+      "thirdPlural": [
+        "necesitarán"
+      ]
+    }
+  },
+  {
+    "id": "mantener",
+    "name": "mantener",
+    "verb": "Mantener",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "mantendré"
+      ],
+      "secondSingular": [
+        "mantendrás"
+      ],
+      "thirdSingular": [
+        "mantendrá"
+      ],
+      "firstPlural": [
+        "mantendremos"
+      ],
+      "secondPlural": [
+        "mantendréis"
+      ],
+      "thirdPlural": [
+        "mantendrán"
+      ]
+    }
+  },
+  {
+    "id": "tocar",
+    "name": "tocar",
+    "verb": "Tocar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "tocaré"
+      ],
+      "secondSingular": [
+        "tocarás"
+      ],
+      "thirdSingular": [
+        "tocará"
+      ],
+      "firstPlural": [
+        "tocaremos"
+      ],
+      "secondPlural": [
+        "tocaréis"
+      ],
+      "thirdPlural": [
+        "tocarán"
+      ]
+    }
+  },
+  {
+    "id": "jugar",
+    "name": "jugar",
+    "verb": "Jugar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "jugaré"
+      ],
+      "secondSingular": [
+        "jugarás"
+      ],
+      "thirdSingular": [
+        "jugará"
+      ],
+      "firstPlural": [
+        "jugaremos"
+      ],
+      "secondPlural": [
+        "jugaréis"
+      ],
+      "thirdPlural": [
+        "jugarán"
+      ]
+    }
+  },
+  {
+    "id": "crecer",
+    "name": "crecer",
+    "verb": "Crecer",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "creceré"
+      ],
+      "secondSingular": [
+        "crecerás"
+      ],
+      "thirdSingular": [
+        "crecerá"
+      ],
+      "firstPlural": [
+        "creceremos"
+      ],
+      "secondPlural": [
+        "creceréis"
+      ],
+      "thirdPlural": [
+        "crecerán"
+      ]
+    }
+  },
+  {
+    "id": "enviar",
+    "name": "enviar",
+    "verb": "Enviar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "enviaré"
+      ],
+      "secondSingular": [
+        "enviarás"
+      ],
+      "thirdSingular": [
+        "enviará"
+      ],
+      "firstPlural": [
+        "enviaremos"
+      ],
+      "secondPlural": [
+        "enviaréis"
+      ],
+      "thirdPlural": [
+        "enviarán"
+      ]
+    }
+  },
+  {
+    "id": "subir",
+    "name": "subir",
+    "verb": "Subir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "subiré"
+      ],
+      "secondSingular": [
+        "subirás"
+      ],
+      "thirdSingular": [
+        "subirá"
+      ],
+      "firstPlural": [
+        "subiremos"
+      ],
+      "secondPlural": [
+        "subiréis"
+      ],
+      "thirdPlural": [
+        "subirán"
+      ]
+    }
+  },
+  {
+    "id": "explicar",
+    "name": "explicar",
+    "verb": "Explicar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "explicaré"
+      ],
+      "secondSingular": [
+        "explicarás"
+      ],
+      "thirdSingular": [
+        "explicará"
+      ],
+      "firstPlural": [
+        "explicaremos"
+      ],
+      "secondPlural": [
+        "explicaréis"
+      ],
+      "thirdPlural": [
+        "explicarán"
+      ]
+    }
+  },
+  {
+    "id": "descubrir",
+    "name": "descubrir",
+    "verb": "Descubrir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "descubriré"
+      ],
+      "secondSingular": [
+        "descubrirás"
+      ],
+      "thirdSingular": [
+        "descubrirá"
+      ],
+      "firstPlural": [
+        "descubriremos"
+      ],
+      "secondPlural": [
+        "descubriréis"
+      ],
+      "thirdPlural": [
+        "descubrirán"
+      ]
+    }
+  },
+  {
+    "id": "correr",
+    "name": "correr",
+    "verb": "Correr",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "correré"
+      ],
+      "secondSingular": [
+        "correrás"
+      ],
+      "thirdSingular": [
+        "correrá"
+      ],
+      "firstPlural": [
+        "correremos"
+      ],
+      "secondPlural": [
+        "correréis"
+      ],
+      "thirdPlural": [
+        "correrán"
+      ]
+    }
+  },
+  {
+    "id": "abrir",
+    "name": "abrir",
+    "verb": "Abrir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "abriré"
+      ],
+      "secondSingular": [
+        "abrirás"
+      ],
+      "thirdSingular": [
+        "abrirá"
+      ],
+      "firstPlural": [
+        "abriremos"
+      ],
+      "secondPlural": [
+        "abriréis"
+      ],
+      "thirdPlural": [
+        "abrirán"
+      ]
+    }
+  },
+  {
+    "id": "ayudar",
+    "name": "ayudar",
+    "verb": "Ayudar",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "ayudaré"
+      ],
+      "secondSingular": [
+        "ayudarás"
+      ],
+      "thirdSingular": [
+        "ayudará"
+      ],
+      "firstPlural": [
+        "ayudaremos"
+      ],
+      "secondPlural": [
+        "ayudaréis"
+      ],
+      "thirdPlural": [
+        "ayudarán"
+      ]
+    }
+  },
+  {
+    "id": "ofrecer",
+    "name": "ofrecer",
+    "verb": "Ofrecer",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "ofreceré"
+      ],
+      "secondSingular": [
+        "ofrecerás"
+      ],
+      "thirdSingular": [
+        "ofrecerá"
+      ],
+      "firstPlural": [
+        "ofreceremos"
+      ],
+      "secondPlural": [
+        "ofreceréis"
+      ],
+      "thirdPlural": [
+        "ofrecerán"
+      ]
+    }
+  },
+  {
+    "id": "estudiar",
+    "name": "estudiar",
+    "verb": "Estudiar",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "estudiaré"
+      ],
+      "secondSingular": [
+        "estudiarás"
+      ],
+      "thirdSingular": [
+        "estudiará"
+      ],
+      "firstPlural": [
+        "estudiaremos"
+      ],
+      "secondPlural": [
+        "estudiaréis"
+      ],
+      "thirdPlural": [
+        "estudiarán"
+      ]
+    }
+  },
+  {
+    "id": "nacer",
+    "name": "nacer",
+    "verb": "Nacer",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "naceré"
+      ],
+      "secondSingular": [
+        "nacerás"
+      ],
+      "thirdSingular": [
+        "nacerá"
+      ],
+      "firstPlural": [
+        "naceremos"
+      ],
+      "secondPlural": [
+        "naceréis"
+      ],
+      "thirdPlural": [
+        "nacerán"
+      ]
+    }
+  },
+  {
+    "id": "suponer",
+    "name": "suponer",
+    "verb": "Suponer",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "supondré"
+      ],
+      "secondSingular": [
+        "supondrás"
+      ],
+      "thirdSingular": [
+        "supondrá"
+      ],
+      "firstPlural": [
+        "supondremos"
+      ],
+      "secondPlural": [
+        "supondréis"
+      ],
+      "thirdPlural": [
+        "supondrán"
+      ]
+    }
+  },
+  {
+    "id": "morir",
+    "name": "morir",
+    "verb": "Morir",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "moriré"
+      ],
+      "secondSingular": [
+        "morirás"
+      ],
+      "thirdSingular": [
+        "morirá"
+      ],
+      "firstPlural": [
+        "moriremos"
+      ],
+      "secondPlural": [
+        "moriréis"
+      ],
+      "thirdPlural": [
+        "morirán"
+      ]
+    }
+  },
+  {
+    "id": "realizar",
+    "name": "realizar",
+    "verb": "Realizar",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "realizaré"
+      ],
+      "secondSingular": [
+        "realizarás"
+      ],
+      "thirdSingular": [
+        "realizará"
+      ],
+      "firstPlural": [
+        "realizaremos"
+      ],
+      "secondPlural": [
+        "realizaréis"
+      ],
+      "thirdPlural": [
+        "realizarán"
+      ]
+    }
+  },
+  {
+    "id": "recordar",
+    "name": "recordar",
+    "verb": "Recordar",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "recordaré"
+      ],
+      "secondSingular": [
+        "recordarás"
+      ],
+      "thirdSingular": [
+        "recordará"
+      ],
+      "firstPlural": [
+        "recordaremos"
+      ],
+      "secondPlural": [
+        "recordaréis"
+      ],
+      "thirdPlural": [
+        "recordarán"
+      ]
+    }
+  },
+  {
+    "id": "existir",
+    "name": "existir",
+    "verb": "Existir",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "existiré"
+      ],
+      "secondSingular": [
+        "existirás"
+      ],
+      "thirdSingular": [
+        "existirá"
+      ],
+      "firstPlural": [
+        "existiremos"
+      ],
+      "secondPlural": [
+        "existiréis"
+      ],
+      "thirdPlural": [
+        "existirán"
+      ]
+    }
+  },
+  {
+    "id": "crear",
+    "name": "crear",
+    "verb": "Crear",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "crearé"
+      ],
+      "secondSingular": [
+        "crearás"
+      ],
+      "thirdSingular": [
+        "creará"
+      ],
+      "firstPlural": [
+        "crearemos"
+      ],
+      "secondPlural": [
+        "crearéis"
+      ],
+      "thirdPlural": [
+        "crearán"
+      ]
+    }
+  },
+  {
+    "id": "contar",
+    "name": "contar",
+    "verb": "Contar",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "contaré"
+      ],
+      "secondSingular": [
+        "contarás"
+      ],
+      "thirdSingular": [
+        "contará"
+      ],
+      "firstPlural": [
+        "contaremos"
+      ],
+      "secondPlural": [
+        "contaréis"
+      ],
+      "thirdPlural": [
+        "contarán"
+      ]
+    }
+  },
+  {
+    "id": "perder",
+    "name": "perder",
+    "verb": "Perder",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "perderé"
+      ],
+      "secondSingular": [
+        "perderás"
+      ],
+      "thirdSingular": [
+        "perderá"
+      ],
+      "firstPlural": [
+        "perderemos"
+      ],
+      "secondPlural": [
+        "perderéis"
+      ],
+      "thirdPlural": [
+        "perderán"
+      ]
+    }
+  },
+  {
+    "id": "conseguir",
+    "name": "conseguir",
+    "verb": "Conseguir",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "conseguiré"
+      ],
+      "secondSingular": [
+        "conseguirás"
+      ],
+      "thirdSingular": [
+        "conseguirá"
+      ],
+      "firstPlural": [
+        "conseguiremos"
+      ],
+      "secondPlural": [
+        "conseguiréis"
+      ],
+      "thirdPlural": [
+        "conseguirán"
+      ]
+    }
+  },
+  {
+    "id": "traducir",
+    "name": "traducir",
+    "verb": "Traducir",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "traduciré"
+      ],
+      "secondSingular": [
+        "traducirás"
+      ],
+      "thirdSingular": [
+        "traducirá"
+      ],
+      "firstPlural": [
+        "traduciremos"
+      ],
+      "secondPlural": [
+        "traduciréis"
+      ],
+      "thirdPlural": [
+        "traducirán"
+      ]
+    }
+  },
+  {
+    "id": "oler",
+    "name": "oler",
+    "verb": "Oler",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "oleré"
+      ],
+      "secondSingular": [
+        "olerás"
+      ],
+      "thirdSingular": [
+        "olerá"
+      ],
+      "firstPlural": [
+        "oleremos"
+      ],
+      "secondPlural": [
+        "oleréis"
+      ],
+      "thirdPlural": [
+        "olerán"
+      ]
+    }
+  },
+  {
+    "id": "construir",
+    "name": "construir",
+    "verb": "Construir",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "construiré"
+      ],
+      "secondSingular": [
+        "construirás"
+      ],
+      "thirdSingular": [
+        "construirá"
+      ],
+      "firstPlural": [
+        "construiremos"
+      ],
+      "secondPlural": [
+        "construiréis"
+      ],
+      "thirdPlural": [
+        "construirán"
+      ]
+    }
+  },
+  {
+    "id": "probar",
+    "name": "probar",
+    "verb": "Probar",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "probaré"
+      ],
+      "secondSingular": [
+        "probarás"
+      ],
+      "thirdSingular": [
+        "probará"
+      ],
+      "firstPlural": [
+        "probaremos"
+      ],
+      "secondPlural": [
+        "probaréis"
+      ],
+      "thirdPlural": [
+        "probarán"
+      ]
+    }
+  },
+  {
+    "id": "reir",
+    "name": "reir",
+    "verb": "Reir",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "reiré"
+      ],
+      "secondSingular": [
+        "reirás"
+      ],
+      "thirdSingular": [
+        "reirá"
+      ],
+      "firstPlural": [
+        "reiremos"
+      ],
+      "secondPlural": [
+        "reiréis"
+      ],
+      "thirdPlural": [
+        "reirán"
+      ]
+    }
+  },
+  {
+    "id": "aparecer",
+    "name": "aparecer",
+    "verb": "Aparecer",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "apareceré"
+      ],
+      "secondSingular": [
+        "aparecerás"
+      ],
+      "thirdSingular": [
+        "aparecerá"
+      ],
+      "firstPlural": [
+        "apareceremos"
+      ],
+      "secondPlural": [
+        "apareceréis"
+      ],
+      "thirdPlural": [
+        "aparecerán"
+      ]
+    }
+  },
+  {
+    "id": "cerrar",
+    "name": "cerrar",
+    "verb": "Cerrar",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "cerraré"
+      ],
+      "secondSingular": [
+        "cerrarás"
+      ],
+      "thirdSingular": [
+        "cerrará"
+      ],
+      "firstPlural": [
+        "cerraremos"
+      ],
+      "secondPlural": [
+        "cerraréis"
+      ],
+      "thirdPlural": [
+        "cerrarán"
+      ]
+    }
+  }
+]

@@ -41,6 +41,7 @@ TODO:
 - Add french exercise book
 - Home screen allows to choose which language to practice
 - Home screen allows to choose the user language
+- Style 404 page nicely
 - Render errors nicely
 - Add sitemap
 - Every url must have correct and localized meta

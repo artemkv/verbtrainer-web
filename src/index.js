@@ -14,74 +14,152 @@ const app = Elm.Main.init({
     flags: translations
 })
 
+const spanishLabels = {
+    firstSingular: "Yo",
+    secondSingular: "Tú",
+    thirdSingular: "Él/ella",
+    firstPlural: "Nosotros",
+    secondPlural: "Vosotros",
+    thirdPlural: "Ellos/ellas"
+};
+
+const exerciseListSpanishPresente = require('./data/exercises/es/presente.json');
+const exerciseListSpanishFuturo = require('./data/exercises/es/futuro.json');
+
+const exercisesSpanishPresente = assembleExercises("presente", exerciseListSpanishPresente, "Presente", spanishLabels);
+const exercisesSpanishFuturo = assembleExercises("futuro", exerciseListSpanishFuturo, "Futuro", spanishLabels);
+
+function assembleExercises(listId, exerciseList, tense, labels) {
+    const exercises = {};
+
+    exerciseList.forEach((exercise, idx) => {
+        let nextIdx = idx + 1;
+        if (nextIdx >= exerciseList.length) {
+            nextIdx = 0;
+        }
+        let nextExercise = exerciseList[nextIdx];
+
+        let exerciseData = {
+            id: exercise.id,
+            listId,
+            verb: exercise.verb,
+            tense,
+            labels,
+            answers: exercise.answers,
+            exercisesInList: exerciseList.length,
+            next: {
+                verb: nextExercise.verb,
+                id: nextExercise.id
+            }
+        };
+        exercises[exercise.id] = exerciseData;
+    });
+
+    return exercises;
+}
+
+const exerciseListSpanishPresenteData = {
+    id: "presente",
+    title: "100 Spanish Verbs", // TODO: should be localized
+    subtitle: "Presente",
+    exercises: exerciseListSpanishPresente.map(x => ({
+        id: x.id,
+        name: x.name
+    }))
+}
+
+const exerciseListSpanishFuturoData = {
+    id: "futuro",
+    title: "100 Spanish Verbs", // TODO: should be localized
+    subtitle: "Futuro",
+    exercises: exerciseListSpanishFuturo.map(x => ({
+        id: x.id,
+        name: x.name
+    }))
+}
+
+const exerciseBook = {
+    title: "Castilian Spanish", // TODO: should be localized
+    subtitle: "All exercises", // TODO: should be localized
+    exerciseLists: [exerciseListSpanishPresenteData, exerciseListSpanishFuturoData].map(x => ({
+        id: x.id,
+        name: x.subtitle
+    }))
+};
+
+// PORTS
+
+// Exercise data
+
 const DATA_LOAD_DELAY = 0;
 
-// TODO: the JS part didn't get enough attention, hard-coded and dirty
-
-const exerciseList = require('./data/exercises/es/presente.json');
-const exercises = {};
-
-exerciseList.forEach((exercise, idx) => {
-    let nextIdx = idx + 1;
-    if (nextIdx >= exerciseList.length) {
-        nextIdx = 0;
-    }
-    let nextExercise = exerciseList[nextIdx];
-
-    let exerciseData = {
-        id: exercise.id,
-        listId: "presente",
-        verb: exercise.verb,
-        tense: "Presente",
-        labels: {
-            firstSingular: "Yo",
-            secondSingular: "Tú",
-            thirdSingular: "Él/ella",
-            firstPlural: "Nosotros",
-            secondPlural: "Vosotros",
-            thirdPlural: "Ellos/ellas"
-        },
-        answers: exercise.answers,
-        exercisesInList: exerciseList.length,
-        next: {
-            verb: nextExercise.verb,
-            id: nextExercise.id
-        }
+app.ports.requestExerciseBookData.subscribe(function () {
+    let result = {
+        isOk: true,
+        data: exerciseBook
     };
-    exercises[exercise.id] = exerciseData;
+
+    setTimeout(function () {
+        app.ports.exerciseBookDataReceived.send(JSON.stringify(result));
+    }, DATA_LOAD_DELAY);
 });
 
 app.ports.requestExerciseListData.subscribe(function (id) {
-    let result = {
-        isOk: true,
-        data: {
-            id: "presente",
-            title: "100 Spanish Verbs", // TODO: should be a label
-            subtitle: "Presente", // TODO: should be a label
-            exercises: exerciseList.map(x => ({
-                id: x.id,
-                name: x.name
-            }))
-        }
-    }
+    let result;
+    switch (id) {
+        case "presente":
+            result = {
+                isOk: true,
+                data: exerciseListSpanishPresenteData
+            };
+            break;
+        case "futuro":
+            result = {
+                isOk: true,
+                data: exerciseListSpanishFuturoData
+            };
+            break;
+        default:
+            result = {
+                isOk: false,
+                data: {
+                    err: `Exercise list with id '${id}' not found.`
+                }
+            };
+    };
 
     setTimeout(function () {
         app.ports.exerciseListDataReceived.send(JSON.stringify(result));
     }, DATA_LOAD_DELAY);
 });
 
-app.ports.requestExerciseData.subscribe(function (id) {
+app.ports.requestExerciseData.subscribe(function ([listId, id]) {
     let result = {
         isOk: false,
         data: {
-            err: "Could not load exercise data"
+            err: `Exercise with id '${id}' not found in list '${listId}'.`
         }
-    }
-    if (id in exercises) {
-        result = {
-            isOk: true,
-            data: exercises[id]
-        }
+    };
+
+    switch (listId) {
+        case "presente":
+            if (id in exercisesSpanishPresente) {
+                result = {
+                    isOk: true,
+                    data: exercisesSpanishPresente[id]
+                }
+            }
+            break;
+        case "futuro":
+            if (id in exercisesSpanishFuturo) {
+                result = {
+                    isOk: true,
+                    data: exercisesSpanishFuturo[id]
+                }
+            }
+            break;
+        default:
+        // return default result
     }
 
     setTimeout(function () {
@@ -90,30 +168,82 @@ app.ports.requestExerciseData.subscribe(function (id) {
 });
 
 
-let progress = [];
+// Exercise progress
+
+const initialProgress = {
+    version: 2,
+    presente: [],
+    futuro: []
+};
+
+let progress = initialProgress;
 let progressText = localStorage.getItem("PROGRESS");
 if (!progressText) {
-    progress = [];
     localStorage.setItem("PROGRESS", JSON.stringify(progress));
 } else {
-    progress = JSON.parse(progressText);
+    const restoredProgress = JSON.parse(progressText);
+    // Handle migrations
+    if (restoredProgress.version) {
+        progress = restoredProgress;
+    } else {
+        progress.presente = restoredProgress;
+    }
 }
 
 app.ports.requestExerciseListProgressData.subscribe(function (id) {
-    let result = {
-        isOk: true,
-        data: {
-            id: "presente",
-            exercises: progress
-        }
-    }
+    let result;
+    switch (id) {
+        case "presente":
+            result = {
+                isOk: true,
+                data: {
+                    id,
+                    exercises: progress.presente
+                }
+            }
+            break;
+        case "futuro":
+            result = {
+                isOk: true,
+                data: {
+                    id,
+                    exercises: progress.futuro
+                }
+            }
+            break;
+        default:
+            result = {
+                isOk: false,
+                data: {
+                    err: `Exercise list with id '${id}' not found.`
+                }
+            };
+    };
+
     setTimeout(function () {
         app.ports.exerciseListProgressDataReceived.send(JSON.stringify(result));
     }, DATA_LOAD_DELAY);
 });
 
-app.ports.sendExerciseProgressData.subscribe(function ([id, isPerfect]) {
-    let exerciseProgress = progress.find(x => x.id === id);
+app.ports.sendExerciseProgressData.subscribe(function ([listId, id, isPerfect]) {
+    let listProgress;
+    switch (listId) {
+        case "presente":
+            listProgress = progress.presente;
+            break;
+        case "futuro":
+            listProgress = progress.futuro;
+            break;
+        default:
+            result = {
+                isOk: false,
+                data: {
+                    err: `Exercise list with id '${id}' not found.`
+                }
+            };
+    };
+
+    let exerciseProgress = listProgress.find(x => x.id === id);
     if (exerciseProgress) {
         exerciseProgress.isPerfect = isPerfect;
     } else {
@@ -121,7 +251,7 @@ app.ports.sendExerciseProgressData.subscribe(function ([id, isPerfect]) {
             id,
             isPerfect
         };
-        progress.push(exerciseProgress);
+        listProgress.push(exerciseProgress);
     }
     localStorage.setItem("PROGRESS", JSON.stringify(progress));
 
@@ -129,7 +259,7 @@ app.ports.sendExerciseProgressData.subscribe(function ([id, isPerfect]) {
         isOk: true,
         data: {
             id: "presente",
-            exercises: progress
+            exercises: listProgress
         }
     }
     setTimeout(function () {
