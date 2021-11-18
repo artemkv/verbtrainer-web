@@ -24,9 +24,11 @@ const spanishLabels = {
 };
 
 const exerciseListSpanishPresente = require('./data/exercises/es/presente.json');
+const exerciseListSpanishImperfecto = require('./data/exercises/es/imperfecto.json');
 const exerciseListSpanishFuturo = require('./data/exercises/es/futuro.json');
 
 const exercisesSpanishPresente = assembleExercises("presente", exerciseListSpanishPresente, "Presente", spanishLabels);
+const exercisesSpanishImperfecto = assembleExercises("imperfecto", exerciseListSpanishImperfecto, "Pretérito Imperfecto", spanishLabels);
 const exercisesSpanishFuturo = assembleExercises("futuro", exerciseListSpanishFuturo, "Futuro", spanishLabels);
 
 function assembleExercises(listId, exerciseList, tense, labels) {
@@ -68,6 +70,16 @@ const exerciseListSpanishPresenteData = {
     }))
 }
 
+const exerciseListSpanishImperfectoData = {
+    id: "imperfecto",
+    title: "100 Spanish Verbs", // TODO: should be localized
+    subtitle: "Pretérito Imperfecto",
+    exercises: exerciseListSpanishImperfecto.map(x => ({
+        id: x.id,
+        name: x.name
+    }))
+}
+
 const exerciseListSpanishFuturoData = {
     id: "futuro",
     title: "100 Spanish Verbs", // TODO: should be localized
@@ -81,10 +93,13 @@ const exerciseListSpanishFuturoData = {
 const exerciseBook = {
     title: "Castilian Spanish", // TODO: should be localized
     subtitle: "All exercises", // TODO: should be localized
-    exerciseLists: [exerciseListSpanishPresenteData, exerciseListSpanishFuturoData].map(x => ({
-        id: x.id,
-        name: x.subtitle
-    }))
+    exerciseLists: [
+        exerciseListSpanishPresenteData,
+        exerciseListSpanishImperfectoData,
+        exerciseListSpanishFuturoData].map(x => ({
+            id: x.id,
+            name: x.subtitle
+        }))
 };
 
 // PORTS
@@ -111,6 +126,12 @@ app.ports.requestExerciseListData.subscribe(function (id) {
             result = {
                 isOk: true,
                 data: exerciseListSpanishPresenteData
+            };
+            break;
+        case "imperfecto":
+            result = {
+                isOk: true,
+                data: exerciseListSpanishImperfectoData
             };
             break;
         case "futuro":
@@ -150,6 +171,14 @@ app.ports.requestExerciseData.subscribe(function ([listId, id]) {
                 }
             }
             break;
+        case "imperfecto":
+            if (id in exercisesSpanishImperfecto) {
+                result = {
+                    isOk: true,
+                    data: exercisesSpanishImperfecto[id]
+                }
+            }
+            break;
         case "futuro":
             if (id in exercisesSpanishFuturo) {
                 result = {
@@ -170,9 +199,14 @@ app.ports.requestExerciseData.subscribe(function ([listId, id]) {
 
 // Exercise progress
 
+const VERSION_2 = 2; // support for multiple lists
+const VERSION_2_1 = 2.1; // added imperfecto
+const CURRENT_VERSION = VERSION_2_1;
+
 const initialProgress = {
-    version: 2,
+    version: 2.1,
     presente: [],
+    imperfecto: [],
     futuro: []
 };
 
@@ -185,6 +219,10 @@ if (!progressText) {
     // Handle migrations
     if (restoredProgress.version) {
         progress = restoredProgress;
+        if (progress.version < VERSION_2_1) {
+            progress.imperfecto = [];
+            progress.version = VERSION_2_1
+        }
     } else {
         progress.presente = restoredProgress;
     }
@@ -199,6 +237,15 @@ app.ports.requestExerciseListProgressData.subscribe(function (id) {
                 data: {
                     id,
                     exercises: progress.presente
+                }
+            }
+            break;
+        case "imperfecto":
+            result = {
+                isOk: true,
+                data: {
+                    id,
+                    exercises: progress.imperfecto
                 }
             }
             break;
@@ -231,6 +278,9 @@ app.ports.sendExerciseProgressData.subscribe(function ([listId, id, isPerfect]) 
         case "presente":
             listProgress = progress.presente;
             break;
+        case "imperfecto":
+            listProgress = progress.imperfecto;
+            break;
         case "futuro":
             listProgress = progress.futuro;
             break;
@@ -241,6 +291,9 @@ app.ports.sendExerciseProgressData.subscribe(function ([listId, id, isPerfect]) 
                     err: `Exercise list with id '${id}' not found.`
                 }
             };
+            setTimeout(function () {
+                app.ports.exerciseListProgressDataReceived.send(JSON.stringify(result));
+            }, DATA_LOAD_DELAY);
     };
 
     let exerciseProgress = listProgress.find(x => x.id === id);
@@ -258,7 +311,7 @@ app.ports.sendExerciseProgressData.subscribe(function ([listId, id, isPerfect]) 
     let result = {
         isOk: true,
         data: {
-            id: "presente",
+            id: listId,
             exercises: listProgress
         }
     }

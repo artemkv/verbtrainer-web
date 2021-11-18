@@ -8,6 +8,7 @@ import Html exposing (Html, a, button, div, img, input, label, span, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onFocus, onInput)
 import I18Next
+import Imperfecto exposing (spanishImperfecto)
 import Json.Decode exposing (Decoder, bool, decodeString, field, int, map2, map3, map4, map6, map8, string)
 import Json.Encode
 import Presente exposing (spanishPresente)
@@ -828,6 +829,9 @@ grammarTopicContent id translations =
     case id of
         "presente" ->
             spanishPresente (getExerciseListLink id) translations
+
+        "imperfecto" ->
+            spanishImperfecto (getExerciseListLink id) translations
 
         "futuro" ->
             spanishFuturo (getExerciseListLink id) translations

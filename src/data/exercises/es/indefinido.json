@@ -1,0 +1,2602 @@
+[
+  {
+    "id": "hablar",
+    "name": "hablar",
+    "verb": "Hablar",
+    "access": "free",
+    "answers": {
+      "firstSingular": [
+        "hablé"
+      ],
+      "secondSingular": [
+        "hablaste"
+      ],
+      "thirdSingular": [
+        "habló"
+      ],
+      "firstPlural": [
+        "hablamos"
+      ],
+      "secondPlural": [
+        "hablasteis"
+      ],
+      "thirdPlural": [
+        "hablaron"
+      ]
+    }
+  },
+  {
+    "id": "estar",
+    "name": "estar",
+    "verb": "Estar",
+    "access": "free",
+    "answers": {
+      "firstSingular": [
+        "estuve"
+      ],
+      "secondSingular": [
+        "estuviste"
+      ],
+      "thirdSingular": [
+        "estuvo"
+      ],
+      "firstPlural": [
+        "estuvimos"
+      ],
+      "secondPlural": [
+        "estuvisteis"
+      ],
+      "thirdPlural": [
+        "estuvieron"
+      ]
+    }
+  },
+  {
+    "id": "ser",
+    "name": "ser",
+    "verb": "Ser",
+    "access": "free",
+    "answers": {
+      "firstSingular": [
+        "fui"
+      ],
+      "secondSingular": [
+        "fuiste"
+      ],
+      "thirdSingular": [
+        "fue"
+      ],
+      "firstPlural": [
+        "fuimos"
+      ],
+      "secondPlural": [
+        "fuisteis"
+      ],
+      "thirdPlural": [
+        "fueron"
+      ]
+    }
+  },
+  {
+    "id": "ir",
+    "name": "ir",
+    "verb": "Ir",
+    "access": "free",
+    "answers": {
+      "firstSingular": [
+        "fui"
+      ],
+      "secondSingular": [
+        "fuiste"
+      ],
+      "thirdSingular": [
+        "fue"
+      ],
+      "firstPlural": [
+        "fuimos"
+      ],
+      "secondPlural": [
+        "fuisteis"
+      ],
+      "thirdPlural": [
+        "fueron"
+      ]
+    }
+  },
+  {
+    "id": "venir",
+    "name": "venir",
+    "verb": "Venir",
+    "access": "free",
+    "answers": {
+      "firstSingular": [
+        "vine"
+      ],
+      "secondSingular": [
+        "viniste"
+      ],
+      "thirdSingular": [
+        "vino"
+      ],
+      "firstPlural": [
+        "vinimos"
+      ],
+      "secondPlural": [
+        "vinisteis"
+      ],
+      "thirdPlural": [
+        "vinieron"
+      ]
+    }
+  },
+  {
+    "id": "tener",
+    "name": "tener",
+    "verb": "Tener",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "tuve"
+      ],
+      "secondSingular": [
+        "tuviste"
+      ],
+      "thirdSingular": [
+        "tuvo"
+      ],
+      "firstPlural": [
+        "tuvimos"
+      ],
+      "secondPlural": [
+        "tuvisteis"
+      ],
+      "thirdPlural": [
+        "tuvieron"
+      ]
+    }
+  },
+  {
+    "id": "pensar",
+    "name": "pensar",
+    "verb": "Pensar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "pensé"
+      ],
+      "secondSingular": [
+        "pensaste"
+      ],
+      "thirdSingular": [
+        "pensó"
+      ],
+      "firstPlural": [
+        "pensamos"
+      ],
+      "secondPlural": [
+        "pensasteis"
+      ],
+      "thirdPlural": [
+        "pensaron"
+      ]
+    }
+  },
+  {
+    "id": "vivir",
+    "name": "vivir",
+    "verb": "Vivir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "viví"
+      ],
+      "secondSingular": [
+        "viviste"
+      ],
+      "thirdSingular": [
+        "vivió"
+      ],
+      "firstPlural": [
+        "vivimos"
+      ],
+      "secondPlural": [
+        "vivisteis"
+      ],
+      "thirdPlural": [
+        "vivieron"
+      ]
+    }
+  },
+  {
+    "id": "hacer",
+    "name": "hacer",
+    "verb": "Hacer",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "hice"
+      ],
+      "secondSingular": [
+        "hiciste"
+      ],
+      "thirdSingular": [
+        "hizo"
+      ],
+      "firstPlural": [
+        "hicimos"
+      ],
+      "secondPlural": [
+        "hicisteis"
+      ],
+      "thirdPlural": [
+        "hicieron"
+      ]
+    }
+  },
+  {
+    "id": "poder",
+    "name": "poder",
+    "verb": "Poder",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "pude"
+      ],
+      "secondSingular": [
+        "pudiste"
+      ],
+      "thirdSingular": [
+        "pudo"
+      ],
+      "firstPlural": [
+        "pudimos"
+      ],
+      "secondPlural": [
+        "pudisteis"
+      ],
+      "thirdPlural": [
+        "pudieron"
+      ]
+    }
+  },
+  {
+    "id": "decir",
+    "name": "decir",
+    "verb": "Decir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "dije"
+      ],
+      "secondSingular": [
+        "dijiste"
+      ],
+      "thirdSingular": [
+        "dijo"
+      ],
+      "firstPlural": [
+        "dijimos"
+      ],
+      "secondPlural": [
+        "dijisteis"
+      ],
+      "thirdPlural": [
+        "dijeron"
+      ]
+    }
+  },
+  {
+    "id": "buscar",
+    "name": "buscar",
+    "verb": "Buscar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "busqué"
+      ],
+      "secondSingular": [
+        "buscaste"
+      ],
+      "thirdSingular": [
+        "buscó"
+      ],
+      "firstPlural": [
+        "buscamos"
+      ],
+      "secondPlural": [
+        "buscasteis"
+      ],
+      "thirdPlural": [
+        "buscaron"
+      ]
+    }
+  },
+  {
+    "id": "volver",
+    "name": "volver",
+    "verb": "Volver",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "volví"
+      ],
+      "secondSingular": [
+        "volviste"
+      ],
+      "thirdSingular": [
+        "volvió"
+      ],
+      "firstPlural": [
+        "volvimos"
+      ],
+      "secondPlural": [
+        "volvisteis"
+      ],
+      "thirdPlural": [
+        "volvieron"
+      ]
+    }
+  },
+  {
+    "id": "desear",
+    "name": "desear",
+    "verb": "Desear",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "deseé"
+      ],
+      "secondSingular": [
+        "deseaste"
+      ],
+      "thirdSingular": [
+        "deseó"
+      ],
+      "firstPlural": [
+        "deseamos"
+      ],
+      "secondPlural": [
+        "deseasteis"
+      ],
+      "thirdPlural": [
+        "desearon"
+      ]
+    }
+  },
+  {
+    "id": "saber",
+    "name": "saber",
+    "verb": "Saber",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "supe"
+      ],
+      "secondSingular": [
+        "supiste"
+      ],
+      "thirdSingular": [
+        "supo"
+      ],
+      "firstPlural": [
+        "supimos"
+      ],
+      "secondPlural": [
+        "supisteis"
+      ],
+      "thirdPlural": [
+        "supieron"
+      ]
+    }
+  },
+  {
+    "id": "escuchar",
+    "name": "escuchar",
+    "verb": "Escuchar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "escuché"
+      ],
+      "secondSingular": [
+        "escuchaste"
+      ],
+      "thirdSingular": [
+        "escuchó"
+      ],
+      "firstPlural": [
+        "escuchamos"
+      ],
+      "secondPlural": [
+        "escuchasteis"
+      ],
+      "thirdPlural": [
+        "escucharon"
+      ]
+    }
+  },
+  {
+    "id": "ver",
+    "name": "ver",
+    "verb": "Ver",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "vi"
+      ],
+      "secondSingular": [
+        "viste"
+      ],
+      "thirdSingular": [
+        "vio"
+      ],
+      "firstPlural": [
+        "vimos"
+      ],
+      "secondPlural": [
+        "visteis"
+      ],
+      "thirdPlural": [
+        "vieron"
+      ]
+    }
+  },
+  {
+    "id": "dormir",
+    "name": "dormir",
+    "verb": "Dormir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "dormí"
+      ],
+      "secondSingular": [
+        "dormiste"
+      ],
+      "thirdSingular": [
+        "durmió"
+      ],
+      "firstPlural": [
+        "dormimos"
+      ],
+      "secondPlural": [
+        "dormisteis"
+      ],
+      "thirdPlural": [
+        "durmieron"
+      ]
+    }
+  },
+  {
+    "id": "comer",
+    "name": "comer",
+    "verb": "Comer",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "comí"
+      ],
+      "secondSingular": [
+        "comiste"
+      ],
+      "thirdSingular": [
+        "comió"
+      ],
+      "firstPlural": [
+        "comimos"
+      ],
+      "secondPlural": [
+        "comisteis"
+      ],
+      "thirdPlural": [
+        "comieron"
+      ]
+    }
+  },
+  {
+    "id": "cantar",
+    "name": "cantar",
+    "verb": "Cantar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "canté"
+      ],
+      "secondSingular": [
+        "cantaste"
+      ],
+      "thirdSingular": [
+        "cantó"
+      ],
+      "firstPlural": [
+        "cantamos"
+      ],
+      "secondPlural": [
+        "cantasteis"
+      ],
+      "thirdPlural": [
+        "cantaron"
+      ]
+    }
+  },
+  {
+    "id": "beber",
+    "name": "beber",
+    "verb": "Beber",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "bebí"
+      ],
+      "secondSingular": [
+        "bebiste"
+      ],
+      "thirdSingular": [
+        "bebió"
+      ],
+      "firstPlural": [
+        "bebimos"
+      ],
+      "secondPlural": [
+        "bebisteis"
+      ],
+      "thirdPlural": [
+        "bebieron"
+      ]
+    }
+  },
+  {
+    "id": "bailar",
+    "name": "bailar",
+    "verb": "Bailar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "bailé"
+      ],
+      "secondSingular": [
+        "bailaste"
+      ],
+      "thirdSingular": [
+        "bailó"
+      ],
+      "firstPlural": [
+        "bailamos"
+      ],
+      "secondPlural": [
+        "bailasteis"
+      ],
+      "thirdPlural": [
+        "bailaron"
+      ]
+    }
+  },
+  {
+    "id": "salir",
+    "name": "salir",
+    "verb": "Salir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "salí"
+      ],
+      "secondSingular": [
+        "saliste"
+      ],
+      "thirdSingular": [
+        "salió"
+      ],
+      "firstPlural": [
+        "salimos"
+      ],
+      "secondPlural": [
+        "salisteis"
+      ],
+      "thirdPlural": [
+        "salieron"
+      ]
+    }
+  },
+  {
+    "id": "dar",
+    "name": "dar",
+    "verb": "Dar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "di"
+      ],
+      "secondSingular": [
+        "diste"
+      ],
+      "thirdSingular": [
+        "dio"
+      ],
+      "firstPlural": [
+        "dimos"
+      ],
+      "secondPlural": [
+        "disteis"
+      ],
+      "thirdPlural": [
+        "dieron"
+      ]
+    }
+  },
+  {
+    "id": "mover",
+    "name": "mover",
+    "verb": "Mover",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "moví"
+      ],
+      "secondSingular": [
+        "moviste"
+      ],
+      "thirdSingular": [
+        "movió"
+      ],
+      "firstPlural": [
+        "movimos"
+      ],
+      "secondPlural": [
+        "movisteis"
+      ],
+      "thirdPlural": [
+        "movieron"
+      ]
+    }
+  },
+  {
+    "id": "viajar",
+    "name": "viajar",
+    "verb": "Viajar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "viajé"
+      ],
+      "secondSingular": [
+        "viajaste"
+      ],
+      "thirdSingular": [
+        "viajó"
+      ],
+      "firstPlural": [
+        "viajamos"
+      ],
+      "secondPlural": [
+        "viajasteis"
+      ],
+      "thirdPlural": [
+        "viajaron"
+      ]
+    }
+  },
+  {
+    "id": "poner",
+    "name": "poner",
+    "verb": "Poner",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "puse"
+      ],
+      "secondSingular": [
+        "pusiste"
+      ],
+      "thirdSingular": [
+        "puso"
+      ],
+      "firstPlural": [
+        "pusimos"
+      ],
+      "secondPlural": [
+        "pusisteis"
+      ],
+      "thirdPlural": [
+        "pusieron"
+      ]
+    }
+  },
+  {
+    "id": "cocinar",
+    "name": "cocinar",
+    "verb": "Cocinar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "cociné"
+      ],
+      "secondSingular": [
+        "cocinaste"
+      ],
+      "thirdSingular": [
+        "cocinó"
+      ],
+      "firstPlural": [
+        "cocinamos"
+      ],
+      "secondPlural": [
+        "cocinasteis"
+      ],
+      "thirdPlural": [
+        "cocinaron"
+      ]
+    }
+  },
+  {
+    "id": "querer",
+    "name": "querer",
+    "verb": "Querer",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "quise"
+      ],
+      "secondSingular": [
+        "quisiste"
+      ],
+      "thirdSingular": [
+        "quiso"
+      ],
+      "firstPlural": [
+        "quisimos"
+      ],
+      "secondPlural": [
+        "quisisteis"
+      ],
+      "thirdPlural": [
+        "quisieron"
+      ]
+    }
+  },
+  {
+    "id": "comprar",
+    "name": "comprar",
+    "verb": "Comprar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "compré"
+      ],
+      "secondSingular": [
+        "compraste"
+      ],
+      "thirdSingular": [
+        "compró"
+      ],
+      "firstPlural": [
+        "compramos"
+      ],
+      "secondPlural": [
+        "comprasteis"
+      ],
+      "thirdPlural": [
+        "compraron"
+      ]
+    }
+  },
+  {
+    "id": "entender",
+    "name": "entender",
+    "verb": "Entender",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "entendí"
+      ],
+      "secondSingular": [
+        "entendiste"
+      ],
+      "thirdSingular": [
+        "entendió"
+      ],
+      "firstPlural": [
+        "entendimos"
+      ],
+      "secondPlural": [
+        "entendisteis"
+      ],
+      "thirdPlural": [
+        "entendieron"
+      ]
+    }
+  },
+  {
+    "id": "escribir",
+    "name": "escribir",
+    "verb": "Escribir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "escribí"
+      ],
+      "secondSingular": [
+        "escribiste"
+      ],
+      "thirdSingular": [
+        "escribió"
+      ],
+      "firstPlural": [
+        "escribimos"
+      ],
+      "secondPlural": [
+        "escribisteis"
+      ],
+      "thirdPlural": [
+        "escribieron"
+      ]
+    }
+  },
+  {
+    "id": "olvidar",
+    "name": "olvidar",
+    "verb": "Olvidar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "olvidé"
+      ],
+      "secondSingular": [
+        "olvidaste"
+      ],
+      "thirdSingular": [
+        "olvidó"
+      ],
+      "firstPlural": [
+        "olvidamos"
+      ],
+      "secondPlural": [
+        "olvidasteis"
+      ],
+      "thirdPlural": [
+        "olvidaron"
+      ]
+    }
+  },
+  {
+    "id": "deber",
+    "name": "deber",
+    "verb": "Deber",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "debí"
+      ],
+      "secondSingular": [
+        "debiste"
+      ],
+      "thirdSingular": [
+        "debió"
+      ],
+      "firstPlural": [
+        "debimos"
+      ],
+      "secondPlural": [
+        "debisteis"
+      ],
+      "thirdPlural": [
+        "debieron"
+      ]
+    }
+  },
+  {
+    "id": "esperar",
+    "name": "esperar",
+    "verb": "Esperar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "esperé"
+      ],
+      "secondSingular": [
+        "esperaste"
+      ],
+      "thirdSingular": [
+        "esperó"
+      ],
+      "firstPlural": [
+        "esperamos"
+      ],
+      "secondPlural": [
+        "esperasteis"
+      ],
+      "thirdPlural": [
+        "esperaron"
+      ]
+    }
+  },
+  {
+    "id": "pedir",
+    "name": "pedir",
+    "verb": "Pedir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "pedí"
+      ],
+      "secondSingular": [
+        "pediste"
+      ],
+      "thirdSingular": [
+        "pidió"
+      ],
+      "firstPlural": [
+        "pedimos"
+      ],
+      "secondPlural": [
+        "pedisteis"
+      ],
+      "thirdPlural": [
+        "pidieron"
+      ]
+    }
+  },
+  {
+    "id": "leer",
+    "name": "leer",
+    "verb": "Leer",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "leí"
+      ],
+      "secondSingular": [
+        "leíste"
+      ],
+      "thirdSingular": [
+        "leyó"
+      ],
+      "firstPlural": [
+        "leímos"
+      ],
+      "secondPlural": [
+        "leísteis"
+      ],
+      "thirdPlural": [
+        "leyeron"
+      ]
+    }
+  },
+  {
+    "id": "cambiar",
+    "name": "cambiar",
+    "verb": "Cambiar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "cambié"
+      ],
+      "secondSingular": [
+        "cambiaste"
+      ],
+      "thirdSingular": [
+        "cambió"
+      ],
+      "firstPlural": [
+        "cambiamos"
+      ],
+      "secondPlural": [
+        "cambiasteis"
+      ],
+      "thirdPlural": [
+        "cambiaron"
+      ]
+    }
+  },
+  {
+    "id": "caer",
+    "name": "caer",
+    "verb": "Caer",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "caí"
+      ],
+      "secondSingular": [
+        "caíste"
+      ],
+      "thirdSingular": [
+        "cayó"
+      ],
+      "firstPlural": [
+        "caímos"
+      ],
+      "secondPlural": [
+        "caísteis"
+      ],
+      "thirdPlural": [
+        "cayeron"
+      ]
+    }
+  },
+  {
+    "id": "acabar",
+    "name": "acabar",
+    "verb": "Acabar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "acabé"
+      ],
+      "secondSingular": [
+        "acabaste"
+      ],
+      "thirdSingular": [
+        "acabó"
+      ],
+      "firstPlural": [
+        "acabamos"
+      ],
+      "secondPlural": [
+        "acabasteis"
+      ],
+      "thirdPlural": [
+        "acabaron"
+      ]
+    }
+  },
+  {
+    "id": "traer",
+    "name": "traer",
+    "verb": "Traer",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "traje"
+      ],
+      "secondSingular": [
+        "trajiste"
+      ],
+      "thirdSingular": [
+        "trajo"
+      ],
+      "firstPlural": [
+        "trajimos"
+      ],
+      "secondPlural": [
+        "trajisteis"
+      ],
+      "thirdPlural": [
+        "trajeron"
+      ]
+    }
+  },
+  {
+    "id": "trabajar",
+    "name": "trabajar",
+    "verb": "Trabajar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "trabajé"
+      ],
+      "secondSingular": [
+        "trabajaste"
+      ],
+      "thirdSingular": [
+        "trabajó"
+      ],
+      "firstPlural": [
+        "trabajamos"
+      ],
+      "secondPlural": [
+        "trabajasteis"
+      ],
+      "thirdPlural": [
+        "trabajaron"
+      ]
+    }
+  },
+  {
+    "id": "vender",
+    "name": "vender",
+    "verb": "Vender",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "vendí"
+      ],
+      "secondSingular": [
+        "vendiste"
+      ],
+      "thirdSingular": [
+        "vendió"
+      ],
+      "firstPlural": [
+        "vendimos"
+      ],
+      "secondPlural": [
+        "vendisteis"
+      ],
+      "thirdPlural": [
+        "vendieron"
+      ]
+    }
+  },
+  {
+    "id": "recibir",
+    "name": "recibir",
+    "verb": "Recibir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "recibí"
+      ],
+      "secondSingular": [
+        "recibiste"
+      ],
+      "thirdSingular": [
+        "recibió"
+      ],
+      "firstPlural": [
+        "recibimos"
+      ],
+      "secondPlural": [
+        "recibisteis"
+      ],
+      "thirdPlural": [
+        "recibieron"
+      ]
+    }
+  },
+  {
+    "id": "llevar",
+    "name": "llevar",
+    "verb": "Llevar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "llevé"
+      ],
+      "secondSingular": [
+        "llevaste"
+      ],
+      "thirdSingular": [
+        "llevó"
+      ],
+      "firstPlural": [
+        "llevamos"
+      ],
+      "secondPlural": [
+        "llevasteis"
+      ],
+      "thirdPlural": [
+        "llevaron"
+      ]
+    }
+  },
+  {
+    "id": "preferir",
+    "name": "preferir",
+    "verb": "Preferir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "preferí"
+      ],
+      "secondSingular": [
+        "preferiste"
+      ],
+      "thirdSingular": [
+        "prefirió"
+      ],
+      "firstPlural": [
+        "preferimos"
+      ],
+      "secondPlural": [
+        "preferisteis"
+      ],
+      "thirdPlural": [
+        "prefirieron"
+      ]
+    }
+  },
+  {
+    "id": "llegar",
+    "name": "llegar",
+    "verb": "Llegar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "llegué"
+      ],
+      "secondSingular": [
+        "llegaste"
+      ],
+      "thirdSingular": [
+        "llegó"
+      ],
+      "firstPlural": [
+        "llegamos"
+      ],
+      "secondPlural": [
+        "llegasteis"
+      ],
+      "thirdPlural": [
+        "llegaron"
+      ]
+    }
+  },
+  {
+    "id": "conducir",
+    "name": "conducir",
+    "verb": "Conducir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "conduje"
+      ],
+      "secondSingular": [
+        "condujiste"
+      ],
+      "thirdSingular": [
+        "condujo"
+      ],
+      "firstPlural": [
+        "condujimos"
+      ],
+      "secondPlural": [
+        "condujisteis"
+      ],
+      "thirdPlural": [
+        "condujeron"
+      ]
+    }
+  },
+  {
+    "id": "convertir",
+    "name": "convertir",
+    "verb": "Convertir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "convertí"
+      ],
+      "secondSingular": [
+        "convertiste"
+      ],
+      "thirdSingular": [
+        "convirtió"
+      ],
+      "firstPlural": [
+        "convertimos"
+      ],
+      "secondPlural": [
+        "convertisteis"
+      ],
+      "thirdPlural": [
+        "convirtieron"
+      ]
+    }
+  },
+  {
+    "id": "repetir",
+    "name": "repetir",
+    "verb": "Repetir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "repetí"
+      ],
+      "secondSingular": [
+        "repetiste"
+      ],
+      "thirdSingular": [
+        "repitió"
+      ],
+      "firstPlural": [
+        "repetimos"
+      ],
+      "secondPlural": [
+        "repetisteis"
+      ],
+      "thirdPlural": [
+        "repitieron"
+      ]
+    }
+  },
+  {
+    "id": "mostrar",
+    "name": "mostrar",
+    "verb": "Mostrar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "mostré"
+      ],
+      "secondSingular": [
+        "mostraste"
+      ],
+      "thirdSingular": [
+        "mostró"
+      ],
+      "firstPlural": [
+        "mostramos"
+      ],
+      "secondPlural": [
+        "mostrasteis"
+      ],
+      "thirdPlural": [
+        "mostraron"
+      ]
+    }
+  },
+  {
+    "id": "elegir",
+    "name": "elegir",
+    "verb": "Elegir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "elegí"
+      ],
+      "secondSingular": [
+        "elegiste"
+      ],
+      "thirdSingular": [
+        "eligió"
+      ],
+      "firstPlural": [
+        "elegimos"
+      ],
+      "secondPlural": [
+        "elegisteis"
+      ],
+      "thirdPlural": [
+        "eligieron"
+      ]
+    }
+  },
+  {
+    "id": "encontrar",
+    "name": "encontrar",
+    "verb": "Encontrar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "encontré"
+      ],
+      "secondSingular": [
+        "encontraste"
+      ],
+      "thirdSingular": [
+        "encontró"
+      ],
+      "firstPlural": [
+        "encontramos"
+      ],
+      "secondPlural": [
+        "encontrasteis"
+      ],
+      "thirdPlural": [
+        "encontraron"
+      ]
+    }
+  },
+  {
+    "id": "llamar",
+    "name": "llamar",
+    "verb": "Llamar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "llamé"
+      ],
+      "secondSingular": [
+        "llamaste"
+      ],
+      "thirdSingular": [
+        "llamó"
+      ],
+      "firstPlural": [
+        "llamamos"
+      ],
+      "secondPlural": [
+        "llamasteis"
+      ],
+      "thirdPlural": [
+        "llamaron"
+      ]
+    }
+  },
+  {
+    "id": "producir",
+    "name": "producir",
+    "verb": "Producir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "produje"
+      ],
+      "secondSingular": [
+        "produjiste"
+      ],
+      "thirdSingular": [
+        "produjo"
+      ],
+      "firstPlural": [
+        "produjimos"
+      ],
+      "secondPlural": [
+        "produjisteis"
+      ],
+      "thirdPlural": [
+        "produjeron"
+      ]
+    }
+  },
+  {
+    "id": "mirar",
+    "name": "mirar",
+    "verb": "Mirar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "miré"
+      ],
+      "secondSingular": [
+        "miraste"
+      ],
+      "thirdSingular": [
+        "miró"
+      ],
+      "firstPlural": [
+        "miramos"
+      ],
+      "secondPlural": [
+        "mirasteis"
+      ],
+      "thirdPlural": [
+        "miraron"
+      ]
+    }
+  },
+  {
+    "id": "aprender",
+    "name": "aprender",
+    "verb": "Aprender",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "aprendí"
+      ],
+      "secondSingular": [
+        "aprendiste"
+      ],
+      "thirdSingular": [
+        "aprendió"
+      ],
+      "firstPlural": [
+        "aprendimos"
+      ],
+      "secondPlural": [
+        "aprendisteis"
+      ],
+      "thirdPlural": [
+        "aprendieron"
+      ]
+    }
+  },
+  {
+    "id": "empezar",
+    "name": "empezar",
+    "verb": "Empezar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "empecé"
+      ],
+      "secondSingular": [
+        "empezaste"
+      ],
+      "thirdSingular": [
+        "empezó"
+      ],
+      "firstPlural": [
+        "empezamos"
+      ],
+      "secondPlural": [
+        "empezasteis"
+      ],
+      "thirdPlural": [
+        "empezaron"
+      ]
+    }
+  },
+  {
+    "id": "seguir",
+    "name": "seguir",
+    "verb": "Seguir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "seguí"
+      ],
+      "secondSingular": [
+        "seguiste"
+      ],
+      "thirdSingular": [
+        "siguió"
+      ],
+      "firstPlural": [
+        "seguimos"
+      ],
+      "secondPlural": [
+        "seguisteis"
+      ],
+      "thirdPlural": [
+        "siguieron"
+      ]
+    }
+  },
+  {
+    "id": "preguntar",
+    "name": "preguntar",
+    "verb": "Preguntar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "pregunté"
+      ],
+      "secondSingular": [
+        "preguntaste"
+      ],
+      "thirdSingular": [
+        "preguntó"
+      ],
+      "firstPlural": [
+        "preguntamos"
+      ],
+      "secondPlural": [
+        "preguntasteis"
+      ],
+      "thirdPlural": [
+        "preguntaron"
+      ]
+    }
+  },
+  {
+    "id": "creer",
+    "name": "creer",
+    "verb": "Creer",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "creí"
+      ],
+      "secondSingular": [
+        "creíste"
+      ],
+      "thirdSingular": [
+        "creyó"
+      ],
+      "firstPlural": [
+        "creímos"
+      ],
+      "secondPlural": [
+        "creísteis"
+      ],
+      "thirdPlural": [
+        "creyeron"
+      ]
+    }
+  },
+  {
+    "id": "conocer",
+    "name": "conocer",
+    "verb": "Conocer",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "conocí"
+      ],
+      "secondSingular": [
+        "conociste"
+      ],
+      "thirdSingular": [
+        "conoció"
+      ],
+      "firstPlural": [
+        "conocimos"
+      ],
+      "secondPlural": [
+        "conocisteis"
+      ],
+      "thirdPlural": [
+        "conocieron"
+      ]
+    }
+  },
+  {
+    "id": "sentir",
+    "name": "sentir",
+    "verb": "Sentir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "sentí"
+      ],
+      "secondSingular": [
+        "sentiste"
+      ],
+      "thirdSingular": [
+        "sintió"
+      ],
+      "firstPlural": [
+        "sentimos"
+      ],
+      "secondPlural": [
+        "sentisteis"
+      ],
+      "thirdPlural": [
+        "sintieron"
+      ]
+    }
+  },
+  {
+    "id": "coger",
+    "name": "coger",
+    "verb": "Coger",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "cogí"
+      ],
+      "secondSingular": [
+        "cogiste"
+      ],
+      "thirdSingular": [
+        "cogió"
+      ],
+      "firstPlural": [
+        "cogimos"
+      ],
+      "secondPlural": [
+        "cogisteis"
+      ],
+      "thirdPlural": [
+        "cogieron"
+      ]
+    }
+  },
+  {
+    "id": "tomar",
+    "name": "tomar",
+    "verb": "Tomar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "tomé"
+      ],
+      "secondSingular": [
+        "tomaste"
+      ],
+      "thirdSingular": [
+        "tomó"
+      ],
+      "firstPlural": [
+        "tomamos"
+      ],
+      "secondPlural": [
+        "tomasteis"
+      ],
+      "thirdPlural": [
+        "tomaron"
+      ]
+    }
+  },
+  {
+    "id": "servir",
+    "name": "servir",
+    "verb": "Servir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "serví"
+      ],
+      "secondSingular": [
+        "serviste"
+      ],
+      "thirdSingular": [
+        "sirvió"
+      ],
+      "firstPlural": [
+        "servimos"
+      ],
+      "secondPlural": [
+        "servisteis"
+      ],
+      "thirdPlural": [
+        "sirvieron"
+      ]
+    }
+  },
+  {
+    "id": "pagar",
+    "name": "pagar",
+    "verb": "Pagar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "pagué"
+      ],
+      "secondSingular": [
+        "pagaste"
+      ],
+      "thirdSingular": [
+        "pagó"
+      ],
+      "firstPlural": [
+        "pagamos"
+      ],
+      "secondPlural": [
+        "pagasteis"
+      ],
+      "thirdPlural": [
+        "pagaron"
+      ]
+    }
+  },
+  {
+    "id": "permitir",
+    "name": "permitir",
+    "verb": "Permitir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "permití"
+      ],
+      "secondSingular": [
+        "permitiste"
+      ],
+      "thirdSingular": [
+        "permitió"
+      ],
+      "firstPlural": [
+        "permitimos"
+      ],
+      "secondPlural": [
+        "permitisteis"
+      ],
+      "thirdPlural": [
+        "permitieron"
+      ]
+    }
+  },
+  {
+    "id": "oir",
+    "name": "oír",
+    "verb": "Oír",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "oí"
+      ],
+      "secondSingular": [
+        "oíste"
+      ],
+      "thirdSingular": [
+        "oyó"
+      ],
+      "firstPlural": [
+        "oímos"
+      ],
+      "secondPlural": [
+        "oísteis"
+      ],
+      "thirdPlural": [
+        "oyeron"
+      ]
+    }
+  },
+  {
+    "id": "necesitar",
+    "name": "necesitar",
+    "verb": "Necesitar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "necesité"
+      ],
+      "secondSingular": [
+        "necesitaste"
+      ],
+      "thirdSingular": [
+        "necesitó"
+      ],
+      "firstPlural": [
+        "necesitamos"
+      ],
+      "secondPlural": [
+        "necesitasteis"
+      ],
+      "thirdPlural": [
+        "necesitaron"
+      ]
+    }
+  },
+  {
+    "id": "mantener",
+    "name": "mantener",
+    "verb": "Mantener",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "mantuve"
+      ],
+      "secondSingular": [
+        "mantuviste"
+      ],
+      "thirdSingular": [
+        "mantuvo"
+      ],
+      "firstPlural": [
+        "mantuvimos"
+      ],
+      "secondPlural": [
+        "mantuvisteis"
+      ],
+      "thirdPlural": [
+        "mantuvieron"
+      ]
+    }
+  },
+  {
+    "id": "tocar",
+    "name": "tocar",
+    "verb": "Tocar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "toqué"
+      ],
+      "secondSingular": [
+        "tocaste"
+      ],
+      "thirdSingular": [
+        "tocó"
+      ],
+      "firstPlural": [
+        "tocamos"
+      ],
+      "secondPlural": [
+        "tocasteis"
+      ],
+      "thirdPlural": [
+        "tocaron"
+      ]
+    }
+  },
+  {
+    "id": "jugar",
+    "name": "jugar",
+    "verb": "Jugar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "jugué"
+      ],
+      "secondSingular": [
+        "jugaste"
+      ],
+      "thirdSingular": [
+        "jugó"
+      ],
+      "firstPlural": [
+        "jugamos"
+      ],
+      "secondPlural": [
+        "jugasteis"
+      ],
+      "thirdPlural": [
+        "jugaron"
+      ]
+    }
+  },
+  {
+    "id": "crecer",
+    "name": "crecer",
+    "verb": "Crecer",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "crecí"
+      ],
+      "secondSingular": [
+        "creciste"
+      ],
+      "thirdSingular": [
+        "creció"
+      ],
+      "firstPlural": [
+        "crecimos"
+      ],
+      "secondPlural": [
+        "crecisteis"
+      ],
+      "thirdPlural": [
+        "crecieron"
+      ]
+    }
+  },
+  {
+    "id": "enviar",
+    "name": "enviar",
+    "verb": "Enviar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "envié"
+      ],
+      "secondSingular": [
+        "enviaste"
+      ],
+      "thirdSingular": [
+        "envió"
+      ],
+      "firstPlural": [
+        "enviamos"
+      ],
+      "secondPlural": [
+        "enviasteis"
+      ],
+      "thirdPlural": [
+        "enviaron"
+      ]
+    }
+  },
+  {
+    "id": "subir",
+    "name": "subir",
+    "verb": "Subir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "subí"
+      ],
+      "secondSingular": [
+        "subiste"
+      ],
+      "thirdSingular": [
+        "subió"
+      ],
+      "firstPlural": [
+        "subimos"
+      ],
+      "secondPlural": [
+        "subisteis"
+      ],
+      "thirdPlural": [
+        "subieron"
+      ]
+    }
+  },
+  {
+    "id": "explicar",
+    "name": "explicar",
+    "verb": "Explicar",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "expliqué"
+      ],
+      "secondSingular": [
+        "explicaste"
+      ],
+      "thirdSingular": [
+        "explicó"
+      ],
+      "firstPlural": [
+        "explicamos"
+      ],
+      "secondPlural": [
+        "explicasteis"
+      ],
+      "thirdPlural": [
+        "explicaron"
+      ]
+    }
+  },
+  {
+    "id": "descubrir",
+    "name": "descubrir",
+    "verb": "Descubrir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "descubrí"
+      ],
+      "secondSingular": [
+        "descubriste"
+      ],
+      "thirdSingular": [
+        "descubrió"
+      ],
+      "firstPlural": [
+        "descubrimos"
+      ],
+      "secondPlural": [
+        "descubristeis"
+      ],
+      "thirdPlural": [
+        "descubrieron"
+      ]
+    }
+  },
+  {
+    "id": "correr",
+    "name": "correr",
+    "verb": "Correr",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "corrí"
+      ],
+      "secondSingular": [
+        "corriste"
+      ],
+      "thirdSingular": [
+        "corrió"
+      ],
+      "firstPlural": [
+        "corrimos"
+      ],
+      "secondPlural": [
+        "corristeis"
+      ],
+      "thirdPlural": [
+        "corrieron"
+      ]
+    }
+  },
+  {
+    "id": "abrir",
+    "name": "abrir",
+    "verb": "Abrir",
+    "access": "freemium",
+    "answers": {
+      "firstSingular": [
+        "abrí"
+      ],
+      "secondSingular": [
+        "abriste"
+      ],
+      "thirdSingular": [
+        "abrió"
+      ],
+      "firstPlural": [
+        "abrimos"
+      ],
+      "secondPlural": [
+        "abristeis"
+      ],
+      "thirdPlural": [
+        "abrieron"
+      ]
+    }
+  },
+  {
+    "id": "ayudar",
+    "name": "ayudar",
+    "verb": "Ayudar",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "ayudé"
+      ],
+      "secondSingular": [
+        "ayudaste"
+      ],
+      "thirdSingular": [
+        "ayudó"
+      ],
+      "firstPlural": [
+        "ayudamos"
+      ],
+      "secondPlural": [
+        "ayudasteis"
+      ],
+      "thirdPlural": [
+        "ayudaron"
+      ]
+    }
+  },
+  {
+    "id": "ofrecer",
+    "name": "ofrecer",
+    "verb": "Ofrecer",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "ofrecí"
+      ],
+      "secondSingular": [
+        "ofreciste"
+      ],
+      "thirdSingular": [
+        "ofreció"
+      ],
+      "firstPlural": [
+        "ofrecimos"
+      ],
+      "secondPlural": [
+        "ofrecisteis"
+      ],
+      "thirdPlural": [
+        "ofrecieron"
+      ]
+    }
+  },
+  {
+    "id": "estudiar",
+    "name": "estudiar",
+    "verb": "Estudiar",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "estudié"
+      ],
+      "secondSingular": [
+        "estudiaste"
+      ],
+      "thirdSingular": [
+        "estudió"
+      ],
+      "firstPlural": [
+        "estudiamos"
+      ],
+      "secondPlural": [
+        "estudiasteis"
+      ],
+      "thirdPlural": [
+        "estudiaron"
+      ]
+    }
+  },
+  {
+    "id": "nacer",
+    "name": "nacer",
+    "verb": "Nacer",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "nací"
+      ],
+      "secondSingular": [
+        "naciste"
+      ],
+      "thirdSingular": [
+        "nació"
+      ],
+      "firstPlural": [
+        "nacimos"
+      ],
+      "secondPlural": [
+        "nacisteis"
+      ],
+      "thirdPlural": [
+        "nacieron"
+      ]
+    }
+  },
+  {
+    "id": "suponer",
+    "name": "suponer",
+    "verb": "Suponer",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "supuse"
+      ],
+      "secondSingular": [
+        "supusiste"
+      ],
+      "thirdSingular": [
+        "supuso"
+      ],
+      "firstPlural": [
+        "supusimos"
+      ],
+      "secondPlural": [
+        "supusisteis"
+      ],
+      "thirdPlural": [
+        "supusieron"
+      ]
+    }
+  },
+  {
+    "id": "morir",
+    "name": "morir",
+    "verb": "Morir",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "morí"
+      ],
+      "secondSingular": [
+        "moriste"
+      ],
+      "thirdSingular": [
+        "murió"
+      ],
+      "firstPlural": [
+        "morimos"
+      ],
+      "secondPlural": [
+        "moristeis"
+      ],
+      "thirdPlural": [
+        "murieron"
+      ]
+    }
+  },
+  {
+    "id": "realizar",
+    "name": "realizar",
+    "verb": "Realizar",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "realicé"
+      ],
+      "secondSingular": [
+        "realizaste"
+      ],
+      "thirdSingular": [
+        "realizó"
+      ],
+      "firstPlural": [
+        "realizamos"
+      ],
+      "secondPlural": [
+        "realizasteis"
+      ],
+      "thirdPlural": [
+        "realizaron"
+      ]
+    }
+  },
+  {
+    "id": "recordar",
+    "name": "recordar",
+    "verb": "Recordar",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "recordé"
+      ],
+      "secondSingular": [
+        "recordaste"
+      ],
+      "thirdSingular": [
+        "recordó"
+      ],
+      "firstPlural": [
+        "recordamos"
+      ],
+      "secondPlural": [
+        "recordasteis"
+      ],
+      "thirdPlural": [
+        "recordaron"
+      ]
+    }
+  },
+  {
+    "id": "existir",
+    "name": "existir",
+    "verb": "Existir",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "existí"
+      ],
+      "secondSingular": [
+        "exististe"
+      ],
+      "thirdSingular": [
+        "existió"
+      ],
+      "firstPlural": [
+        "existimos"
+      ],
+      "secondPlural": [
+        "exististeis"
+      ],
+      "thirdPlural": [
+        "existieron"
+      ]
+    }
+  },
+  {
+    "id": "crear",
+    "name": "crear",
+    "verb": "Crear",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "creé"
+      ],
+      "secondSingular": [
+        "creaste"
+      ],
+      "thirdSingular": [
+        "creó"
+      ],
+      "firstPlural": [
+        "creamos"
+      ],
+      "secondPlural": [
+        "creasteis"
+      ],
+      "thirdPlural": [
+        "crearon"
+      ]
+    }
+  },
+  {
+    "id": "contar",
+    "name": "contar",
+    "verb": "Contar",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "conté"
+      ],
+      "secondSingular": [
+        "contaste"
+      ],
+      "thirdSingular": [
+        "contó"
+      ],
+      "firstPlural": [
+        "contamos"
+      ],
+      "secondPlural": [
+        "contasteis"
+      ],
+      "thirdPlural": [
+        "contaron"
+      ]
+    }
+  },
+  {
+    "id": "perder",
+    "name": "perder",
+    "verb": "Perder",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "perdí"
+      ],
+      "secondSingular": [
+        "perdiste"
+      ],
+      "thirdSingular": [
+        "perdió"
+      ],
+      "firstPlural": [
+        "perdimos"
+      ],
+      "secondPlural": [
+        "perdisteis"
+      ],
+      "thirdPlural": [
+        "perdieron"
+      ]
+    }
+  },
+  {
+    "id": "conseguir",
+    "name": "conseguir",
+    "verb": "Conseguir",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "conseguí"
+      ],
+      "secondSingular": [
+        "conseguiste"
+      ],
+      "thirdSingular": [
+        "consiguió"
+      ],
+      "firstPlural": [
+        "conseguimos"
+      ],
+      "secondPlural": [
+        "conseguisteis"
+      ],
+      "thirdPlural": [
+        "consiguieron"
+      ]
+    }
+  },
+  {
+    "id": "traducir",
+    "name": "traducir",
+    "verb": "Traducir",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "traduje"
+      ],
+      "secondSingular": [
+        "tradujiste"
+      ],
+      "thirdSingular": [
+        "tradujo"
+      ],
+      "firstPlural": [
+        "tradujimos"
+      ],
+      "secondPlural": [
+        "tradujisteis"
+      ],
+      "thirdPlural": [
+        "tradujeron"
+      ]
+    }
+  },
+  {
+    "id": "oler",
+    "name": "oler",
+    "verb": "Oler",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "olí"
+      ],
+      "secondSingular": [
+        "oliste"
+      ],
+      "thirdSingular": [
+        "olió"
+      ],
+      "firstPlural": [
+        "olimos"
+      ],
+      "secondPlural": [
+        "olisteis"
+      ],
+      "thirdPlural": [
+        "olieron"
+      ]
+    }
+  },
+  {
+    "id": "construir",
+    "name": "construir",
+    "verb": "Construir",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "construí"
+      ],
+      "secondSingular": [
+        "construiste"
+      ],
+      "thirdSingular": [
+        "construyó"
+      ],
+      "firstPlural": [
+        "construimos"
+      ],
+      "secondPlural": [
+        "construisteis"
+      ],
+      "thirdPlural": [
+        "construyeron"
+      ]
+    }
+  },
+  {
+    "id": "probar",
+    "name": "probar",
+    "verb": "Probar",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "probé"
+      ],
+      "secondSingular": [
+        "probaste"
+      ],
+      "thirdSingular": [
+        "probó"
+      ],
+      "firstPlural": [
+        "probamos"
+      ],
+      "secondPlural": [
+        "probasteis"
+      ],
+      "thirdPlural": [
+        "probaron"
+      ]
+    }
+  },
+  {
+    "id": "reir",
+    "name": "reir",
+    "verb": "Reir",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "reí"
+      ],
+      "secondSingular": [
+        "reíste"
+      ],
+      "thirdSingular": [
+        "rio"
+      ],
+      "firstPlural": [
+        "reímos"
+      ],
+      "secondPlural": [
+        "reísteis"
+      ],
+      "thirdPlural": [
+        "rieron"
+      ]
+    }
+  },
+  {
+    "id": "aparecer",
+    "name": "aparecer",
+    "verb": "Aparecer",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "aparecí"
+      ],
+      "secondSingular": [
+        "apareciste"
+      ],
+      "thirdSingular": [
+        "apareció"
+      ],
+      "firstPlural": [
+        "aparecimos"
+      ],
+      "secondPlural": [
+        "aparecisteis"
+      ],
+      "thirdPlural": [
+        "aparecieron"
+      ]
+    }
+  },
+  {
+    "id": "cerrar",
+    "name": "cerrar",
+    "verb": "Cerrar",
+    "access": "paid",
+    "answers": {
+      "firstSingular": [
+        "cerré"
+      ],
+      "secondSingular": [
+        "cerraste"
+      ],
+      "thirdSingular": [
+        "cerró"
+      ],
+      "firstPlural": [
+        "cerramos"
+      ],
+      "secondPlural": [
+        "cerrasteis"
+      ],
+      "thirdPlural": [
+        "cerraron"
+      ]
+    }
+  }
+]
